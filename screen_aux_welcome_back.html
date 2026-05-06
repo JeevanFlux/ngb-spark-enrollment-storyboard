@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 12 · Welcome back)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; white-space: nowrap; display: none; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; position: relative; }
+.icon-btn .dot-badge { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--wex-magenta); }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: white; border-bottom: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: #F0E5EE; border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+.phase-percent { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+.autosave-tag {
+  font-size: 10px; color: var(--green); font-weight: 700;
+  letter-spacing: 0.4px; display: inline-flex; align-items: center; gap: 4px;
+  background: #E8F5E9; padding: 3px 8px; border-radius: 999px;
+  white-space: nowrap;
+}
+.autosave-tag::before { content: '✓'; font-weight: 800; }
+
+.file-banner { background: linear-gradient(90deg, #FCF6FA 0%, #F4ECF4 100%); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--wex-purple); font-weight: 600; }
+.file-banner .pill { background: white; border: 1px solid var(--border); padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+
+.app-shell { display: flex; }
+.conversation { flex: 1; padding: 24px 16px 130px; min-width: 0; }
+.conv-inner { max-width: 720px; margin: 0 auto; }
+
+/* WELCOME BACK CARD — distinct visual treatment */
+.welcome-back {
+  background: white;
+  border-radius: 18px;
+  padding: 0;
+  margin: 0 auto 18px;
+  max-width: 700px;
+  box-shadow: 0 18px 56px rgba(196, 37, 108, 0.16), 0 0 0 6px rgba(196, 37, 108, 0.05);
+  border: 2px solid var(--wex-magenta);
+  overflow: hidden;
+  position: relative;
+}
+.wb-head {
+  padding: 24px 28px 20px;
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border-bottom: 1px solid #EAD8E1;
+  display: flex; gap: 14px; align-items: center;
+}
+.wb-orb {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--spark-grad);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(196, 37, 108, 0.3);
+}
+.wb-greeting { flex: 1; min-width: 0; }
+.wb-tag {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 6px;
+}
+.wb-title {
+  font-size: 22px; font-weight: 700; line-height: 1.2;
+  letter-spacing: -0.4px; margin: 0;
+}
+.wb-time {
+  font-size: 13px; color: var(--muted); margin-top: 4px;
+}
+
+.wb-body { padding: 22px 28px 16px; }
+
+.wb-recap {
+  font-size: 14px; color: var(--text); line-height: 1.6;
+  margin-bottom: 18px;
+}
+.wb-recap strong { color: var(--wex-purple); }
+
+.wb-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.wb-stat {
+  background: #FCFAFC;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+}
+.wb-stat .stat-value {
+  font-size: 22px; font-weight: 800;
+  color: var(--wex-purple); line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.wb-stat .stat-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--muted); margin-top: 4px;
+}
+
+.wb-progress {
+  margin-bottom: 22px;
+}
+.wb-progress-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #F4F0F4;
+}
+.wb-progress-row:last-child { border-bottom: none; }
+.wb-progress-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 1.5px solid #BBB;
+  color: #999; font-weight: 700; font-size: 11px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.wb-progress-row.complete .wb-progress-icon {
+  background: var(--green); border-color: var(--green); color: white;
+}
+.wb-progress-row.active .wb-progress-icon {
+  background: var(--wex-magenta); border-color: var(--wex-magenta); color: white;
+}
+.wb-progress-info { flex: 1; min-width: 0; }
+.wb-progress-name { font-size: 13.5px; font-weight: 600; color: var(--text); }
+.wb-progress-row.complete .wb-progress-name { color: var(--muted); }
+.wb-progress-row.active .wb-progress-name { color: var(--wex-magenta); }
+.wb-progress-detail { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.wb-progress-status {
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.wb-progress-row.complete .wb-progress-status { color: var(--green); }
+.wb-progress-row.active .wb-progress-status { color: var(--wex-magenta); }
+.wb-progress-row.pending .wb-progress-status { color: #999; }
+
+.wb-actions {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.wb-action {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: white;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+  width: 100%;
+}
+.wb-action:hover {
+  border-color: var(--wex-magenta);
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.1);
+}
+.wb-action.primary {
+  background: var(--spark-grad);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 8px 24px rgba(196, 37, 108, 0.3);
+}
+.wb-action.primary:hover {
+  box-shadow: 0 10px 28px rgba(196, 37, 108, 0.4);
+}
+.wb-action.danger:hover {
+  border-color: #E5A; color: #B91C1C;
+}
+.wb-action .action-icon {
+  font-size: 22px; flex-shrink: 0;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.12);
+}
+.wb-action.primary .action-icon { background: rgba(255,255,255,0.18); }
+.wb-action:not(.primary) .action-icon { background: #FCF6FA; }
+.wb-action .action-text { flex: 1; min-width: 0; }
+.wb-action .action-name {
+  font-size: 14px; font-weight: 700; line-height: 1.3; margin-bottom: 2px;
+}
+.wb-action .action-sub {
+  font-size: 12px; opacity: 0.85; line-height: 1.4;
+}
+.wb-action.primary .action-sub { color: rgba(255,255,255,0.92); }
+.wb-action:not(.primary) .action-name { color: var(--text); }
+.wb-action:not(.primary) .action-sub { color: var(--muted); }
+.wb-action .action-arrow {
+  font-size: 18px; flex-shrink: 0; align-self: center;
+  opacity: 0.6;
+}
+
+.wb-footer {
+  padding: 12px 28px;
+  background: #FCFAFC;
+  border-top: 1px solid var(--border-soft);
+  font-size: 11px; color: var(--muted); line-height: 1.5;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.wb-footer .icon { color: var(--green); font-weight: 800; flex-shrink: 0; }
+
+/* Section divider */
+.history-divider {
+  text-align: center;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin: 24px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.history-divider::before, .history-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* Scrolled-back conversation history */
+.history { opacity: 0.55; }
+.history .spark-msg, .history .user-msg { margin-bottom: 12px; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 11px 14px; font-size: 13px; line-height: 1.55; max-width: 540px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); border-radius: 14px 14px 4px 14px; padding: 9px 14px; font-size: 13px; }
+.user-bubble.tap .check { color: var(--green); margin-right: 6px; }
+
+/* The pending question — what user lands on */
+.pending-question {
+  margin-top: 20px;
+  position: relative;
+}
+.pending-question::before {
+  content: '⬇ YOU LEFT OFF HERE';
+  position: absolute;
+  top: -14px; left: 42px;
+  background: var(--wex-magenta);
+  color: white;
+  font-size: 9px; font-weight: 800; letter-spacing: 1.4px;
+  padding: 3px 8px; border-radius: 4px;
+}
+.pending-question .spark-bubble {
+  border: 2px solid var(--wex-magenta);
+  box-shadow: 0 8px 24px rgba(196, 37, 108, 0.16);
+}
+.pending-replies {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; margin-left: 42px;
+}
+.pending-replies .qr-chip-sm {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+}
+.pending-replies .qr-chip-sm.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+}
+
+/* File panel */
+.file-panel { width: 320px; background: white; border-left: 1px solid var(--border); padding: 22px 18px 130px; flex-shrink: 0; display: none; max-height: calc(100vh - 100px); overflow-y: auto; }
+.file-panel h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); margin: 0 0 6px; font-weight: 700; }
+.file-panel .file-sub { font-size: 11px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+.file-section { margin-bottom: 16px; }
+.file-section h4 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888; margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
+.file-section h4 .check-badge { background: #E8F5E9; color: var(--green); font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 700; letter-spacing: 0.4px; }
+.file-section h4 .progress-badge { background: #FCE8F3; color: var(--wex-magenta); font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 700; letter-spacing: 0.4px; }
+.file-section.benefits { background: #FCF6FA; border: 1px solid #EAD8E1; border-radius: 10px; padding: 12px 14px; }
+.file-item { padding: 6px 0; border-bottom: 1px solid #F4F0F4; font-size: 12px; line-height: 1.4; }
+.file-section.benefits .file-item { border-bottom-color: #EAD8E1; }
+.file-item:last-child { border-bottom: none; }
+.file-item .label { color: var(--muted); display: block; font-size: 10px; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.file-item .value { color: var(--text); font-weight: 500; }
+.file-item .source-tag { font-size: 8.5px; padding: 2px 6px; border-radius: 3px; font-weight: 700; letter-spacing: 0.4px; display: inline-block; margin-top: 2px; }
+.file-item .source-tag.confirmed { background: #E8F5E9; color: var(--green); }
+.file-item .source-tag.pending { background: #FCE8F3; color: var(--wex-magenta); }
+
+.docked-input { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 720px; background: white; border: 2px solid var(--wex-magenta); border-radius: 16px; padding: 6px 8px 6px 12px; box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16), 0 0 0 4px rgba(196, 37, 108, 0.05); display: flex; align-items: center; gap: 8px; z-index: 20; }
+.docked-input .mic-btn { width: 40px; height: 40px; border-radius: 50%; background: #F8F1F5; color: var(--wex-magenta); border: 1.5px solid #F1DFE9; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.docked-input textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; font-size: 14px; font-family: inherit; padding: 10px 4px; min-height: 24px; line-height: 1.4; background: transparent; }
+.docked-input textarea::placeholder { color: #9CA3AF; }
+.docked-input .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--send-grad); color: white; border: none; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .file-banner { display: none; }
+  .file-panel { display: block; }
+  .conversation { padding: 36px 36px 130px; }
+  .docked-input { left: calc(50% - 160px); width: calc(100% - 352px); }
+}
+@media (max-width: 640px) {
+  .wb-stats { grid-template-columns: 1fr; gap: 8px; }
+  .wb-stat { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; text-align: left; }
+  .wb-stat .stat-value { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 53 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">New hire</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · Resuming where you left off</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 35%"></div></div>
+  <span class="autosave-tag">Auto-saved</span>
+</div>
+
+<div class="file-banner">
+  <span>Your file · 16 items · all saved</span>
+  <span class="pill">View ↓</span>
+</div>
+
+<div class="app-shell">
+
+  <main class="conversation">
+    <div class="conv-inner">
+
+      <!-- WELCOME BACK CARD -->
+      <article class="welcome-back">
+
+        <div class="wb-head">
+          <div class="wb-orb">✨</div>
+          <div class="wb-greeting">
+            <div class="wb-tag">✨ Welcome back, Nicole</div>
+            <h2 class="wb-title">It's been 4 days. Everything's saved.</h2>
+            <div class="wb-time">Last active: Sunday, May 4 · 12 minutes spent</div>
+          </div>
+        </div>
+
+        <div class="wb-body">
+
+          <p class="wb-recap">
+            We got pretty far last time — your <strong>profile, household, and family details</strong> are all confirmed (you, Alex, Maya). I recommended <strong>Acme Enhanced PPO</strong> for medical, and you locked it in. We were partway through dental + vision when you stepped away. <strong>Plenty of time</strong> — enrollment closes June 30, 53 days from now.
+          </p>
+
+          <!-- Stats grid -->
+          <div class="wb-stats">
+            <div class="wb-stat">
+              <div class="stat-value">12 min</div>
+              <div class="stat-label">Time invested</div>
+            </div>
+            <div class="wb-stat">
+              <div class="stat-value">16</div>
+              <div class="stat-label">Items in your file</div>
+            </div>
+            <div class="wb-stat">
+              <div class="stat-value">1 of 5</div>
+              <div class="stat-label">Plans chosen</div>
+            </div>
+          </div>
+
+          <!-- Phase progress -->
+          <div class="wb-progress">
+            <div class="wb-progress-row complete">
+              <div class="wb-progress-icon">✓</div>
+              <div class="wb-progress-info">
+                <div class="wb-progress-name">Phase 1 — Getting to know you</div>
+                <div class="wb-progress-detail">Profile · household · health · priorities · all confirmed</div>
+              </div>
+              <div class="wb-progress-status">100%</div>
+            </div>
+            <div class="wb-progress-row active">
+              <div class="wb-progress-icon">2</div>
+              <div class="wb-progress-info">
+                <div class="wb-progress-name">Phase 2 — Your benefits</div>
+                <div class="wb-progress-detail">Medical chosen · dental + vision next · spending accounts pending</div>
+              </div>
+              <div class="wb-progress-status">35%</div>
+            </div>
+            <div class="wb-progress-row pending">
+              <div class="wb-progress-icon">3</div>
+              <div class="wb-progress-info">
+                <div class="wb-progress-name">Phase 3 — Confirm &amp; sign</div>
+                <div class="wb-progress-detail">Final review and submit</div>
+              </div>
+              <div class="wb-progress-status">Not started</div>
+            </div>
+          </div>
+
+          <!-- Three actions -->
+          <div class="wb-actions">
+
+            <button class="wb-action primary">
+              <span class="action-icon">▶</span>
+              <span class="action-text">
+                <span class="action-name">Pick up where I left off</span>
+                <span class="action-sub">I'll drop you at the dental recommendation. ~5 minutes left in Phase 2.</span>
+              </span>
+              <span class="action-arrow">→</span>
+            </button>
+
+            <button class="wb-action">
+              <span class="action-icon">📋</span>
+              <span class="action-text">
+                <span class="action-name">Show me everything we decided</span>
+                <span class="action-sub">Quick recap of profile, household, health context, and the medical plan I chose. Then we keep going.</span>
+              </span>
+              <span class="action-arrow">→</span>
+            </button>
+
+            <button class="wb-action danger">
+              <span class="action-icon">↻</span>
+              <span class="action-text">
+                <span class="action-name">Start over from scratch</span>
+                <span class="action-sub">Wipes the conversation and selections. Acme HR data stays put. We'll confirm before deleting.</span>
+              </span>
+              <span class="action-arrow">→</span>
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="wb-footer">
+          <span class="icon">🔒</span>
+          <span>Auto-save runs after every interaction. Nothing's been lost while you were away — and nothing's been changed by Acme HR or anyone else either.</span>
+        </div>
+
+      </article>
+
+      <!-- Conversation history below (dimmed) -->
+      <div class="history-divider"><span>Your conversation · 23 turns restored</span></div>
+
+      <div class="history">
+        <div class="user-msg">
+          <div class="user-bubble tap">I take meds daily for asthma and high blood pressure</div>
+        </div>
+
+        <div class="spark-msg">
+          <div class="spark-orb-sm">✨</div>
+          <div class="spark-bubble">Thanks — that helps me a lot. Daily meds means we'll want a plan that keeps your prescription costs predictable.</div>
+        </div>
+
+        <div class="user-msg">
+          <div class="user-bubble tap"><span class="check">✓</span>Yes, all good</div>
+        </div>
+
+        <div class="user-msg">
+          <div class="user-bubble tap"><span class="check">✓</span>Maya added (daughter, 2)</div>
+        </div>
+
+        <div class="spark-msg">
+          <div class="spark-orb-sm">✨</div>
+          <div class="spark-bubble">Got it — Maya is in. So I'm planning for you, Alex, and Maya.</div>
+        </div>
+
+        <div class="user-msg">
+          <div class="user-bubble tap"><span class="check">✓</span>Choose Enhanced PPO</div>
+        </div>
+
+        <div class="spark-msg">
+          <div class="spark-orb-sm">✨</div>
+          <div class="spark-bubble">Locked in. Enhanced PPO for the family at $148.50/2wk. Now <strong>dental and vision</strong> — these are quicker decisions for most families.</div>
+        </div>
+      </div>
+
+      <!-- Pending question — where she'd land if she taps "Pick up" -->
+      <div class="pending-question">
+        <div class="spark-msg">
+          <div class="spark-orb-sm">✨</div>
+          <div class="spark-bubble">
+            For dental, I'd recommend <strong>Acme Dental Premium</strong> at $18.50/2wk — worth it for families with kids. Maya will eventually need orthodontics, and Premium covers up to $2,000/year.
+          </div>
+        </div>
+
+        <div class="pending-replies">
+          <button class="qr-chip-sm primary">✓ Yes, Premium</button>
+          <button class="qr-chip-sm">⇄ Compare to Basic</button>
+          <button class="qr-chip-sm">Skip dental</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <aside class="file-panel">
+    <h3>Your file</h3>
+    <p class="file-sub">Auto-saved · everything is preserved exactly as you left it.</p>
+
+    <div class="file-section benefits">
+      <h4>Your benefits <span class="progress-badge">PHASE 2 · IN PROGRESS</span></h4>
+      <div class="file-item">
+        <span class="label">Medical</span>
+        <span class="value">Enhanced PPO · $148.50/2wk</span>
+        <span class="source-tag confirmed">✓ CONFIRMED</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Dental</span>
+        <span class="value" style="color:var(--wex-magenta);">Premium · recommended</span>
+        <span class="source-tag pending">DECIDING</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Vision</span>
+        <span class="value" style="color:#999;">Up next</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Spending accounts</span>
+        <span class="value" style="color:#999;">Phase 2 · later</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Supplemental</span>
+        <span class="value" style="color:#999;">Phase 2 · later</span>
+      </div>
+    </div>
+
+    <div class="file-section">
+      <h4>Personal · Address · Contact <span class="check-badge">✓ CONFIRMED</span></h4>
+      <div class="file-item">
+        <span class="label">Nicole Smith · 28 · married</span>
+        <span class="value">123 Main Street, NY 10011</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Email · phone</span>
+        <span class="value">nicole.smith@email.com<br>(212) 555-4567</span>
+      </div>
+    </div>
+
+    <div class="file-section">
+      <h4>Household <span class="check-badge">✓ CONFIRMED</span></h4>
+      <div class="file-item">
+        <span class="label">Spouse — covered</span>
+        <span class="value">Alex Smith, 35</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Daughter — covered</span>
+        <span class="value">Maya Smith, 2</span>
+      </div>
+    </div>
+
+    <div class="file-section">
+      <h4>Health · Money <span class="check-badge">✓ CONFIRMED</span></h4>
+      <div class="file-item">
+        <span class="label">Daily meds</span>
+        <span class="value">Asthma, BP</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Doctor visits / year</span>
+        <span class="value">A few — all 3 of us</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Risk tolerance</span>
+        <span class="value">Spread costs out · fewer surprises</span>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Or just type to keep going..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

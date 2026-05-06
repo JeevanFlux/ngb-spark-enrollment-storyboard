@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acme Corp Benefits — Enrollment Statement · Nicole Smith · 2026</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --green: #2E7D32; --green-bg: #E8F5E9;
+  --bg: #F4EFF3; --paper: #FFFFFF;
+  --text: #1A1A1A; --muted: #6B7280;
+  --border: #E5E7EB; --border-soft: #EFE6EE;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh;
+  padding: 24px 12px 60px;
+}
+
+/* Document toolbar */
+.toolbar {
+  max-width: 880px;
+  margin: 0 auto 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.toolbar-back {
+  font-size: 13px; color: var(--muted); text-decoration: none; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.toolbar-back:hover { color: var(--wex-magenta); }
+.toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.tb-btn {
+  background: white; border: 1.5px solid var(--border); color: var(--text);
+  padding: 8px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+.tb-btn:hover { border-color: var(--wex-magenta); color: var(--wex-purple); }
+.tb-btn.primary { background: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%); color: white; border-color: transparent; }
+
+/* Document paper */
+.statement {
+  max-width: 880px;
+  margin: 0 auto;
+  background: var(--paper);
+  border-radius: 12px;
+  box-shadow: 0 18px 56px rgba(90, 26, 79, 0.1);
+  padding: 48px 56px 56px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.doc-header {
+  border-bottom: 3px solid var(--wex-magenta);
+  padding-bottom: 22px;
+  margin-bottom: 28px;
+  display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;
+}
+.doc-header .brand { display: flex; align-items: center; gap: 14px; }
+.doc-header .wex-logo { font-weight: 900; font-size: 26px; color: var(--wex-red); letter-spacing: -0.5px; }
+.doc-header .brand-divider { width: 1px; height: 24px; background: var(--border); }
+.doc-header .acme-name { font-size: 13px; color: var(--muted); font-weight: 600; }
+.doc-header .doc-id {
+  text-align: right;
+  font-size: 11px; color: var(--muted); line-height: 1.5;
+}
+.doc-header .doc-id strong { display: block; color: var(--text); font-size: 13px; font-weight: 700; }
+
+.doc-title-block { margin-bottom: 32px; }
+.doc-eyebrow {
+  font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 6px;
+}
+.doc-title { font-size: 28px; font-weight: 700; margin: 0 0 10px; letter-spacing: -0.5px; }
+.doc-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 24px;
+  font-size: 12.5px; color: #444;
+  margin-top: 10px;
+}
+.doc-meta strong { color: var(--wex-purple); }
+
+/* Status banner */
+.status-banner {
+  background: var(--green-bg);
+  border-left: 4px solid var(--green);
+  border-radius: 4px;
+  padding: 14px 18px;
+  margin-bottom: 32px;
+  display: flex; gap: 12px; align-items: center;
+  font-size: 13px; color: #1F4D21; line-height: 1.55;
+}
+.status-banner .icon { font-size: 18px; color: var(--green); }
+.status-banner strong { color: var(--green); }
+
+/* Section heading */
+.section-h {
+  font-size: 16px; font-weight: 700;
+  color: var(--wex-purple);
+  margin: 32px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+.section-h:first-of-type { margin-top: 0; }
+
+/* Data table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.data-table th {
+  background: #FCFAFC;
+  padding: 10px 12px;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+}
+.data-table th.right { text-align: right; }
+.data-table td {
+  padding: 12px;
+  border-bottom: 1px solid #F4F0F4;
+  vertical-align: top;
+}
+.data-table td.right { text-align: right; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .plan-name { font-weight: 700; color: var(--text); }
+.data-table .plan-detail { font-size: 11.5px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+.data-table .cost { font-weight: 700; font-variant-numeric: tabular-nums; }
+.data-table .cost-period { font-size: 10px; color: var(--muted); font-weight: 500; display: block; }
+.data-table .status-tag {
+  background: var(--green-bg); color: var(--green);
+  padding: 3px 8px; border-radius: 3px; font-size: 10px;
+  font-weight: 700; letter-spacing: 0.4px;
+  display: inline-block;
+}
+.data-table .waived-tag {
+  background: #F4F0F4; color: var(--muted);
+  padding: 3px 8px; border-radius: 3px; font-size: 10px;
+  font-weight: 700; letter-spacing: 0.4px;
+  display: inline-block;
+}
+
+/* Subtotal row */
+.data-table .subtotal-row td {
+  background: #FCFAFC;
+  font-weight: 700;
+  border-top: 1.5px solid var(--border);
+}
+
+/* Totals card */
+.totals-card {
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border: 1.5px solid var(--wex-magenta);
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin: 22px 0 32px;
+}
+.totals-card h3 {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--wex-magenta); margin: 0 0 14px;
+}
+.totals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.totals-item {
+  background: white;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.totals-item .label { font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.totals-item .value { font-size: 18px; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.totals-item .value.good { color: var(--green); }
+.totals-item .value.purple { color: var(--wex-purple); }
+.totals-item .sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+/* Personal info block */
+.personal-block {
+  background: #FCFAFC;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.personal-block strong { color: var(--wex-purple); }
+.personal-block .pb-row { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 4px 0; }
+.personal-block .pb-row .k { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* What's next / next steps */
+.next-steps {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-bottom: 28px;
+}
+.next-steps h3 {
+  font-size: 13px; font-weight: 700;
+  color: var(--wex-purple); margin: 0 0 12px;
+}
+.next-steps ul {
+  margin: 0; padding-left: 20px;
+  font-size: 12.5px; color: #444; line-height: 1.7;
+}
+.next-steps ul li { padding: 3px 0; }
+.next-steps ul li strong { color: var(--wex-purple); }
+
+/* Legal / disclosures */
+.legal-block {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.legal-block h4 {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase;
+  color: #999; margin: 0 0 8px;
+}
+.legal-block ol { margin: 0; padding-left: 16px; }
+.legal-block ol li { padding: 2px 0; }
+.legal-block .ack-line {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--green-bg);
+  border-radius: 6px;
+  color: #1F4D21;
+  font-size: 11px;
+  display: flex; gap: 8px; align-items: center;
+}
+.legal-block .ack-line .check { color: var(--green); font-weight: 800; font-size: 12px; }
+
+/* Footer */
+.doc-footer {
+  margin-top: 32px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media print {
+  body { background: white; padding: 0; }
+  .toolbar { display: none; }
+  .statement { box-shadow: none; padding: 24px; max-width: 100%; }
+}
+
+@media (max-width: 700px) {
+  .statement { padding: 24px 20px; }
+  .doc-meta { grid-template-columns: 1fr; }
+  .totals-grid { grid-template-columns: 1fr; }
+  .doc-title { font-size: 22px; }
+  .data-table th:nth-child(2), .data-table td:nth-child(2) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Toolbar (web only) -->
+<div class="toolbar">
+  <a class="toolbar-back" href="#">← Back to confirmation</a>
+  <div class="toolbar-actions">
+    <button class="tb-btn primary">📥 Download PDF</button>
+    <button class="tb-btn">🖨 Print</button>
+    <button class="tb-btn">✉ Email a copy</button>
+    <button class="tb-btn">🔗 Copy share link</button>
+  </div>
+</div>
+
+<!-- Statement document -->
+<article class="statement">
+
+  <!-- Document header -->
+  <header class="doc-header">
+    <div class="brand">
+      <span class="wex-logo">WEX</span>
+      <div class="brand-divider"></div>
+      <div>
+        <div class="acme-name">Acme Corp</div>
+        <div style="font-size: 10px; color: var(--muted); margin-top: 2px;">Benefits administered by WEX</div>
+      </div>
+    </div>
+    <div class="doc-id">
+      <strong>Confirmation #ENR-2026-78445225</strong>
+      Generated May 3, 2026 · 4:47 PM EST<br>
+      Document version 1.0
+    </div>
+  </header>
+
+  <!-- Title block -->
+  <div class="doc-title-block">
+    <div class="doc-eyebrow">Enrollment statement · 2026 plan year</div>
+    <h1 class="doc-title">Nicole Smith · Acme Corp benefits enrollment</h1>
+    <div class="doc-meta">
+      <div><strong>Coverage starts:</strong> January 1, 2026</div>
+      <div><strong>Plan year:</strong> Jan 1 – Dec 31, 2026</div>
+      <div><strong>Account reference:</strong> 78445225</div>
+      <div><strong>First paycheck deduction:</strong> January 15, 2026</div>
+    </div>
+  </div>
+
+  <!-- Status banner -->
+  <div class="status-banner">
+    <span class="icon">✓</span>
+    <div>
+      <strong>Enrollment status: Submitted &amp; approved.</strong> All elections below are final pending dependent verification (see Next Steps).
+    </div>
+  </div>
+
+  <!-- Personal info -->
+  <h2 class="section-h">👤 Employee &amp; Dependents</h2>
+  <div class="personal-block">
+    <div class="pb-row"><div class="k">Name</div><div><strong>Nicole Smith</strong> · age 28 · married · female</div></div>
+    <div class="pb-row"><div class="k">Address</div><div>123 Main Street, New York, NY 10011 (mailing same as home)</div></div>
+    <div class="pb-row"><div class="k">Contact</div><div>nicole.smith@email.com · (212) 555-4567</div></div>
+    <div class="pb-row"><div class="k">Spouse</div><div><strong>Alex Smith</strong> · age 35 · covered on medical, dental, vision</div></div>
+    <div class="pb-row"><div class="k">Daughter</div><div><strong>Maya Smith</strong> · age 2 · covered on medical, dental, vision</div></div>
+  </div>
+
+  <!-- HEALTH PLANS -->
+  <h2 class="section-h">🩺 Health Plans</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Benefit</th>
+        <th>Plan &amp; coverage</th>
+        <th>Status</th>
+        <th class="right">Cost (bi-weekly)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="plan-name">Medical</div></td>
+        <td>
+          <div class="plan-name">Acme Enhanced PPO</div>
+          <div class="plan-detail">Covers: Nicole, Alex, Maya · Carrier: Aetna · Family deductible: $1,500 · Family OOP max: $4,500 · Plan ID: PPO-ENH-2026</div>
+        </td>
+        <td><span class="status-tag">✓ Submitted</span></td>
+        <td class="right"><span class="cost">$148.50</span><span class="cost-period">$3,861/yr</span></td>
+      </tr>
+      <tr>
+        <td><div class="plan-name">Dental</div></td>
+        <td>
+          <div class="plan-name">Acme Dental Premium</div>
+          <div class="plan-detail">Covers: Nicole, Alex, Maya · Carrier: Aetna · Annual max: $2,000 · Preventive 100% covered · Plan ID: DEN-PREM-2026</div>
+        </td>
+        <td><span class="status-tag">✓ Submitted</span></td>
+        <td class="right"><span class="cost">$18.50</span><span class="cost-period">$481/yr</span></td>
+      </tr>
+      <tr>
+        <td><div class="plan-name">Vision</div></td>
+        <td>
+          <div class="plan-name">Acme Vision Basic</div>
+          <div class="plan-detail">Covers: Nicole, Alex, Maya · Carrier: Aetna · Annual eye exam $25 copay · Plan ID: VIS-BAS-2026</div>
+        </td>
+        <td><span class="status-tag">✓ Submitted</span></td>
+        <td class="right"><span class="cost">$5.00</span><span class="cost-period">$130/yr</span></td>
+      </tr>
+      <tr class="subtotal-row">
+        <td colspan="3">Subtotal · health plans</td>
+        <td class="right"><span class="cost">$172.00 / 2wk</span><span class="cost-period">$4,472/yr</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SPENDING ACCOUNTS -->
+  <h2 class="section-h">💰 Spending Accounts</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Account</th>
+        <th>Election &amp; details</th>
+        <th>Status</th>
+        <th class="right">Cost (bi-weekly)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="plan-name">FSA · Healthcare</div></td>
+        <td>
+          <div class="plan-name">$2,000 annual contribution</div>
+          <div class="plan-detail">Pre-tax · estimated tax savings ~$600 · use-it-or-lose-it (with $660 carryover allowed)</div>
+        </td>
+        <td><span class="status-tag">✓ Submitted</span></td>
+        <td class="right"><span class="cost">$76.92</span><span class="cost-period">$2,000/yr</span></td>
+      </tr>
+      <tr>
+        <td><div class="plan-name">DCFSA</div></td>
+        <td>
+          <div class="plan-name">$5,000 annual contribution (IRS family max)</div>
+          <div class="plan-detail">Pre-tax · for Maya's daycare · estimated tax savings ~$1,500 · no carryover</div>
+        </td>
+        <td><span class="status-tag">✓ Submitted</span></td>
+        <td class="right"><span class="cost">$192.31</span><span class="cost-period">$5,000/yr</span></td>
+      </tr>
+      <tr>
+        <td><div class="plan-name">HRA · Acme automatic</div></td>
+        <td>
+          <div class="plan-name">$500 annual employer contribution</div>
+          <div class="plan-detail">Acme-funded · no payroll deduction · pays before FSA</div>
+        </td>
+        <td><span class="status-tag">✓ Auto-enrolled</span></td>
+        <td class="right"><span class="cost" style="color: var(--green);">+$500/yr free</span></td>
+      </tr>
+      <tr class="subtotal-row">
+        <td colspan="3">Subtotal · spending accounts (your contributions)</td>
+        <td class="right"><span class="cost">$269.23 / 2wk</span><span class="cost-period">$7,000/yr</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SUPPLEMENTAL -->
+  <h2 class="section-h">🩹 Supplemental Benefits</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Benefit</th>
+        <th>Plan &amp; coverage</th>
+        <th>Status</th>
+        <th class="right">Cost (bi-weekly)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="plan-name">Accident insurance</div></td>
+        <td>
+          <div class="plan-name">Acme Accident — Basic</div>
+          <div class="plan-detail">Covers: Nicole only · ER $250 · Ambulance $150 · Fractures up to $2,500 · Hospital admission $1,000</div>
+        </td>
+        <td><span class="status-tag">✓ Submitted</span></td>
+        <td class="right"><span class="cost">$5.77</span><span class="cost-period">$150/yr</span></td>
+      </tr>
+      <tr>
+        <td><div class="plan-name">Hospital indemnity</div></td>
+        <td>
+          <div class="plan-name">Waived</div>
+          <div class="plan-detail">You declined this election after reviewing trade-offs — may be revisited at next open enrollment</div>
+        </td>
+        <td><span class="waived-tag">— Waived</span></td>
+        <td class="right">—</td>
+      </tr>
+      <tr class="subtotal-row">
+        <td colspan="3">Subtotal · supplemental</td>
+        <td class="right"><span class="cost">$5.77 / 2wk</span><span class="cost-period">$150/yr</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TOTALS -->
+  <article class="totals-card">
+    <h3>📊 Your 2026 totals</h3>
+    <div class="totals-grid">
+      <div class="totals-item">
+        <div class="label">Per paycheck</div>
+        <div class="value">$447.00</div>
+        <div class="sub">26 paychecks · pre-tax + post-tax</div>
+      </div>
+      <div class="totals-item">
+        <div class="label">Annual deduction</div>
+        <div class="value">$11,622</div>
+        <div class="sub">total payroll deductions</div>
+      </div>
+      <div class="totals-item">
+        <div class="label">Estimated tax savings</div>
+        <div class="value good">~$2,100</div>
+        <div class="sub">at ~30% combined federal + state + FICA</div>
+      </div>
+      <div class="totals-item">
+        <div class="label">Real net cost</div>
+        <div class="value purple">$9,522</div>
+        <div class="sub">~$366/paycheck after tax savings</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- WHAT'S NEXT -->
+  <h2 class="section-h">📅 What happens next</h2>
+  <div class="next-steps">
+    <h3>Your timeline through January 2026</h3>
+    <ul>
+      <li><strong>Today (May 3):</strong> Confirmation email sent to nicole.smith@email.com.</li>
+      <li><strong>Within 5 business days:</strong> Insurance ID cards mailed by Aetna. Digital cards available in the Aetna app starting Dec 20.</li>
+      <li><strong>Dec 15:</strong> Spark will email a reminder to upload Alex's marriage certificate and Maya's birth certificate.</li>
+      <li><strong>Dec 31:</strong> Last day to make changes to your 2026 elections without a qualifying life event.</li>
+      <li><strong>Jan 1, 2026:</strong> Coverage starts.</li>
+      <li><strong>Mid Jan:</strong> FSA &amp; DCFSA debit cards arrive in the mail.</li>
+      <li><strong>Jan 15, 2026:</strong> First paycheck deduction.</li>
+      <li><strong>Jan 31, 2026:</strong> Dependent verification documents due. If documents aren't approved, Alex and Maya will be removed from coverage retroactively.</li>
+      <li><strong>Oct/Nov 2026:</strong> 2027 open enrollment opens. You'll be invited back to update or confirm.</li>
+    </ul>
+  </div>
+
+  <!-- LEGAL -->
+  <div class="legal-block">
+    <h4>Legal Acknowledgment &amp; Disclosures</h4>
+    <ol>
+      <li><strong>Election authorization:</strong> By submitting this enrollment, the employee authorized the payroll deductions shown above for the plan year Jan 1 – Dec 31, 2026, subject to changes required by federal or state tax laws.</li>
+      <li><strong>Information accuracy:</strong> The employee certified that all information above (including effective dates, dependent details, and contribution amounts) is correct to the best of their knowledge.</li>
+      <li><strong>Eligibility certification:</strong> The employee certified that all dependents covered (Alex Smith, Maya Smith) continue to meet eligibility requirements per Acme's plan documents and IRS rules.</li>
+      <li><strong>Retroactive terminations:</strong> If a dependent is later determined to be ineligible, the employee may be responsible for repayment of premiums paid on their behalf during any period of ineligibility.</li>
+    </ol>
+    <div class="ack-line">
+      <span class="check">✓</span>
+      <div>Acknowledgment confirmed by Nicole Smith on <strong>May 3, 2026 at 4:47 PM EST</strong> · IP address recorded · audit log preserved.</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    Prepared by WEX Benefits on behalf of Acme Corp · Questions? benefits@wexbenefits.com or call 1-800-WEX-HELP<br>
+    This document constitutes the official record of the employee's 2026 benefits enrollment. Retain for tax records.
+  </div>
+
+</article>
+
+</body>
+</html>

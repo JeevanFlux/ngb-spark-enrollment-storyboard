@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 9 · Technical details)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32;
+  --tech-bg: #FAFAFA;
+  --tech-row: #F8F8FB;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; white-space: nowrap; display: none; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; position: relative; }
+.icon-btn .dot-badge { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--wex-magenta); }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: white; border-bottom: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: #F0E5EE; border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+.phase-percent { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+.app-shell { display: block; }
+.conversation { padding: 24px 16px 130px; max-width: 1100px; margin: 0 auto; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 18px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 700px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+/* Technical info banner */
+.tech-banner {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-left: 4px solid var(--wex-magenta);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 0 0 18px 42px;
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 12px; color: #444; line-height: 1.55;
+}
+.tech-banner .icon { font-size: 16px; flex-shrink: 0; color: var(--wex-magenta); }
+.tech-banner strong { color: var(--wex-purple); }
+
+/* Technical specs table */
+.tech-table {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 0 0 18px 42px;
+  box-shadow: 0 8px 24px rgba(90, 26, 79, 0.06);
+  font-family: ui-monospace, "SF Mono", Menlo, "Helvetica Neue", Arial, sans-serif;
+}
+
+.tech-header {
+  display: grid;
+  grid-template-columns: 240px 1fr 1fr 200px;
+  background: #1A1A1A;
+  color: white;
+}
+.tech-header > div {
+  padding: 16px 16px;
+  border-right: 1px solid #333;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.tech-header > div:last-child { border-right: none; }
+.tech-header .col-empty { background: #2A2A2A; font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; }
+.tech-header .col-name { font-size: 14px; font-weight: 700; line-height: 1.2; }
+.tech-header .col-id { font-size: 10px; font-weight: 500; color: #999; margin-top: 4px; letter-spacing: 0.5px; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+.tech-header .col-recommended .col-name::before { content: '★ '; color: var(--wex-magenta); }
+.tech-header .col-recommended { background: linear-gradient(135deg, #2D1B26 0%, #1A1A1A 100%); border-top: 4px solid var(--wex-magenta); }
+
+.tech-section-row {
+  background: #EAE6EB;
+  padding: 8px 16px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--wex-purple);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.tech-row {
+  display: grid;
+  grid-template-columns: 240px 1fr 1fr 200px;
+  border-bottom: 1px solid #F4F0F4;
+  font-size: 12.5px;
+}
+.tech-row:nth-child(even) { background: var(--tech-row); }
+.tech-row > div {
+  padding: 11px 16px;
+  border-right: 1px solid #F4F0F4;
+  display: flex;
+  align-items: center;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+}
+.tech-row > div:last-child { border-right: none; }
+.tech-row .row-label {
+  background: #F2EEF1;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 11.5px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  text-transform: none;
+  letter-spacing: 0.2px;
+}
+.tech-row .row-label .term { color: var(--text); font-weight: 700; }
+.tech-row .row-label .gloss {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 2px;
+  font-weight: 400;
+}
+.tech-row .recommended-cell { background: #FFF8FB; font-weight: 700; color: var(--wex-purple); }
+.tech-row .alt-cell { font-weight: 600; }
+.tech-row .waive-cell { color: #999; font-style: italic; }
+.tech-row .footnote { font-size: 10px; color: var(--muted); margin-left: 4px; font-family: -apple-system, sans-serif; font-style: italic; }
+
+/* Plain-English toggle row at bottom of card */
+.tech-table .english-row {
+  background: #FFFCF7;
+  padding: 14px 18px;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  border-top: 1px solid #F4F0F4;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.tech-table .english-row a {
+  color: var(--wex-magenta);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Action row */
+.action-row {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px 42px;
+}
+.qr-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 11px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+.qr-chip.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.28); padding: 11px 22px;
+  font-size: 13.5px; font-weight: 700;
+}
+
+.docked-input { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 720px; background: white; border: 2px solid var(--wex-magenta); border-radius: 16px; padding: 6px 8px 6px 12px; box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16), 0 0 0 4px rgba(196, 37, 108, 0.05); display: flex; align-items: center; gap: 8px; z-index: 20; }
+.docked-input .mic-btn { width: 40px; height: 40px; border-radius: 50%; background: #F8F1F5; color: var(--wex-magenta); border: 1.5px solid #F1DFE9; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.docked-input textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; font-size: 14px; font-family: inherit; padding: 10px 4px; min-height: 24px; line-height: 1.4; background: transparent; }
+.docked-input textarea::placeholder { color: #9CA3AF; }
+.docked-input .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--send-grad); color: white; border: none; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .conversation { padding: 36px 36px 130px; }
+}
+
+@media (max-width: 900px) {
+  .tech-header, .tech-row { grid-template-columns: 160px 1fr 1fr 120px; }
+  .tech-table, .tech-banner, .action-row, .spark-msg { margin-left: 0 !important; }
+}
+@media (max-width: 640px) {
+  .tech-header, .tech-row { grid-template-columns: 110px 1fr 1fr; }
+  .tech-header .col-waive, .tech-row .waive-cell { display: none; }
+  .tech-header > div, .tech-row > div { padding: 8px 8px; font-size: 11px; }
+  .tech-row .row-label { font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">New hire</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · Your benefits · Technical details</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 12%"></div></div>
+  <span class="phase-percent">~10%</span>
+</div>
+
+<main class="conversation">
+
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Here's the same three plans, in the <strong>industry-standard terminology</strong> a benefits admin or broker would use. Every spec from your Summary of Benefits and Coverage (SBC) is here. Each row has a plain-English line below the term — tap a row if you want a fuller explanation.
+    </div>
+  </div>
+
+  <div class="tech-banner">
+    <span class="icon">ℹ</span>
+    <div>
+      <strong>For SMEs, brokers, and detail-oriented users.</strong> Same data your insurance carrier files with the IRS — deductibles, coinsurance, OOP max, plan IDs, network specifics. Coverage tier shown is <strong>Employee + Family</strong> (you, Alex, Maya).
+    </div>
+  </div>
+
+  <!-- TECHNICAL TABLE -->
+  <div class="tech-table">
+
+    <div class="tech-header">
+      <div class="col-empty">Spec</div>
+      <div class="col-recommended">
+        <div class="col-name">Acme Enhanced PPO</div>
+        <div class="col-id">PLAN ID: PPO-ENH-2026 · CARRIER: Aetna</div>
+      </div>
+      <div>
+        <div class="col-name">Acme HDHP HSA</div>
+        <div class="col-id">PLAN ID: HDHP-HSA-2026 · CARRIER: Aetna</div>
+      </div>
+      <div class="col-waive">
+        <div class="col-name">Waive</div>
+        <div class="col-id">N/A</div>
+      </div>
+    </div>
+
+    <!-- Plan structure -->
+    <div class="tech-section-row">Plan structure</div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Plan type</span>
+        <span class="gloss">How the plan is structured</span>
+      </div>
+      <div class="recommended-cell">PPO</div>
+      <div class="alt-cell">HDHP (HSA-qualified)</div>
+      <div class="waive-cell">N/A</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Coverage tier</span>
+        <span class="gloss">Who's enrolled</span>
+      </div>
+      <div class="recommended-cell">Employee + Family</div>
+      <div class="alt-cell">Employee + Family</div>
+      <div class="waive-cell">None</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Covered dependents</span>
+        <span class="gloss">From your file</span>
+      </div>
+      <div class="recommended-cell">Alex Smith (spouse, 35) · Maya Smith (daughter, 2)</div>
+      <div class="alt-cell">Alex Smith (spouse, 35) · Maya Smith (daughter, 2)</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Network</span>
+        <span class="gloss">In-network providers</span>
+      </div>
+      <div class="recommended-cell">Aetna Open Choice (Tier 1)</div>
+      <div class="alt-cell">Aetna Choice POS II</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">HSA-eligible</span>
+        <span class="gloss">IRS-qualified for HSA contributions</span>
+      </div>
+      <div class="recommended-cell">No</div>
+      <div class="alt-cell">Yes (Acme contributes $500/yr)</div>
+      <div class="waive-cell">No</div>
+    </div>
+
+    <!-- Deductibles -->
+    <div class="tech-section-row">Deductibles &amp; out-of-pocket maximums</div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Individual deductible</span>
+        <span class="gloss">What you pay before insurance</span>
+      </div>
+      <div class="recommended-cell">$1,500</div>
+      <div class="alt-cell">$3,000</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Family deductible</span>
+        <span class="gloss">Combined cap for the family</span>
+      </div>
+      <div class="recommended-cell">$3,000</div>
+      <div class="alt-cell">$6,000</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">OOP max — individual</span>
+        <span class="gloss">Most one person pays/year</span>
+      </div>
+      <div class="recommended-cell">$3,500</div>
+      <div class="alt-cell">$5,500</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">OOP max — family</span>
+        <span class="gloss">Most family pays/year</span>
+      </div>
+      <div class="recommended-cell">$4,500</div>
+      <div class="alt-cell">$7,500</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Annual maximum</span>
+        <span class="gloss">Cap on total insurer payout</span>
+      </div>
+      <div class="recommended-cell">No annual cap (ACA)</div>
+      <div class="alt-cell">No annual cap (ACA)</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <!-- Cost-sharing -->
+    <div class="tech-section-row">Cost-sharing (after deductible unless noted)</div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Copay — primary care</span>
+        <span class="gloss">Per visit, before deductible</span>
+      </div>
+      <div class="recommended-cell">$30 (no deductible required)</div>
+      <div class="alt-cell">$30 (after deductible)</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Copay — specialist</span>
+        <span class="gloss">Per visit</span>
+      </div>
+      <div class="recommended-cell">$60 (no deductible required)</div>
+      <div class="alt-cell">$60 (after deductible)</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Copay — Rx (tier 1/2/3)</span>
+        <span class="gloss">Generic / Preferred / Non-preferred</span>
+      </div>
+      <div class="recommended-cell">$10 / $25 / $40 (no deductible required)</div>
+      <div class="alt-cell">$10 / $25 / $40 (after deductible)</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Coinsurance — surgery / hospital</span>
+        <span class="gloss">Your share after deductible</span>
+      </div>
+      <div class="recommended-cell">20% (you) / 80% (plan)</div>
+      <div class="alt-cell">20% (you) / 80% (plan)</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">ER copay</span>
+        <span class="gloss">Emergency room visit</span>
+      </div>
+      <div class="recommended-cell">$250 + 20% coinsurance</div>
+      <div class="alt-cell">20% coinsurance after deductible</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Preventive care</span>
+        <span class="gloss">Annual exam, vaccines, well-child</span>
+      </div>
+      <div class="recommended-cell">100% covered (no copay)</div>
+      <div class="alt-cell">100% covered (no copay)</div>
+      <div class="waive-cell">—</div>
+    </div>
+
+    <!-- Costs -->
+    <div class="tech-section-row">Per pay-period costs (26 pay periods)</div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Total premium / 2wk</span>
+        <span class="gloss">Full plan cost (employer + employee)</span>
+      </div>
+      <div class="recommended-cell">$286.96</div>
+      <div class="alt-cell">$234.46</div>
+      <div class="waive-cell">$0</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Employer pays / 2wk</span>
+        <span class="gloss">Acme's contribution</span>
+      </div>
+      <div class="recommended-cell">$138.46</div>
+      <div class="alt-cell">$138.46</div>
+      <div class="waive-cell">$0</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">You pay / 2wk</span>
+        <span class="gloss">Pre-tax payroll deduction</span>
+      </div>
+      <div class="recommended-cell"><strong style="font-size:14px;">$148.50</strong></div>
+      <div class="alt-cell"><strong style="font-size:14px;">$96.00</strong></div>
+      <div class="waive-cell">$0</div>
+    </div>
+
+    <div class="tech-row">
+      <div class="row-label">
+        <span class="term">Annual total — you pay</span>
+        <span class="gloss">26 pay periods</span>
+      </div>
+      <div class="recommended-cell">$3,861.00</div>
+      <div class="alt-cell">$2,496.00</div>
+      <div class="waive-cell">$0</div>
+    </div>
+
+    <!-- Plain-English fallback -->
+    <div class="english-row">
+      Need this in plain English instead? <a href="screen3_a_medical_recommendation.html">← Back to Spark's recommendation view</a>
+    </div>
+
+  </div>
+
+  <!-- Action row -->
+  <div class="action-row">
+    <button class="qr-chip primary">✓ Choose Enhanced PPO</button>
+    <button class="qr-chip">Choose HDHP HSA</button>
+    <button class="qr-chip">Skip — waive coverage</button>
+    <button class="qr-chip">⇄ Side-by-side compare</button>
+    <button class="qr-chip">📄 Download SBC (PDF)</button>
+  </div>
+
+</main>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Ask about any of these terms..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

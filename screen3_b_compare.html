@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 8 · Compare side-by-side)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32; --red-soft: #B91C1C;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; white-space: nowrap; display: none; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; position: relative; }
+.icon-btn .dot-badge { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--wex-magenta); }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: white; border-bottom: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: #F0E5EE; border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+.phase-percent { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+.app-shell { display: block; }
+.conversation { padding: 24px 16px 130px; max-width: 1100px; margin: 0 auto; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 18px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 700px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+/* Comparison table */
+.cmp-table {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 0 0 18px 42px;
+  box-shadow: 0 8px 24px rgba(90, 26, 79, 0.06);
+}
+
+.cmp-header {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr 200px;
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border-bottom: 2px solid var(--border);
+}
+.cmp-header > div {
+  padding: 18px 16px;
+  border-right: 1px solid var(--border);
+}
+.cmp-header > div:last-child { border-right: none; }
+.cmp-header .col-meta { display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+.cmp-header .col-empty { background: #FCFAFC; }
+.cmp-header .col-name { font-size: 16px; font-weight: 700; line-height: 1.2; }
+.cmp-header .col-tag { font-size: 9px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; }
+.cmp-header .col-tag.recommended { color: var(--wex-magenta); }
+.cmp-header .col-tag.alt { color: var(--muted); }
+.cmp-header .col-tag.waive { color: #999; }
+.cmp-header .col-tagline { font-size: 11px; color: var(--muted); line-height: 1.4; margin-top: 2px; }
+.cmp-header .col-recommended { background: white; border-top: 4px solid var(--wex-magenta); position: relative; }
+.cmp-header .col-recommended::before {
+  content: '✨'; position: absolute; top: 8px; right: 12px; font-size: 14px;
+}
+
+.cmp-section-row {
+  background: #F8F4F7;
+  padding: 8px 16px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--wex-purple);
+  border-bottom: 1px solid var(--border);
+}
+
+.cmp-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr 200px;
+  border-bottom: 1px solid #F4F0F4;
+}
+.cmp-row:last-child { border-bottom: none; }
+.cmp-row > div {
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  border-right: 1px solid #F4F0F4;
+  display: flex;
+  align-items: center;
+}
+.cmp-row > div:last-child { border-right: none; }
+.cmp-row .row-label {
+  background: #FCFAFC;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 12px;
+}
+.cmp-row .recommended-cell { background: #FFF8FB; font-weight: 600; }
+.cmp-row .waive-cell { color: #999; font-size: 12px; }
+.cmp-row .cost-value { font-weight: 700; color: var(--text); }
+.cmp-row .cost-better { color: var(--green); }
+.cmp-row .cost-worse { color: var(--red-soft); }
+.cmp-row .small-note { font-size: 11px; color: var(--muted); }
+
+/* Big number cell (for paycheck cost row) */
+.cmp-row.cost-row > div { padding: 18px 16px; }
+.cmp-row.cost-row .big-cost {
+  font-size: 22px; font-weight: 800; line-height: 1.1;
+}
+.cmp-row.cost-row .big-cost .period { font-size: 11px; font-weight: 600; color: var(--muted); margin-left: 4px; }
+.cmp-row.cost-row .row-label { font-size: 12px; }
+
+/* Scenario row */
+.cmp-row.scenario-row > div { padding: 14px 16px; flex-direction: column; align-items: flex-start; gap: 4px; }
+.cmp-row.scenario-row .scenario-cost { font-size: 18px; font-weight: 800; }
+.cmp-row.scenario-row .scenario-note { font-size: 11px; color: var(--muted); }
+.cmp-row.scenario-row .gap {
+  display: inline-block; margin-top: 4px;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 4px;
+  background: #FCE8F3; color: var(--wex-magenta);
+}
+
+/* Spark's pick callout */
+.sparks-pick {
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border: 2px solid var(--wex-magenta);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 18px 0 18px 42px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.sparks-pick .icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--spark-grad); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(196, 37, 108, 0.25);
+}
+.sparks-pick .text { flex: 1; }
+.sparks-pick .text-head { font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--wex-magenta); margin-bottom: 4px; }
+.sparks-pick .text-body { font-size: 14px; line-height: 1.6; color: var(--text); }
+.sparks-pick .text-body strong { color: var(--wex-purple); }
+
+/* Action row */
+.action-row {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px 42px;
+}
+.qr-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 11px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+.qr-chip.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.28); padding: 11px 22px;
+  font-size: 13.5px; font-weight: 700;
+}
+.qr-chip.alt-pick {
+  border-color: var(--wex-purple); color: var(--wex-purple);
+}
+
+.docked-input { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 720px; background: white; border: 2px solid var(--wex-magenta); border-radius: 16px; padding: 6px 8px 6px 12px; box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16), 0 0 0 4px rgba(196, 37, 108, 0.05); display: flex; align-items: center; gap: 8px; z-index: 20; }
+.docked-input .mic-btn { width: 40px; height: 40px; border-radius: 50%; background: #F8F1F5; color: var(--wex-magenta); border: 1.5px solid #F1DFE9; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.docked-input textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; font-size: 14px; font-family: inherit; padding: 10px 4px; min-height: 24px; line-height: 1.4; background: transparent; }
+.docked-input textarea::placeholder { color: #9CA3AF; }
+.docked-input .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--send-grad); color: white; border: none; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .conversation { padding: 36px 36px 130px; }
+}
+
+@media (max-width: 900px) {
+  .cmp-header, .cmp-row { grid-template-columns: 140px 1fr 1fr 1fr; }
+  .cmp-table, .sparks-pick, .action-row, .spark-msg { margin-left: 0 !important; }
+}
+@media (max-width: 640px) {
+  .cmp-header, .cmp-row { grid-template-columns: 110px 1fr 1fr; }
+  .cmp-header .col-waive, .cmp-row .waive-cell { display: none; }
+  .cmp-header .col-empty, .cmp-row > div { padding: 10px 8px; font-size: 12px; }
+  .cmp-row.cost-row .big-cost { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">New hire</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · Your benefits · Comparing</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 12%"></div></div>
+  <span class="phase-percent">~10%</span>
+</div>
+
+<main class="conversation">
+
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Here's the side-by-side. Same situation — <strong>you, Alex, and Maya</strong> covered — across all three plans. I've highlighted my pick, but every cell is honest. Look at the <strong>scenario rows</strong> at the bottom — that's where the trade-off becomes real.
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="cmp-table">
+
+    <!-- Header row -->
+    <div class="cmp-header">
+      <div class="col-empty"></div>
+
+      <div class="col-meta col-recommended">
+        <div class="col-tag recommended">✨ Recommended for you</div>
+        <div class="col-name">Acme Enhanced PPO</div>
+        <div class="col-tagline">Predictable copays, lower deductibles. Steady users with kids.</div>
+      </div>
+
+      <div class="col-meta">
+        <div class="col-tag alt">Alternative</div>
+        <div class="col-name">Acme HDHP HSA</div>
+        <div class="col-tagline">Lower paycheck, higher risk. Best if you're healthy.</div>
+      </div>
+
+      <div class="col-meta col-waive">
+        <div class="col-tag waive">Skip</div>
+        <div class="col-name">Waive Coverage</div>
+        <div class="col-tagline">Use other coverage (Alex's job, etc.)</div>
+      </div>
+    </div>
+
+    <!-- COST SECTION -->
+    <div class="cmp-section-row">What it costs you</div>
+
+    <div class="cmp-row cost-row">
+      <div class="row-label">Per paycheck</div>
+      <div class="recommended-cell"><span class="big-cost">$148.50<span class="period">/2wk</span></span></div>
+      <div><span class="big-cost cost-better">$96.00<span class="period">/2wk</span></span></div>
+      <div class="waive-cell"><span class="big-cost">$0<span class="period">/2wk</span></span></div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="row-label">Acme also pays</div>
+      <div class="recommended-cell">$138.46 / 2wk</div>
+      <div>$138.46 / 2wk</div>
+      <div class="waive-cell">$0</div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="row-label">Annual paycheck cost</div>
+      <div class="recommended-cell">$3,861</div>
+      <div class="cost-better">$2,496</div>
+      <div class="waive-cell">$0</div>
+    </div>
+
+    <!-- WHEN YOU USE IT SECTION -->
+    <div class="cmp-section-row">When you actually use it</div>
+
+    <div class="cmp-row">
+      <div class="row-label">See your doctor</div>
+      <div class="recommended-cell"><strong>$30 per visit</strong> from day one</div>
+      <div>You pay full price until you hit the $3,000 family deductible, then $30</div>
+      <div class="waive-cell">Not covered</div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="row-label">See a specialist</div>
+      <div class="recommended-cell"><strong>$60 per visit</strong> from day one</div>
+      <div>Full price until deductible, then $60</div>
+      <div class="waive-cell">Not covered</div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="row-label">Daily meds</div>
+      <div class="recommended-cell"><strong>$10–$40</strong> per refill, day one</div>
+      <div>Full price until deductible, then $10–$40</div>
+      <div class="waive-cell">Not covered</div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="row-label">Annual exam · flu shot · well-child</div>
+      <div class="recommended-cell"><strong class="cost-better">100% free</strong></div>
+      <div><strong class="cost-better">100% free</strong></div>
+      <div class="waive-cell">Not covered</div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="row-label">Surgery / hospital</div>
+      <div class="recommended-cell">80% covered after $1,500 family deductible</div>
+      <div>80% covered after $3,000 family deductible</div>
+      <div class="waive-cell">Not covered</div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="row-label">Most you'd ever pay (worst case)</div>
+      <div class="recommended-cell"><strong class="cost-better">$4,500</strong> family / year</div>
+      <div><strong class="cost-worse">$7,500</strong> family / year</div>
+      <div class="waive-cell">Unlimited (no coverage)</div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="row-label">Tax-advantaged HSA?</div>
+      <div class="recommended-cell">No</div>
+      <div><strong>Yes — Acme contributes $500/yr</strong></div>
+      <div class="waive-cell">No</div>
+    </div>
+
+    <!-- SCENARIO SECTION -->
+    <div class="cmp-section-row">Three ways your year could go (out-of-pocket only)</div>
+
+    <div class="cmp-row scenario-row">
+      <div class="row-label">
+        <div style="font-weight:700;color:var(--text);font-size:13px;">Typical year</div>
+        <span class="small-note">Routine + Maya's checkups</span>
+      </div>
+      <div class="recommended-cell">
+        <div class="scenario-cost cost-better">~$1,200</div>
+        <div class="scenario-note">copays + meds + small visits</div>
+      </div>
+      <div>
+        <div class="scenario-cost">~$1,400</div>
+        <div class="scenario-note">working through deductible</div>
+        <div class="gap">+$200 vs PPO</div>
+      </div>
+      <div class="waive-cell">depends on other plan</div>
+    </div>
+
+    <div class="cmp-row scenario-row">
+      <div class="row-label">
+        <div style="font-weight:700;color:var(--red-soft);font-size:13px;">Rough year</div>
+        <span class="small-note">ER + MRI + extra visits</span>
+      </div>
+      <div class="recommended-cell">
+        <div class="scenario-cost cost-better">~$2,800</div>
+        <div class="scenario-note">capped at $4,500 family max</div>
+      </div>
+      <div>
+        <div class="scenario-cost cost-worse">~$5,500</div>
+        <div class="scenario-note">deeper deductible to clear</div>
+        <div class="gap" style="background:#FEE2E2;color:var(--red-soft);">+$2,700 vs PPO</div>
+      </div>
+      <div class="waive-cell">unlimited</div>
+    </div>
+
+    <div class="cmp-row scenario-row">
+      <div class="row-label">
+        <div style="font-weight:700;color:var(--green);font-size:13px;">Healthy year</div>
+        <span class="small-note">Just preventive + meds</span>
+      </div>
+      <div class="recommended-cell">
+        <div class="scenario-cost">~$700</div>
+        <div class="scenario-note">just your med refills</div>
+      </div>
+      <div>
+        <div class="scenario-cost cost-better">~$300</div>
+        <div class="scenario-note">+ HSA tax savings</div>
+        <div class="gap" style="background:#E8F5E9;color:var(--green);">−$400 vs PPO</div>
+      </div>
+      <div class="waive-cell">$0 (no coverage)</div>
+    </div>
+
+  </div>
+
+  <!-- Spark's pick -->
+  <div class="sparks-pick">
+    <div class="icon">✨</div>
+    <div class="text">
+      <div class="text-head">Spark's call · why I lean PPO for your family</div>
+      <div class="text-body">
+        The HDHP wins by <strong>~$400 in a healthy year</strong> — that's real money. But it loses by <strong>~$2,700 in a rough year</strong>, and with daily meds and a 2-year-old, "rough" is more likely than "healthy" for your situation. You said you wanted <em>fewer surprises</em>, and the PPO's $4,500 worst-case cap (vs. $7,500 on the HDHP) is exactly that.<br><br>
+        That said — this is your call. If you're confident in a healthy year and want the HSA tax savings, the HDHP is defensible.
+      </div>
+    </div>
+  </div>
+
+  <!-- Action row -->
+  <div class="action-row">
+    <button class="qr-chip primary">✓ Choose Enhanced PPO</button>
+    <button class="qr-chip alt-pick">Choose HDHP HSA instead</button>
+    <button class="qr-chip">Skip — waive coverage</button>
+    <button class="qr-chip">🔬 Show technical details</button>
+  </div>
+
+</main>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Ask anything about these plans..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

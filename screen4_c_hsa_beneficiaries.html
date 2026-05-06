@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 13c · HSA Beneficiaries)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32; --green-bg: #E8F5E9;
+  --amber: #B5832C; --amber-bg: #FFFCF7;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* Alternate-path banner */
+.alt-path-banner {
+  background: linear-gradient(90deg, #FFF8E5 0%, #FDF6E5 100%);
+  border-bottom: 1px solid #E0CC9F;
+  padding: 10px 18px;
+  font-size: 12px;
+  color: #6B5316;
+  text-align: center;
+  line-height: 1.5;
+}
+.alt-path-banner strong { color: #8C6A1F; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; white-space: nowrap; display: none; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; position: relative; }
+.icon-btn .dot-badge { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--wex-magenta); }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: white; border-bottom: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: #F0E5EE; border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+.phase-percent { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+.app-shell { display: block; }
+.conversation { padding: 24px 16px 130px; max-width: 880px; margin: 0 auto; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 600px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; }
+.user-bubble.tap .check { color: var(--green); margin-right: 6px; }
+
+/* Why-this-matters card */
+.why-card {
+  background: white;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 0 0 12px 42px;
+  max-width: 600px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.why-card .icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #F8F1F5; color: var(--wex-magenta);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.why-card .content { flex: 1; }
+.why-card .head {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 4px;
+}
+.why-card p { margin: 0; font-size: 13px; color: var(--text); line-height: 1.6; }
+.why-card p strong { color: var(--wex-purple); }
+
+/* Beneficiary recommendation card */
+.beneficiary-card {
+  background: white;
+  border: 2px solid var(--wex-magenta);
+  border-radius: 14px;
+  margin: 0 0 16px 42px;
+  max-width: 700px;
+  box-shadow: 0 12px 36px rgba(196, 37, 108, 0.14);
+  overflow: hidden;
+}
+.bc-head {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border-bottom: 1px solid #EAD8E1;
+}
+.bc-eyebrow {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 4px;
+}
+.bc-title { font-size: 17px; font-weight: 700; margin: 0; }
+.bc-sub { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+.bc-body { padding: 18px 20px; }
+
+.section-h {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--wex-purple); margin: 0 0 10px;
+}
+
+/* Person row — pre-filled spouse */
+.person-row {
+  display: flex; gap: 14px; align-items: center;
+  padding: 14px 16px;
+  background: #FCFAFC;
+  border: 1.5px solid #EAD8E1;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+.person-icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--spark-grad); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px; flex-shrink: 0;
+}
+.person-meta { flex: 1; min-width: 0; }
+.person-name { font-size: 14.5px; font-weight: 700; margin-bottom: 2px; }
+.person-detail { font-size: 12px; color: var(--muted); }
+.person-pct {
+  text-align: right; flex-shrink: 0;
+}
+.person-pct .pct-value { font-size: 22px; font-weight: 800; color: var(--wex-purple); line-height: 1; }
+.person-pct .pct-label { font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+
+.type-badges {
+  display: flex; gap: 8px; align-items: center;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+.type-badge {
+  background: #F4F0F4; color: var(--wex-purple);
+  padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.type-badge.primary { background: var(--wex-magenta); color: white; }
+
+/* Tax implication callout */
+.tax-implication {
+  background: #FEFCE8;
+  border: 1px solid #FDE68A;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12px;
+  color: #713F12;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.tax-implication .icon { font-size: 14px; flex-shrink: 0; color: #B45309; }
+.tax-implication strong { color: #92400E; }
+.tax-implication .small-note {
+  margin-top: 6px; padding-top: 6px;
+  border-top: 1px dashed #FDE68A;
+  font-size: 11px; font-style: italic;
+}
+
+/* Action chips */
+.bc-actions {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 14px;
+}
+.qr-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 10px 16px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  cursor: pointer;
+}
+.qr-chip.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 4px 12px rgba(196, 37, 108, 0.25); padding: 10px 22px; font-weight: 700;
+}
+
+.bc-footer {
+  padding: 12px 20px;
+  background: #FCFAFC;
+  border-top: 1px solid var(--border-soft);
+  font-size: 11px; color: var(--muted); line-height: 1.55;
+}
+.bc-footer strong { color: var(--wex-purple); }
+
+.docked-input { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 720px; background: white; border: 2px solid var(--wex-magenta); border-radius: 16px; padding: 6px 8px 6px 12px; box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16), 0 0 0 4px rgba(196, 37, 108, 0.05); display: flex; align-items: center; gap: 8px; z-index: 20; }
+.docked-input .mic-btn { width: 40px; height: 40px; border-radius: 50%; background: #F8F1F5; color: var(--wex-magenta); border: 1.5px solid #F1DFE9; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.docked-input textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; font-size: 14px; font-family: inherit; padding: 10px 4px; min-height: 24px; line-height: 1.4; background: transparent; }
+.docked-input textarea::placeholder { color: #9CA3AF; }
+.docked-input .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--send-grad); color: white; border: none; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .conversation { padding: 36px 36px 130px; }
+}
+@media (max-width: 700px) {
+  .why-card, .beneficiary-card, .spark-msg, .user-msg { margin-left: 0; }
+  .user-msg { margin-right: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="alt-path-banner">
+  <strong>⚠ Alternate path · for HDHP enrollees who qualify for HSA.</strong> This frame shows what the HSA beneficiary moment looks like. Nicole picked PPO so this doesn't apply to her main flow — but the storyboard preserves the original prototype's beneficiary functionality, reimagined.
+</div>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">New hire · HDHP scenario</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · HSA beneficiary (HDHP path)</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 65%"></div></div>
+  <span class="phase-percent">~65%</span>
+</div>
+
+<main class="conversation">
+
+  <!-- Spark intro -->
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      One last thing for HSA — <strong>beneficiary</strong>. Since your HSA is your money in a real bank account, if something happened to you, the balance has to go somewhere. Let me explain why this matters, then I'll suggest a default.
+    </div>
+  </div>
+
+  <!-- Why this matters card -->
+  <article class="why-card">
+    <div class="icon">💡</div>
+    <div class="content">
+      <div class="head">Why this matters</div>
+      <p>Your HSA is the only spending account with money you actually <strong>own</strong>. FSA, DCFSA, HRA — none of those have inheritable balances. HSA does. So if you pass away with $3,500 sitting in your HSA, the IRS needs to know who gets it. Without a beneficiary on file, it goes to your estate (which can mean probate, delays, and taxes).</p>
+    </div>
+  </article>
+
+  <!-- Beneficiary recommendation card -->
+  <article class="beneficiary-card">
+
+    <div class="bc-head">
+      <div class="bc-eyebrow">✨ My recommendation</div>
+      <h3 class="bc-title">Set Alex as your HSA primary beneficiary at 100%</h3>
+      <p class="bc-sub">Pre-filled from your dependents · adjust if you'd rather split it</p>
+    </div>
+
+    <div class="bc-body">
+
+      <!-- Person row showing Alex pre-filled -->
+      <div class="person-row">
+        <div class="person-icon">A</div>
+        <div class="person-meta">
+          <div class="person-name">Alex Smith</div>
+          <div class="person-detail">Spouse · 35 years old · already on file</div>
+        </div>
+        <div class="person-pct">
+          <div class="pct-value">100%</div>
+          <div class="pct-label">Primary</div>
+        </div>
+      </div>
+
+      <div class="type-badges">
+        <span class="type-badge primary">Primary</span>
+        <span style="color: var(--muted);">·</span>
+        <span style="color: var(--muted); font-size: 12px;">No contingent beneficiary set (optional)</span>
+      </div>
+
+      <!-- Tax implication callout -->
+      <div class="tax-implication">
+        <span class="icon">⚠</span>
+        <div>
+          <strong>Tax implication you should know:</strong> If your spouse is your beneficiary, they inherit your HSA <strong>tax-free</strong> — they keep using it like their own. If anyone else is your beneficiary (parents, kids, friends), they inherit it as <strong>taxable income</strong> the year you pass. That's why I default to spouse when there is one.
+          <div class="small-note">(Maya can be added as a contingent beneficiary if you want — she'd inherit if Alex isn't able to.)</div>
+        </div>
+      </div>
+
+      <!-- Plain-English explainer -->
+      <h4 class="section-h">What "Primary" vs "Contingent" mean</h4>
+      <p style="font-size: 12.5px; color: #444; line-height: 1.6; margin: 0 0 14px;">
+        <strong style="color: var(--wex-purple);">Primary:</strong> the person who inherits first. <strong style="color: var(--wex-purple);">Contingent:</strong> the backup, who only inherits if the Primary can't (deceased, refuses, etc.). Most people just pick a Primary; contingent is optional but recommended for older couples or anyone with complex family situations.
+      </p>
+
+      <!-- Action chips -->
+      <div class="bc-actions">
+        <button class="qr-chip primary">✓ Yes, Alex 100% Primary</button>
+        <button class="qr-chip">+ Add a contingent (Maya?)</button>
+        <button class="qr-chip">✎ Split between people</button>
+        <button class="qr-chip">+ Add someone not on file</button>
+        <button class="qr-chip">Skip · use my estate</button>
+      </div>
+
+    </div>
+
+    <div class="bc-footer">
+      💡 You can update this anytime — log in, change the designation, takes 30 seconds. Life changes (divorce, new kid, etc.) usually mean it's worth revisiting. <strong>Auto-saved when you confirm.</strong>
+    </div>
+
+  </article>
+
+  <!-- User accepts -->
+  <div class="user-msg">
+    <div class="user-bubble tap"><span class="check">✓</span>Yes, Alex 100% Primary</div>
+  </div>
+
+  <!-- Spark wrap-up -->
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Locked in. <strong>Alex is your HSA Primary beneficiary at 100%.</strong> No contingent — that's fine for most families with one spouse on file. You can revisit this anytime in your account settings. HSA setup is fully complete. Moving on to FSA next.
+    </div>
+  </div>
+
+</main>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Or ask about beneficiary rules..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

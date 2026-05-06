@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NGB Spark — Reimagined Enrollment Storyboard</title>
+<style>
+:root {
+  --wex-red: #E4002B;
+  --wex-magenta: #C4256C;
+  --wex-purple: #5A1A4F;
+  --wex-deep: #3D0E4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --bg: #F4EFF3;
+  --paper: #FFFFFF;
+  --text: #1A1A1A;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --border-soft: #EFE6EE;
+  --green: #2E7D32;
+  --amber: #B5832C;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Topnav */
+.topnav {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+}
+.brand-cluster { display: flex; align-items: center; gap: 14px; }
+.wex-logo { font-weight: 900; font-size: 26px; color: var(--wex-red); letter-spacing: -1px; line-height: 1; }
+.brand-divider { width: 1px; height: 22px; background: var(--border); }
+.brand-text { font-size: 12px; font-weight: 600; color: var(--muted); }
+.brand-text strong { color: var(--wex-purple); display: block; font-size: 13px; font-weight: 700; }
+.repo-link {
+  font-size: 12px; color: var(--muted); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px; font-weight: 600;
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px;
+}
+.repo-link:hover { border-color: var(--wex-magenta); color: var(--wex-purple); }
+
+/* Hero */
+.hero {
+  padding: 56px 24px 40px;
+  text-align: center;
+  background: radial-gradient(ellipse at top, #F8EFF6 0%, var(--bg) 70%);
+}
+.hero-eyebrow {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--wex-magenta); font-weight: 700; margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: 44px; font-weight: 700; letter-spacing: -1px;
+  line-height: 1.15; margin: 0 0 16px;
+  max-width: 760px; margin-left: auto; margin-right: auto;
+}
+.hero h1 .accent {
+  background: var(--spark-grad);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero p.lede {
+  font-size: 16px; color: var(--muted); line-height: 1.65;
+  max-width: 720px; margin: 0 auto 28px;
+}
+.hero p.lede strong { color: var(--wex-purple); }
+
+/* Primary CTA */
+.cta-row {
+  display: inline-flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+  margin-bottom: 14px;
+}
+.btn-primary {
+  background: var(--spark-grad); color: white; border: none;
+  padding: 14px 28px; border-radius: 12px; font-size: 15px; font-weight: 700;
+  text-decoration: none; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 0 12px 36px rgba(196, 37, 108, 0.3);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(196, 37, 108, 0.4); }
+.btn-primary .arrow { font-size: 18px; }
+.btn-secondary {
+  background: white; color: var(--wex-purple);
+  border: 1.5px solid var(--wex-purple);
+  padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 700;
+  text-decoration: none; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-secondary:hover { background: var(--wex-purple); color: white; }
+
+.hero-meta {
+  display: inline-flex; gap: 14px; align-items: center;
+  margin-top: 22px;
+  background: white; border: 1px solid var(--border);
+  padding: 10px 18px; border-radius: 999px;
+  font-size: 12px; color: var(--muted);
+}
+.hero-meta .dot { color: var(--wex-magenta); font-weight: 700; }
+.hero-meta .sep { color: var(--border); }
+
+/* Container */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px 56px; }
+
+/* Phase section banner */
+.phase-banner {
+  margin: 48px 0 22px;
+  padding: 18px 24px;
+  background: white;
+  border-left: 4px solid var(--wex-magenta);
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(90, 26, 79, 0.06);
+}
+.phase-banner.phase-2 { border-left-color: var(--wex-purple); }
+.phase-banner.phase-3 { border-left-color: var(--green); }
+.phase-banner.aux { border-left-color: var(--amber); }
+
+.phase-eyebrow {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+  font-weight: 800; margin-bottom: 4px;
+  color: var(--wex-magenta);
+}
+.phase-banner.phase-2 .phase-eyebrow { color: var(--wex-purple); }
+.phase-banner.phase-3 .phase-eyebrow { color: var(--green); }
+.phase-banner.aux .phase-eyebrow { color: var(--amber); }
+
+.phase-banner h2 {
+  font-size: 22px; font-weight: 700; margin: 0 0 4px;
+  letter-spacing: -0.4px;
+}
+.phase-banner p {
+  margin: 0; font-size: 13px; color: var(--muted); line-height: 1.55;
+}
+
+/* Frame grid */
+.frame-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+/* Subsection label */
+.subsection-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--muted);
+  margin: 24px 0 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.subsection-label::before { content: ''; width: 16px; height: 1px; background: var(--border); }
+.subsection-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* Frame card */
+.frame-card {
+  background: var(--paper);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: var(--text);
+  display: flex; flex-direction: column; gap: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  position: relative;
+  cursor: pointer;
+}
+.frame-card:hover {
+  border-color: var(--wex-magenta);
+  box-shadow: 0 12px 32px rgba(196, 37, 108, 0.12);
+  transform: translateY(-2px);
+}
+.frame-card.branch { background: #FFFCF7; border-color: #E0CC9F; }
+.frame-card.branch:hover { border-color: var(--amber); box-shadow: 0 12px 32px rgba(181, 131, 44, 0.12); }
+.frame-card.aux { background: #F8F4F7; border-color: var(--border-soft); }
+
+.frame-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: var(--spark-grad); color: white;
+  font-weight: 800; font-size: 13px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(196, 37, 108, 0.22);
+}
+.frame-card.branch .frame-num { background: linear-gradient(135deg, #B5832C 0%, #8C6418 100%); box-shadow: 0 4px 10px rgba(181, 131, 44, 0.22); }
+.frame-card.aux .frame-num { background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%); box-shadow: 0 4px 10px rgba(75, 85, 99, 0.18); }
+
+.frame-card .frame-tag {
+  display: inline-block;
+  font-size: 9px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.frame-card.main .frame-tag { background: #FCE8F3; color: var(--wex-magenta); }
+.frame-card.branch .frame-tag { background: #FFF4DD; color: var(--amber); }
+.frame-card.aux .frame-tag { background: #F4F0F4; color: var(--muted); }
+
+.frame-card h3 {
+  font-size: 14px; font-weight: 700; margin: 4px 0 0;
+  line-height: 1.3;
+}
+.frame-card p {
+  margin: 0;
+  font-size: 12px; color: var(--muted); line-height: 1.55;
+}
+.frame-card .filename {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 10px; color: #999;
+  margin-top: 4px;
+}
+.frame-card .arrow-end {
+  position: absolute; top: 18px; right: 18px;
+  color: var(--muted); font-size: 14px;
+}
+.frame-card:hover .arrow-end { color: var(--wex-magenta); }
+
+/* Journey hero card (large, special) */
+.journey-card {
+  display: block;
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border: 2px solid var(--wex-magenta);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin: 0 0 16px;
+  text-decoration: none; color: var(--text);
+  display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+  box-shadow: 0 14px 44px rgba(196, 37, 108, 0.14);
+  position: relative;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.journey-card:hover { transform: translateY(-2px); box-shadow: 0 18px 56px rgba(196, 37, 108, 0.2); }
+.journey-card .icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--spark-grad); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(196, 37, 108, 0.3);
+}
+.journey-card .meta { flex: 1; min-width: 240px; }
+.journey-card .eyebrow {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 4px;
+}
+.journey-card h3 {
+  margin: 0 0 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.3px;
+}
+.journey-card p {
+  margin: 0; font-size: 13px; color: var(--text); line-height: 1.6; max-width: 600px;
+}
+.journey-card .open-pill {
+  background: var(--spark-grad); color: white;
+  padding: 10px 18px; border-radius: 999px;
+  font-size: 13px; font-weight: 700;
+  display: inline-flex; align-items: center; gap: 6px;
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.25);
+}
+
+/* Stats */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 24px 0 8px;
+}
+.stat {
+  background: white;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 16px 18px;
+  text-align: center;
+}
+.stat .value {
+  font-size: 28px; font-weight: 800; line-height: 1;
+  color: var(--wex-purple); letter-spacing: -0.6px;
+  font-variant-numeric: tabular-nums;
+}
+.stat .label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--muted); margin-top: 6px;
+}
+
+/* Footer */
+footer {
+  background: white;
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  margin-top: 56px;
+  text-align: center;
+  font-size: 12px; color: var(--muted); line-height: 1.6;
+}
+footer a { color: var(--wex-magenta); text-decoration: none; font-weight: 600; }
+footer a:hover { text-decoration: underline; }
+
+@media (max-width: 700px) {
+  .hero h1 { font-size: 32px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .topnav { padding: 12px 16px; }
+  .container { padding: 0 16px 32px; }
+  .journey-card { padding: 22px 22px; }
+  .journey-card h3 { font-size: 18px; }
+  .journey-card .icon { width: 52px; height: 52px; font-size: 22px; }
+  .frame-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="brand-text">
+      <strong>NGB Spark</strong>
+      Enrollment storyboard · 2026
+    </div>
+  </div>
+  <a class="repo-link" href="https://github.com/atom9919/ngb-spark-enrollment-storyboard" target="_blank">
+    <span>⌥</span> View on GitHub
+  </a>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">SPARK · NEXT GEN BENEFITS · STORYBOARD</div>
+  <h1>From "Enroll Now" to <span class="accent">a conversation that fits Nicole's life.</span></h1>
+  <p class="lede">
+    A reimagined benefits enrollment experience built around a conversational AI assistant. Nicole — a new hire at Acme Corp with a spouse and a 2-year-old — moves through enrollment as a single continuous conversation instead of a 6-step wizard. <strong>Spark gathers context, recommends plans personalized to her family, surfaces real-life scenarios, and ultimately saves her ~$2,100 in taxes</strong> — all while keeping every option transparent and every decision hers.
+  </p>
+  <div class="cta-row">
+    <a class="btn-primary" href="enrollment_journey.html">
+      View the full journey
+      <span class="arrow">→</span>
+    </a>
+    <a class="btn-secondary" href="#frames">Browse individual frames ↓</a>
+  </div>
+
+  <div class="hero-meta">
+    <span><span class="dot">●</span> 24 frames</span>
+    <span class="sep">·</span>
+    <span>3 phases</span>
+    <span class="sep">·</span>
+    <span>9 edge-case branches</span>
+    <span class="sep">·</span>
+    <span>Mobile-responsive</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Journey hero card -->
+  <a class="journey-card" href="enrollment_journey.html">
+    <div class="icon">✨</div>
+    <div class="meta">
+      <div class="eyebrow">★ Recommended starting point</div>
+      <h3>The full storyboard journey</h3>
+      <p>Scrollable narrative covering all 24 frames with annotations between each step. Best way to understand the design end-to-end. Allow ~10 minutes for a complete read.</p>
+    </div>
+    <span class="open-pill">Open journey →</span>
+  </a>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat"><div class="value">24</div><div class="label">Total frames</div></div>
+    <div class="stat"><div class="value">14<span style="font-size: 18px;">min</span></div><div class="label">Time to enroll</div></div>
+    <div class="stat"><div class="value" style="color: var(--green);">~$2,100</div><div class="label">Tax savings</div></div>
+    <div class="stat"><div class="value">3</div><div class="label">Phases</div></div>
+  </div>
+
+  <!-- ============ PHASE 1 ============ -->
+  <div id="frames" class="phase-banner">
+    <div class="phase-eyebrow">Phase 1 · Main path</div>
+    <h2>Getting to know you</h2>
+    <p>Welcome → conversation begins → profile confirm → dependents → adding Maya → mid-conversation. Six frames covering Spark's gathering of Nicole's situation, household, health context, and priorities.</p>
+  </div>
+
+  <div class="frame-grid">
+    <a class="frame-card main" href="enrollment_home_v3.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">1</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Welcome — Spark, not "Enroll Now"</h3>
+      <p>Conversation-first home with prominent Start enrollment CTA, voice input, and 7 starter chips. Mobile-responsive.</p>
+      <div class="filename">enrollment_home_v3.html</div>
+    </a>
+
+    <a class="frame-card main" href="screen2_a_landing.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">2</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Conversation begins</h3>
+      <p>Spark acknowledges Nicole's first message. "Your file" panel populates with HR-on-file basics, clearly tagged locked vs. editable.</p>
+      <div class="filename">screen2_a_landing.html</div>
+    </a>
+
+    <a class="frame-card main" href="screen2_b_profile_confirm.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">3</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Profile review — one card</h3>
+      <p>Old profile screen's 12+ fields collapsed into a single read-only summary card with locked/editable indicators. One tap to confirm.</p>
+      <div class="filename">screen2_b_profile_confirm.html</div>
+    </a>
+
+    <a class="frame-card main" href="screen2_c_dependent_confirm.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">4</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Dependents — Alex pre-filled</h3>
+      <p>Existing spouse on file. Three quick replies: cover Alex / just me / add someone else (Nicole picks add).</p>
+      <div class="filename">screen2_c_dependent_confirm.html</div>
+    </a>
+
+    <a class="frame-card main" href="screen2_c_add_person.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">5</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Adding Maya inline</h3>
+      <p>Structured "Add a person" card drops into the conversation. 8 fields including SSN with strong privacy framing. Conditional logic suppresses irrelevant questions.</p>
+      <div class="filename">screen2_c_add_person.html</div>
+    </a>
+
+    <a class="frame-card main" href="screen2_d_mid_conversation.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">6</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Mid-conversation</h3>
+      <p>Maya now in file. Spark naming all three of them in questions ("you, Alex, and Maya") — LLM-driven personalization in practice. ~80% of Phase 1.</p>
+      <div class="filename">screen2_d_mid_conversation.html</div>
+    </a>
+  </div>
+
+  <!-- Phase 1 branches -->
+  <div class="subsection-label">Edge-case branches from Frame 3</div>
+  <div class="frame-grid">
+    <a class="frame-card branch" href="screen2_b_edit.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">A</div>
+      <span class="frame-tag">Branch · editable field</span>
+      <h3>Editing email inline</h3>
+      <p>If Nicole taps "Edit something," the file panel opens an editor for the chosen field. No modal, no navigation — edits in place.</p>
+      <div class="filename">screen2_b_edit.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen2_b_hr_request.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">B</div>
+      <span class="frame-tag">Branch · locked field</span>
+      <h3>Spark drafts HR email</h3>
+      <p>Locked field tapped → Spark composes a complete HR request email, prefilled with everything HR needs. The strongest "AI in the workflow" demo.</p>
+      <div class="filename">screen2_b_hr_request.html</div>
+    </a>
+  </div>
+
+  <!-- ============ PHASE 2 — MEDICAL ============ -->
+  <div class="phase-banner phase-2">
+    <div class="phase-eyebrow">Phase 2 · Medical recommendation</div>
+    <h2>Your benefits — health plans</h2>
+    <p>Spark's hero recommendation moment. One plan recommended (PPO) with personalized rationale, plain-English coverage, three real-life scenarios. Alternatives visible but secondary. Multiple deep-dive paths for users who want more.</p>
+  </div>
+
+  <div class="frame-grid">
+    <a class="frame-card main" href="screen3_a_medical_recommendation.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">7</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Medical recommendation</h3>
+      <p>Hero card with rationale tied to Nicole's situation, plain-English coverage, three scenarios, cost summary. The "Enroll Now" affordance preserved through Spark.</p>
+      <div class="filename">screen3_a_medical_recommendation.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen3_b_compare.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">8</div>
+      <span class="frame-tag">Branch · compare</span>
+      <h3>Compare side-by-side</h3>
+      <p>All 3 plans (Recommended PPO / HDHP / Waive) in a clean comparison table. Cost / coverage / scenarios. Honest "Spark's pick" callout at the end.</p>
+      <div class="filename">screen3_b_compare.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen3_c_technical.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">9</div>
+      <span class="frame-tag">Branch · SME / technical</span>
+      <h3>Technical details</h3>
+      <p>Industry-standard terminology (deductibles, coinsurance, OOP max, plan IDs, carrier names). For SMEs, brokers, detail-oriented users.</p>
+      <div class="filename">screen3_c_technical.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen3_d_scenarios.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">10</div>
+      <span class="frame-tag">Branch · scenarios</span>
+      <h3>What if my year goes badly?</h3>
+      <p>Three real scenarios (Maya respiratory infection / Alex sprained ankle / cumulative rough year) with line-item bills + plan-vs-plan cost comparison.</p>
+      <div class="filename">screen3_d_scenarios.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen3_d2_custom_scenario.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">10b</div>
+      <span class="frame-tag">Branch · LLM-generated</span>
+      <h3>Custom scenario · "what if I get pregnant"</h3>
+      <p>User-defined scenario generated by Spark on the fly. Demonstrates LLM-driven scenario simulation — Karen's literal provocation made tangible.</p>
+      <div class="filename">screen3_d2_custom_scenario.html</div>
+    </a>
+  </div>
+
+  <!-- ============ PHASE 2 — DENTAL/VISION ============ -->
+  <div class="phase-banner phase-2">
+    <div class="phase-eyebrow">Phase 2 · Dental + Vision</div>
+    <h2>Your benefits — dental and vision</h2>
+    <p>Compressed conversational treatment for lower-stakes decisions. Spark recommends Dental Premium and (deliberately) Vision Basic — not Premium — demonstrating it won't reflexively up-sell.</p>
+  </div>
+
+  <div class="frame-grid">
+    <a class="frame-card main" href="screen3_e_dental_vision.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">11</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Dental + Vision compressed</h3>
+      <p>Both decisions in one conversation. Compact recommendation cards. Spark deliberately recommends Vision Basic (not Premium) since Nicole didn't mention glasses needs.</p>
+      <div class="filename">screen3_e_dental_vision.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen3_e2_dental_compare.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">11b</div>
+      <span class="frame-tag">Branch · compare</span>
+      <h3>Dental compare expanded</h3>
+      <p>If user taps "Compare to Basic" on dental, an inline 2-column side-by-side appears in the conversation. Same pattern works for vision compare.</p>
+      <div class="filename">screen3_e2_dental_compare.html</div>
+    </a>
+  </div>
+
+  <!-- ============ PHASE 2 — SPENDING ACCOUNTS ============ -->
+  <div class="phase-banner phase-2">
+    <div class="phase-eyebrow">Phase 2 · Spending accounts</div>
+    <h2>Your benefits — spending accounts</h2>
+    <p>FSA, DCFSA, HRA recommendations — with three contribution scenarios per account showing live tax savings. HSA and LPFSA shown transparently as "not available this year, here's why" rather than hidden.</p>
+  </div>
+
+  <div class="frame-grid">
+    <a class="frame-card main" href="screen4_a_spending_overview.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">13</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Spending accounts walkthrough</h3>
+      <p>Sequential FSA → DCFSA (with question) → HRA → tax savings summary. "Not available this year" footer transparently shows HSA and LPFSA with reasons.</p>
+      <div class="filename">screen4_a_spending_overview.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen4_b_adjust_contribution.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">13b</div>
+      <span class="frame-tag">Branch · adjust</span>
+      <h3>Adjust contribution amount</h3>
+      <p>Interactive contribution adjuster with live tax-savings updates. Slider + input + quick-pick chips. Shows snapshot at $1,800.</p>
+      <div class="filename">screen4_b_adjust_contribution.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen4_c_hsa_beneficiaries.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">13c</div>
+      <span class="frame-tag">Branch · alternate path</span>
+      <h3>HSA beneficiaries</h3>
+      <p>For HSA-eligible users (HDHP path). Spouse pre-filled at 100% Primary. Tax implication callout (spouse vs. non-spouse inheritance). Doesn't apply to Nicole.</p>
+      <div class="filename">screen4_c_hsa_beneficiaries.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen4_d_dcfsa_vs_tax_credit.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">13d</div>
+      <span class="frame-tag">Branch · compare</span>
+      <h3>DCFSA vs. Tax Credit</h3>
+      <p>Side-by-side comparison helping decide between DCFSA pre-tax shelter and the federal Dependent Care Tax Credit. Income-based recommendation.</p>
+      <div class="filename">screen4_d_dcfsa_vs_tax_credit.html</div>
+    </a>
+  </div>
+
+  <!-- ============ PHASE 2 — SUPPLEMENTAL ============ -->
+  <div class="phase-banner phase-2">
+    <div class="phase-eyebrow">Phase 2 · Supplemental benefits</div>
+    <h2>Your benefits — supplemental</h2>
+    <p>Optional cash benefits. Spark recommends Basic Accident; Hospital Indemnity presented neutrally (not directive) with pros/cons since the math is genuinely a judgment call for PPO users.</p>
+  </div>
+
+  <div class="frame-grid">
+    <a class="frame-card main" href="screen5_a_supplemental.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">15</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Supplemental walkthrough</h3>
+      <p>Plain-English explainer of how supplemental differs from medical (cash to you vs. pays the hospital). Accident recommendation + Hospital Indemnity decision-framework card.</p>
+      <div class="filename">screen5_a_supplemental.html</div>
+    </a>
+  </div>
+
+  <!-- ============ PHASE 3 ============ -->
+  <div class="phase-banner phase-3">
+    <div class="phase-eyebrow">Phase 3 · Review &amp; sign</div>
+    <h2>Confirm and submit</h2>
+    <p>Master summary panel with tax savings prominent. Section recap cards with Adjust links per line item. Dependent verification disclaimer. Legal disclosures with explicit acknowledgment checkbox. Submit, then "what happens next" timeline + multiple output options including email-me-a-copy.</p>
+  </div>
+
+  <div class="frame-grid">
+    <a class="frame-card main" href="screen6_a_review.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">16</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Review and Sign</h3>
+      <p>Master summary, section cards with Adjust per line, dependent verification disclaimer, legal acknowledgment with explicit checkbox, Sign and Submit.</p>
+      <div class="filename">screen6_a_review.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen6_b_adjust.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">16b</div>
+      <span class="frame-tag">Branch · adjust from review</span>
+      <h3>Adjust FSA from Review</h3>
+      <p>Tap "Adjust" → inline contribution slider drops into conversation → live tax-savings update → return to Review with totals delta visible.</p>
+      <div class="filename">screen6_b_adjust.html</div>
+    </a>
+
+    <a class="frame-card main" href="screen6_c_submitted.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">17</div>
+      <span class="frame-tag">Main path</span>
+      <h3>Submitted + What's Next</h3>
+      <p>Personalized celebration ("Welcome aboard, Nicole"). Timeline of dates: insurance cards, coverage start, first paycheck deduction, FSA cards, dependent docs, next enrollment.</p>
+      <div class="filename">screen6_c_submitted.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen6_d_email_sent.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">17b</div>
+      <span class="frame-tag">Branch · email a copy</span>
+      <h3>Email a copy + sent confirmation</h3>
+      <p>Email composer with To/From/Subject/Attached + CC-Alex toggle + email preview. Sent confirmation with animated checkmark.</p>
+      <div class="filename">screen6_d_email_sent.html</div>
+    </a>
+
+    <a class="frame-card branch" href="screen6_e_statement.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">17c</div>
+      <span class="frame-tag">Branch · statement document</span>
+      <h3>Enrollment Statement</h3>
+      <p>Clean printable document with all elections, totals, timeline, legal acknowledgment confirmation. Print-optimized. Same content as the email PDF.</p>
+      <div class="filename">screen6_e_statement.html</div>
+    </a>
+  </div>
+
+  <!-- ============ AUXILIARY ============ -->
+  <div class="phase-banner aux">
+    <div class="phase-eyebrow">Auxiliary · cross-cutting</div>
+    <h2>Welcome back / resume</h2>
+    <p>Behavioral state for users who close the browser mid-flow and return later. Auto-save preserves everything; this frame shows the experience of returning 4 days later.</p>
+  </div>
+
+  <div class="frame-grid">
+    <a class="frame-card aux" href="screen_aux_welcome_back.html">
+      <span class="arrow-end">→</span>
+      <div class="frame-num">12</div>
+      <span class="frame-tag">Auxiliary</span>
+      <h3>Welcome back · resume</h3>
+      <p>Pinned welcome-back card with progress recap, time-aware messaging, three actions (Pick up / Show recap / Restart). Conversation history restored below.</p>
+      <div class="filename">screen_aux_welcome_back.html</div>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    <strong style="color: var(--wex-purple);">NGB Spark Enrollment Storyboard</strong> · Reimagined for WEX Spark 2026 · Built as a design exploration ahead of the Karen experience review<br>
+    Storyboard frames are static HTML mockups — in production, all frames represent moments within a single continuous chat surface, not separate pages.<br>
+    <a href="enrollment_journey.html">← Back to journey</a> · <a href="https://github.com/atom9919/ngb-spark-enrollment-storyboard">View source on GitHub</a>
+  </p>
+</footer>
+
+</body>
+</html>

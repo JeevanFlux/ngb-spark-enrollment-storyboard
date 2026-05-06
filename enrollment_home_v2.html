@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WEX Benefits — Welcome, Nicole</title>
+<style>
+:root {
+  --wex-red: #E4002B;
+  --wex-magenta: #C4256C;
+  --wex-purple: #5A1A4F;
+  --wex-deep: #3D0E4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA;
+  --card: #FFFFFF;
+  --text: #1A1A1A;
+  --text-soft: #444;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --border-soft: #EFE6EE;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Soft ambient glow behind the stage */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(196,37,108,0.09) 0%, rgba(90,26,79,0.03) 35%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- Topnav ---------- */
+.topnav {
+  position: relative;
+  z-index: 10;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand-cluster { display: flex; align-items: center; gap: 14px; }
+.wex-logo {
+  font-weight: 900;
+  font-size: 26px;
+  color: var(--wex-red);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.brand-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+}
+.acme-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.acme-chip .acme-mark {
+  display: inline-block;
+  width: 22px; height: 22px;
+  background: #F4F0F4;
+  color: var(--wex-purple);
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 22px;
+  text-align: center;
+}
+.acme-chip .acme-name { font-weight: 600; color: #444; }
+
+.topnav-right { display: flex; align-items: center; gap: 18px; }
+.deadline-pill {
+  background: #FCE8F3;
+  color: var(--wex-magenta);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #F5C6DA;
+}
+.icon-btn {
+  color: #555;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+}
+.icon-btn .dot-badge {
+  position: absolute;
+  top: -2px; right: -2px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--wex-magenta);
+}
+.user-chip { display: flex; align-items: center; gap: 10px; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--spark-grad);
+  color: white;
+  display: inline-block;
+  line-height: 32px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ---------- Stage ---------- */
+.stage {
+  position: relative;
+  z-index: 1;
+  padding: 56px 24px 80px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Spark orb */
+.spark-orb {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  background: var(--spark-grad);
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  color: white;
+  box-shadow: 0 16px 52px rgba(196, 37, 108, 0.32),
+              0 0 0 0 rgba(196, 37, 108, 0.4);
+  animation: orb-pulse 3s ease-in-out infinite;
+}
+@keyframes orb-pulse {
+  0%, 100% {
+    box-shadow: 0 16px 52px rgba(196, 37, 108, 0.32),
+                0 0 0 0 rgba(196, 37, 108, 0.4);
+  }
+  50% {
+    box-shadow: 0 18px 60px rgba(196, 37, 108, 0.4),
+                0 0 0 18px rgba(196, 37, 108, 0);
+  }
+}
+
+.spark-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--wex-magenta);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* Greeting */
+.greeting h1 {
+  font-size: 44px;
+  font-weight: 700;
+  margin: 0 0 18px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+.greeting h1 .accent {
+  background: var(--spark-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.greeting .sub {
+  font-size: 17px;
+  color: var(--text-soft);
+  line-height: 1.65;
+  max-width: 600px;
+  margin: 0 auto 36px;
+}
+
+/* Spark input */
+.spark-input {
+  background: white;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 16px 18px 12px;
+  box-shadow: 0 14px 44px rgba(90, 26, 79, 0.09);
+  text-align: left;
+  margin-bottom: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.spark-input:focus-within {
+  border-color: var(--wex-magenta);
+  box-shadow: 0 14px 50px rgba(196, 37, 108, 0.16);
+}
+.spark-input .input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.spark-input textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 16px;
+  font-family: inherit;
+  color: #222;
+  padding: 10px 4px;
+  min-height: 28px;
+  line-height: 1.4;
+  background: transparent;
+}
+.spark-input textarea::placeholder { color: #9CA3AF; }
+
+.mic-btn, .send-btn {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.mic-btn {
+  background: #F8F1F5;
+  color: var(--wex-magenta);
+  border: 1.5px solid #F1DFE9;
+  position: relative;
+}
+.mic-btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(196, 37, 108, 0.45);
+  opacity: 0;
+  animation: mic-ring 2.6s ease-out infinite;
+}
+@keyframes mic-ring {
+  0% { transform: scale(0.92); opacity: 0; }
+  30% { opacity: 0.55; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+.send-btn {
+  background: var(--send-grad);
+  color: white;
+  font-size: 16px;
+}
+
+.input-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+  padding-left: 6px;
+}
+.input-hint .lock { color: var(--wex-magenta); }
+.input-hint a { color: var(--wex-magenta); text-decoration: none; font-weight: 600; }
+
+/* Or divider */
+.or {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 30px 0 18px;
+}
+.or::before, .or::after {
+  content: '';
+  display: inline-block;
+  width: 60px;
+  height: 1px;
+  background: var(--border);
+  vertical-align: middle;
+  margin: 0 14px;
+}
+
+/* Chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.chip {
+  background: white;
+  border: 1px solid var(--border-soft);
+  color: #333;
+  padding: 11px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s, color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+.chip:hover {
+  border-color: var(--wex-magenta);
+  color: var(--wex-purple);
+  box-shadow: 0 6px 16px rgba(196, 37, 108, 0.12);
+  transform: translateY(-1px);
+}
+.chip .chip-icon { font-size: 15px; }
+
+/* What to expect */
+.expect {
+  margin: 56px auto 0;
+  padding: 22px 18px;
+  background: white;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  max-width: 720px;
+  display: flex;
+  align-items: stretch;
+  text-align: left;
+}
+.expect-step {
+  flex: 1;
+  padding: 0 18px;
+}
+.expect-step + .expect-step {
+  border-left: 1px solid var(--border-soft);
+}
+.expect-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--spark-grad);
+  color: white;
+  display: inline-block;
+  line-height: 22px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.expect-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+.expect-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Social proof */
+.social-proof {
+  margin-top: 36px;
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+}
+.social-proof .icon {
+  color: var(--wex-magenta);
+  font-style: normal;
+  margin-right: 6px;
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip">
+      <span class="acme-mark">A</span>
+      <span class="acme-name">Acme Corp</span>
+    </div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div>
+        <div class="name">Nicole</div>
+        <div class="meta">New hire</div>
+      </div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<main class="stage">
+  <div class="spark-orb">✨</div>
+  <div class="spark-tag">SPARK · YOUR BENEFITS GUIDE</div>
+
+  <div class="greeting">
+    <h1>Hi Nicole.<br><span class="accent">Let's figure this out together.</span></h1>
+    <p class="sub">Your basics are already on file — we won't make you retype the boring stuff. I'm here to help you find coverage that actually fits your life, in plain English. No pressure. Tell me what's on your mind, or pick something below to get started.</p>
+  </div>
+
+  <div class="spark-input">
+    <div class="input-row">
+      <button class="mic-btn" title="Tap to talk — I'll listen">🎙</button>
+      <textarea rows="1" placeholder="Type or talk — about your health, your family, your year ahead, anything..."></textarea>
+      <button class="send-btn">→</button>
+    </div>
+    <div class="input-hint">
+      <span class="lock">🔒</span>
+      What you share with me stays private. Acme only sees your final elections, never our conversation. <a href="#">How your data is used →</a>
+    </div>
+  </div>
+
+  <div class="or">or start with one of these</div>
+
+  <div class="chips">
+    <span class="chip"><span class="chip-icon">👶</span>We're trying for a baby this year</span>
+    <span class="chip"><span class="chip-icon">💊</span>I take meds daily</span>
+    <span class="chip"><span class="chip-icon">🏥</span>I have a procedure planned</span>
+    <span class="chip"><span class="chip-icon">🌿</span>I rarely see a doctor</span>
+    <span class="chip"><span class="chip-icon">👫</span>My partner has insurance too</span>
+    <span class="chip"><span class="chip-icon">💰</span>I want to lower my taxes</span>
+    <span class="chip"><span class="chip-icon">😰</span>I'm worried about a big bill</span>
+  </div>
+
+  <div class="expect">
+    <div class="expect-step">
+      <span class="expect-num">1</span>
+      <div class="expect-title">We talk it through</div>
+      <div class="expect-desc">5–10 minutes, no jargon. You can pause or change directions anytime.</div>
+    </div>
+    <div class="expect-step">
+      <span class="expect-num">2</span>
+      <div class="expect-title">I show you a starter plan</div>
+      <div class="expect-desc">Personalized to your situation, with scenarios so you see how it actually plays out.</div>
+    </div>
+    <div class="expect-step">
+      <span class="expect-num">3</span>
+      <div class="expect-title">You decide when ready</div>
+      <div class="expect-desc">Adjust, compare, or sleep on it. Nothing locks in until you sign at the end.</div>
+    </div>
+  </div>
+
+  <div class="social-proof">
+    <span class="icon">✦</span>I've helped 47 new hires at Acme enroll this month.
+  </div>
+
+</main>
+
+</body>
+</html>

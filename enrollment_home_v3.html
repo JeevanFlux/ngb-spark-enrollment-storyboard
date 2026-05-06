@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Welcome, Nicole</title>
+<style>
+:root {
+  --wex-red: #E4002B;
+  --wex-magenta: #C4256C;
+  --wex-purple: #5A1A4F;
+  --wex-deep: #3D0E4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA;
+  --card: #FFFFFF;
+  --text: #1A1A1A;
+  --text-soft: #444;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --border-soft: #EFE6EE;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Soft ambient glow */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;
+  height: 800px;
+  max-width: 200vw;
+  background: radial-gradient(ellipse, rgba(196,37,108,0.09) 0%, rgba(90,26,79,0.03) 35%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- Topnav (mobile-first) ---------- */
+.topnav {
+  position: relative;
+  z-index: 10;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.brand-cluster { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.wex-logo {
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--wex-red);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.brand-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  flex-shrink: 0;
+  display: none;
+}
+.acme-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.acme-chip .acme-mark {
+  display: inline-block;
+  width: 22px; height: 22px;
+  background: #F4F0F4;
+  color: var(--wex-purple);
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+
+.topnav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.deadline-pill {
+  background: #FCE8F3;
+  color: var(--wex-magenta);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #F5C6DA;
+  white-space: nowrap;
+  display: none;
+}
+.icon-btn {
+  color: #555;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+  width: 36px; height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-btn .dot-badge {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--wex-magenta);
+}
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--spark-grad);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Mobile-only deadline strip below the nav */
+.deadline-strip {
+  background: linear-gradient(90deg, #FCE8F3 0%, #F8F1F5 100%);
+  border-bottom: 1px solid #F5C6DA;
+  padding: 8px 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--wex-magenta);
+  font-weight: 600;
+  position: relative;
+  z-index: 9;
+}
+.deadline-strip .icon { margin-right: 4px; }
+
+/* ---------- Stage ---------- */
+.stage {
+  position: relative;
+  z-index: 1;
+  padding: 30px 18px 56px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Spark orb */
+.spark-orb {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--spark-grad);
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: white;
+  box-shadow: 0 12px 36px rgba(196, 37, 108, 0.32),
+              0 0 0 0 rgba(196, 37, 108, 0.4);
+  animation: orb-pulse 3s ease-in-out infinite;
+}
+@keyframes orb-pulse {
+  0%, 100% {
+    box-shadow: 0 12px 36px rgba(196, 37, 108, 0.32),
+                0 0 0 0 rgba(196, 37, 108, 0.4);
+  }
+  50% {
+    box-shadow: 0 14px 44px rgba(196, 37, 108, 0.4),
+                0 0 0 14px rgba(196, 37, 108, 0);
+  }
+}
+
+.spark-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--wex-magenta);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* Greeting */
+.greeting h1 {
+  font-size: clamp(26px, 5vw, 44px);
+  font-weight: 700;
+  margin: 0 0 14px;
+  letter-spacing: -0.7px;
+  line-height: 1.15;
+}
+.greeting h1 .accent {
+  background: var(--spark-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.greeting .sub {
+  font-size: clamp(14px, 1.6vw, 17px);
+  color: var(--text-soft);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 26px;
+}
+
+/* CTA section header — the "Enroll Now" anchor */
+.cta-header {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--wex-purple);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.cta-header::before, .cta-header::after {
+  content: '';
+  width: 18px;
+  height: 2px;
+  background: var(--wex-magenta);
+  border-radius: 2px;
+}
+
+/* Spark input — primary CTA, visually heavy */
+.spark-input {
+  background: white;
+  border: 2px solid var(--wex-magenta);
+  border-radius: 20px;
+  padding: 14px 12px 12px;
+  box-shadow: 0 18px 56px rgba(196, 37, 108, 0.18),
+              0 0 0 6px rgba(196, 37, 108, 0.06);
+  text-align: left;
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s;
+}
+.spark-input:focus-within {
+  box-shadow: 0 22px 64px rgba(196, 37, 108, 0.24),
+              0 0 0 6px rgba(196, 37, 108, 0.12);
+}
+.spark-input .input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mic-btn {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid #F1DFE9;
+  background: #F8F1F5;
+  color: var(--wex-magenta);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  position: relative;
+}
+.mic-btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(196, 37, 108, 0.45);
+  opacity: 0;
+  animation: mic-ring 2.6s ease-out infinite;
+}
+@keyframes mic-ring {
+  0% { transform: scale(0.92); opacity: 0; }
+  30% { opacity: 0.55; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+.spark-input textarea {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 16px; /* >=16px prevents iOS zoom-on-focus */
+  font-family: inherit;
+  color: #222;
+  padding: 12px 4px;
+  min-height: 28px;
+  line-height: 1.4;
+  background: transparent;
+}
+.spark-input textarea::placeholder { color: #9CA3AF; }
+
+.send-btn {
+  flex-shrink: 0;
+  background: var(--send-grad);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 0 16px;
+  height: 48px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(196, 37, 108, 0.3);
+}
+.send-btn .arrow { font-size: 16px; transition: transform 0.2s; line-height: 1; }
+.send-btn:hover .arrow { transform: translateX(2px); }
+.send-btn .label-long { display: none; }
+.send-btn .label-short { display: inline; }
+
+.input-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 10px;
+  padding: 0 4px;
+  line-height: 1.5;
+}
+.input-hint .lock { color: var(--wex-magenta); flex-shrink: 0; }
+.input-hint a { color: var(--wex-magenta); text-decoration: none; font-weight: 600; }
+
+.voice-tip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--wex-magenta);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* Or divider */
+.or {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 26px 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.or::before, .or::after {
+  content: '';
+  display: block;
+  flex: 0 0 36px;
+  height: 1px;
+  background: var(--border);
+}
+.or-text { white-space: nowrap; }
+
+/* Chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.chip {
+  background: white;
+  border: 1px solid var(--border-soft);
+  color: #333;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s, color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+  min-height: 40px;
+}
+.chip:active, .chip:hover {
+  border-color: var(--wex-magenta);
+  color: var(--wex-purple);
+  box-shadow: 0 6px 16px rgba(196, 37, 108, 0.12);
+  transform: translateY(-1px);
+}
+.chip .chip-icon { font-size: 14px; }
+
+.chip-hint {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+/* What to expect */
+.expect {
+  margin: 36px auto 0;
+  padding: 18px 4px;
+  background: white;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+.expect-step {
+  flex: 1;
+  padding: 0 18px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.expect-num {
+  flex-shrink: 0;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--spark-grad);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.expect-text { flex: 1; min-width: 0; }
+.expect-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  color: var(--text);
+}
+.expect-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Social proof */
+.social-proof {
+  margin-top: 26px;
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  padding: 0 16px;
+}
+.social-proof .icon {
+  color: var(--wex-magenta);
+  font-style: normal;
+  margin-right: 6px;
+}
+
+/* ---------- Tablet+ ---------- */
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .deadline-strip { display: none; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+
+  .stage { padding: 48px 24px 64px; }
+  .spark-orb {
+    width: 80px; height: 80px;
+    font-size: 34px;
+    margin-bottom: 20px;
+  }
+
+  .send-btn { padding: 0 22px; font-size: 14px; }
+  .send-btn .label-long { display: inline; }
+  .send-btn .label-short { display: none; }
+
+  .expect {
+    flex-direction: row;
+    padding: 22px 14px;
+  }
+  .expect-step {
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 18px;
+    border-left: 1px solid var(--border-soft);
+  }
+  .expect-step:first-child { border-left: none; }
+  .expect-num { margin-top: 0; margin-bottom: 4px; }
+}
+
+/* ---------- Desktop+ ---------- */
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .stage { padding: 56px 24px 80px; }
+  .spark-orb {
+    width: 88px; height: 88px;
+    font-size: 38px;
+    margin-bottom: 22px;
+  }
+  .greeting h1 { letter-spacing: -1px; margin-bottom: 18px; }
+  .greeting .sub { line-height: 1.65; margin-bottom: 32px; }
+  .cta-header { font-size: 11px; letter-spacing: 2.2px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip">
+      <span class="acme-mark">A</span>
+      <span class="acme-name">Acme Corp</span>
+    </div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div class="user-chip-text">
+        <div class="name">Nicole</div>
+        <div class="meta">New hire</div>
+      </div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="deadline-strip">
+  <span class="icon">⏱</span>Enrollment closes June 30 · 57 days left
+</div>
+
+<main class="stage">
+  <div class="spark-orb">✨</div>
+  <div class="spark-tag">SPARK · YOUR BENEFITS GUIDE</div>
+
+  <div class="greeting">
+    <h1>Hi Nicole.<br><span class="accent">Let's get your enrollment started — together.</span></h1>
+    <p class="sub">Your basics are already on file — we won't make you retype the boring stuff. I'm here to help you find coverage that actually fits your life, in plain English. No pressure. Tell me what's on your mind, or pick something below to get going.</p>
+  </div>
+
+  <div class="cta-header">Start your enrollment</div>
+
+  <div class="spark-input">
+    <div class="input-row">
+      <button class="mic-btn" aria-label="Tap to talk">🎙</button>
+      <textarea rows="1" aria-label="Tell me about your life" placeholder="Tell me about your life — I'll find coverage that fits..."></textarea>
+      <button class="send-btn" aria-label="Start enrollment">
+        <span class="label-long">Start enrollment</span>
+        <span class="label-short">Start</span>
+        <span class="arrow">→</span>
+      </button>
+    </div>
+    <div class="input-hint">
+      <span class="lock">🔒</span>
+      <span>What you share with me stays private. Acme only sees your final elections, never our conversation. <a href="#">How your data is used →</a></span>
+    </div>
+  </div>
+
+  <div class="voice-tip">🎙 On your phone? Tap the mic and just talk — easier than typing.</div>
+
+  <div class="or">
+    <span class="or-text">or start with one of these</span>
+  </div>
+
+  <div class="chips">
+    <span class="chip"><span class="chip-icon">👶</span>We're trying for a baby</span>
+    <span class="chip"><span class="chip-icon">💊</span>I take meds daily</span>
+    <span class="chip"><span class="chip-icon">🏥</span>I have a procedure planned</span>
+    <span class="chip"><span class="chip-icon">🌿</span>I rarely see a doctor</span>
+    <span class="chip"><span class="chip-icon">👫</span>My partner has insurance too</span>
+    <span class="chip"><span class="chip-icon">💰</span>I want to lower my taxes</span>
+    <span class="chip"><span class="chip-icon">😰</span>I'm worried about a big bill</span>
+  </div>
+
+  <div class="chip-hint">Tap one to start — you can edit it before sending.</div>
+
+  <div class="expect">
+    <div class="expect-step">
+      <span class="expect-num">1</span>
+      <div class="expect-text">
+        <div class="expect-title">We talk it through</div>
+        <div class="expect-desc">5–10 minutes, no jargon. Pause or change directions anytime.</div>
+      </div>
+    </div>
+    <div class="expect-step">
+      <span class="expect-num">2</span>
+      <div class="expect-text">
+        <div class="expect-title">I show you a starter plan</div>
+        <div class="expect-desc">Personalized to your situation, with scenarios so you see how it actually plays out.</div>
+      </div>
+    </div>
+    <div class="expect-step">
+      <span class="expect-num">3</span>
+      <div class="expect-text">
+        <div class="expect-title">You decide when ready</div>
+        <div class="expect-desc">Adjust, compare, or sleep on it. Nothing locks in until you sign at the end.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="social-proof">
+    <span class="icon">✦</span>I've helped 47 new hires at Acme enroll this month.
+  </div>
+
+</main>
+
+</body>
+</html>

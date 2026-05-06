@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 15 · Supplemental benefits)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32; --green-bg: #E8F5E9;
+  --amber: #B5832C; --amber-bg: #FFFCF7;
+  --neutral-blue: #3730A3; --neutral-blue-bg: #EEF2FF;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; white-space: nowrap; display: none; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; position: relative; }
+.icon-btn .dot-badge { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--wex-magenta); }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: white; border-bottom: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: #F0E5EE; border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+.phase-percent { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+.file-banner { background: linear-gradient(90deg, #FCF6FA 0%, #F4ECF4 100%); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--wex-purple); font-weight: 600; }
+.file-banner .pill { background: white; border: 1px solid var(--border); padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+
+.app-shell { display: flex; }
+.conversation { flex: 1; padding: 24px 16px 130px; min-width: 0; }
+.conv-inner { max-width: 760px; margin: 0 auto; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 580px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; }
+.user-bubble.tap .check { color: var(--green); margin-right: 6px; }
+
+/* Explainer card — what is supplemental */
+.explainer {
+  background: white;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 0 0 16px 42px;
+  max-width: 640px;
+  box-shadow: 0 4px 14px rgba(90, 26, 79, 0.04);
+}
+.explainer .head {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--wex-purple); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
+.explainer p { margin: 0 0 10px; font-size: 13px; color: var(--text); line-height: 1.6; }
+.explainer p:last-child { margin-bottom: 0; }
+.explainer p strong { color: var(--wex-purple); }
+.explainer .compare-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-top: 10px;
+}
+.explainer .compare-cell {
+  padding: 10px 12px;
+  background: #FCFAFC;
+  border-radius: 8px;
+  font-size: 12px; line-height: 1.55;
+}
+.explainer .compare-cell strong { display: block; margin-bottom: 4px; color: var(--wex-purple); font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; }
+
+/* Compact recommendation card — for Accident */
+.compact-rec {
+  background: white;
+  border: 1.5px solid var(--wex-magenta);
+  border-radius: 12px;
+  margin: 0 0 12px 42px;
+  max-width: 580px;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.12);
+  overflow: hidden;
+}
+.compact-rec-head {
+  padding: 12px 16px;
+  background: linear-gradient(90deg, #FCF6FA 0%, #F4ECF4 100%);
+  border-bottom: 1px solid var(--border-soft);
+  display: flex; gap: 12px; align-items: center;
+}
+.compact-rec-head .icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: white; border: 1.5px solid var(--wex-magenta);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.compact-rec-head .meta { flex: 1; min-width: 0; }
+.compact-rec-head .eyebrow {
+  font-size: 9px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 2px;
+}
+.compact-rec-head .name { font-size: 15px; font-weight: 700; line-height: 1.2; }
+.compact-rec-head .cost {
+  font-size: 18px; font-weight: 800; color: var(--wex-purple);
+  flex-shrink: 0; text-align: right;
+}
+.compact-rec-head .cost-period { font-size: 10px; font-weight: 600; color: var(--muted); display: block; }
+
+.compact-rec-body { padding: 12px 16px 14px; }
+.compact-rec-tagline {
+  font-size: 12.5px; color: #555; line-height: 1.5; font-style: italic;
+  margin: 0 0 10px;
+}
+.compact-rec-why { list-style: none; padding: 0; margin: 0 0 10px; }
+.compact-rec-why li {
+  display: flex; gap: 8px; padding: 4px 0;
+  font-size: 12.5px; line-height: 1.5; color: var(--text);
+}
+.compact-rec-why .check { color: var(--green); font-weight: 800; flex-shrink: 0; }
+.compact-rec-why strong { color: var(--wex-purple); }
+
+.coverage-block {
+  font-size: 12px; color: #555; line-height: 1.55;
+  padding: 10px 12px; background: #FCFAFC; border-radius: 6px;
+  border-left: 3px solid var(--wex-magenta);
+  margin-bottom: 10px;
+}
+.coverage-block strong { color: var(--wex-purple); }
+
+.compact-rec-actions {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.compact-rec-actions .qr-chip-sm {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+}
+.compact-rec-actions .qr-chip-sm.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 4px 12px rgba(196, 37, 108, 0.22);
+}
+
+/* Hospital Indemnity — neutral decision framework card */
+.decision-card {
+  background: white;
+  border: 1.5px solid var(--neutral-blue);
+  border-radius: 12px;
+  margin: 0 0 12px 42px;
+  max-width: 700px;
+  box-shadow: 0 6px 18px rgba(67, 56, 202, 0.08);
+  overflow: hidden;
+}
+.dc-head {
+  padding: 14px 18px;
+  background: linear-gradient(90deg, var(--neutral-blue-bg) 0%, #E0E7FF 100%);
+  border-bottom: 1px solid #C7D2FE;
+  display: flex; gap: 12px; align-items: center;
+}
+.dc-head .icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: white; border: 1.5px solid var(--neutral-blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0; color: var(--neutral-blue);
+}
+.dc-head .meta { flex: 1; }
+.dc-head .eyebrow {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--neutral-blue); margin-bottom: 2px;
+}
+.dc-head .title { font-size: 16px; font-weight: 700; line-height: 1.2; }
+.dc-head .sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+.dc-body { padding: 16px 18px; }
+
+/* Spark's read */
+.sparks-read {
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border: 1px solid #EAD8E1;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex; gap: 10px;
+}
+.sparks-read .icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--spark-grad); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+}
+.sparks-read .content { flex: 1; }
+.sparks-read .label {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 4px;
+}
+.sparks-read p {
+  margin: 0 0 8px; font-size: 13px; color: var(--text); line-height: 1.6;
+}
+.sparks-read p:last-child { margin-bottom: 0; }
+.sparks-read p strong { color: var(--wex-purple); }
+
+/* Pros / Cons grid */
+.pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.pc-cell {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.pc-cell.pros { background: var(--green-bg); border: 1px solid #A7E3AB; }
+.pc-cell.cons { background: #FEF3C7; border: 1px solid #FDE68A; }
+.pc-cell .pc-head {
+  font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+}
+.pc-cell.pros .pc-head { color: var(--green); }
+.pc-cell.cons .pc-head { color: var(--amber); }
+.pc-cell ul { list-style: none; padding: 0; margin: 0; }
+.pc-cell ul li {
+  padding: 3px 0; padding-left: 14px; position: relative;
+  font-size: 12px; color: #444;
+}
+.pc-cell ul li::before {
+  position: absolute; left: 0; font-weight: 800;
+}
+.pc-cell.pros ul li::before { content: '+'; color: var(--green); }
+.pc-cell.cons ul li::before { content: '−'; color: var(--amber); }
+
+/* Tier comparison — equal weight 3 cards */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.tier {
+  background: #FCFAFC;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 14px 14px 16px;
+  display: flex; flex-direction: column; gap: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.tier:hover { border-color: var(--neutral-blue); box-shadow: 0 4px 12px rgba(67, 56, 202, 0.1); }
+.tier .t-tag { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+.tier .t-name { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.3; }
+.tier .t-cost { font-size: 18px; font-weight: 800; color: var(--text); line-height: 1.1; font-variant-numeric: tabular-nums; margin-top: 4px; letter-spacing: -0.3px; }
+.tier .t-period { font-size: 10px; color: var(--muted); font-weight: 600; }
+.tier ul { list-style: none; padding: 0; margin: 8px 0 0; flex: 1; }
+.tier ul li {
+  padding: 3px 0; padding-left: 14px; position: relative;
+  font-size: 11px; color: #555; line-height: 1.4;
+}
+.tier ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.tier.waive ul li::before { content: '—'; color: var(--muted); }
+.tier .t-best-for { font-size: 10px; color: var(--muted); font-style: italic; margin-top: 8px; padding-top: 8px; border-top: 1px solid #EFE6EE; line-height: 1.5; }
+
+/* Action chips for HI */
+.dc-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.dc-actions .qr-chip-sm {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  cursor: pointer;
+}
+.dc-actions .qr-chip-sm.tier-pick { border-color: var(--neutral-blue); color: var(--neutral-blue); }
+
+/* Wrap-up summary */
+.wrap-summary {
+  background: white;
+  border: 2px solid var(--green);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 0 0 14px 42px;
+  max-width: 580px;
+  box-shadow: 0 6px 18px rgba(46, 125, 50, 0.1);
+}
+.wrap-summary .head {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
+.wrap-summary table { width: 100%; font-size: 13px; line-height: 1.5; }
+.wrap-summary table tr td { padding: 4px 0; }
+.wrap-summary table tr td:last-child { text-align: right; font-weight: 700; }
+.wrap-summary .total-row td {
+  border-top: 1.5px solid #C7E2C9; padding-top: 8px;
+  font-weight: 800; color: var(--wex-purple);
+}
+.wrap-summary .total-row td:last-child { font-size: 15px; }
+
+.action-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px 42px; max-width: 580px; }
+.qr-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 11px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  cursor: pointer;
+}
+.qr-chip.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.28); padding: 11px 22px; font-weight: 700;
+}
+
+/* File panel */
+.file-panel { width: 320px; background: white; border-left: 1px solid var(--border); padding: 22px 18px 130px; flex-shrink: 0; display: none; max-height: calc(100vh - 100px); overflow-y: auto; }
+.file-panel h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); margin: 0 0 6px; font-weight: 700; }
+.file-panel .file-sub { font-size: 11px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+.file-section { margin-bottom: 16px; }
+.file-section h4 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888; margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
+.file-section h4 .check-badge { background: #E8F5E9; color: var(--green); font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 700; letter-spacing: 0.4px; }
+.file-section h4 .progress-badge { background: #FCE8F3; color: var(--wex-magenta); font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 700; letter-spacing: 0.4px; }
+.file-section.benefits { background: #FCF6FA; border: 1px solid #EAD8E1; border-radius: 10px; padding: 12px 14px; }
+.file-item { padding: 6px 0; border-bottom: 1px solid #F4F0F4; font-size: 12px; line-height: 1.4; }
+.file-section.benefits .file-item { border-bottom-color: #EAD8E1; }
+.file-item:last-child { border-bottom: none; }
+.file-item .label { color: var(--muted); display: block; font-size: 10px; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.file-item .value { color: var(--text); font-weight: 500; }
+.file-item .source-tag { font-size: 8.5px; padding: 2px 6px; border-radius: 3px; font-weight: 700; letter-spacing: 0.4px; display: inline-block; margin-top: 2px; }
+.file-item .source-tag.confirmed { background: #E8F5E9; color: var(--green); }
+
+.docked-input { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 720px; background: white; border: 2px solid var(--wex-magenta); border-radius: 16px; padding: 6px 8px 6px 12px; box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16), 0 0 0 4px rgba(196, 37, 108, 0.05); display: flex; align-items: center; gap: 8px; z-index: 20; }
+.docked-input .mic-btn { width: 40px; height: 40px; border-radius: 50%; background: #F8F1F5; color: var(--wex-magenta); border: 1.5px solid #F1DFE9; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.docked-input textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; font-size: 14px; font-family: inherit; padding: 10px 4px; min-height: 24px; line-height: 1.4; background: transparent; }
+.docked-input textarea::placeholder { color: #9CA3AF; }
+.docked-input .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--send-grad); color: white; border: none; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .file-banner { display: none; }
+  .file-panel { display: block; }
+  .conversation { padding: 36px 36px 130px; }
+  .docked-input { left: calc(50% - 160px); width: calc(100% - 352px); }
+}
+@media (max-width: 700px) {
+  .pros-cons { grid-template-columns: 1fr; }
+  .tier-grid { grid-template-columns: 1fr; }
+  .explainer .compare-row { grid-template-columns: 1fr; }
+  .explainer, .compact-rec, .decision-card, .wrap-summary, .action-row, .spark-msg, .user-msg { margin-left: 0; }
+  .user-msg { margin-right: 0; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">New hire</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · Supplemental benefits</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 88%"></div></div>
+  <span class="phase-percent">~88% — last bit of Phase 2</span>
+</div>
+
+<div class="file-banner">
+  <span>Your file · all main benefits set, 2 optional left</span>
+  <span class="pill">View ↓</span>
+</div>
+
+<div class="app-shell">
+
+  <main class="conversation">
+    <div class="conv-inner">
+
+      <!-- Spark intro -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Last bit of Phase 2: <strong>supplemental benefits</strong>. These are <strong>optional</strong>, and they work differently from your medical insurance — let me explain how before we look at the two Acme offers.
+        </div>
+      </div>
+
+      <!-- Explainer -->
+      <article class="explainer">
+        <div class="head">💡 What's supplemental insurance, exactly?</div>
+        <p>Your <strong>medical insurance</strong> pays the hospital and doctors when you use care. Supplemental insurance is different — it pays <strong>you</strong> directly, in cash, when something specific happens (an accident, a hospital stay).</p>
+        <p>That cash isn't earmarked for medical bills. It's yours to use however you need — your deductible, your copays, time off work, childcare during a hospital stay, food, transport, anything.</p>
+        <div class="compare-row">
+          <div class="compare-cell">
+            <strong>Medical insurance</strong>
+            Pays the hospital. Covers your medical bills directly. Already in your file: PPO with $4,500 family OOP max.
+          </div>
+          <div class="compare-cell">
+            <strong>Supplemental insurance</strong>
+            Pays you cash. Covers everything else — lost wages, family transport, the deductible itself, etc.
+          </div>
+        </div>
+      </article>
+
+      <!-- Spark transition -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Acme offers two: <strong>Accident Insurance</strong> and <strong>Hospital Indemnity</strong>. Starting with Accident.
+        </div>
+      </div>
+
+      <!-- ============ ACCIDENT INSURANCE ============ -->
+      <article class="compact-rec">
+        <div class="compact-rec-head">
+          <div class="icon">🩹</div>
+          <div class="meta">
+            <div class="eyebrow">✨ Accident insurance · my recommendation</div>
+            <div class="name">Acme Accident — Basic tier</div>
+          </div>
+          <div class="cost">$5.77<span class="cost-period">/2wk</span></div>
+        </div>
+
+        <div class="compact-rec-body">
+          <p class="compact-rec-tagline">Cash payouts when an accident lands you in the ER, urgent care, or with a fracture. Toddlers + active parents = real risk; this is cheap protection.</p>
+
+          <ul class="compact-rec-why">
+            <li><span class="check">✓</span><span>Maya's <strong>2 years old</strong> — toddler accident risk is real (falls, sprains, ER trips). National data: 1 in 10 toddlers has at least one ER visit per year.</span></li>
+            <li><span class="check">✓</span><span>Your PPO has a <strong>$1,500 family deductible</strong> — an ER visit could cost $250+ out of pocket even with insurance. Basic accident's $250 ER payout effectively covers that gap.</span></li>
+            <li><span class="check">✓</span><span>Cheap — <strong>$5.77/2wk</strong> ($150/year). Less than your dental premium.</span></li>
+          </ul>
+
+          <div class="coverage-block">
+            <strong>What Basic pays out (cash to you):</strong> Emergency Room <strong>$250</strong> · Ambulance <strong>$150</strong> · Fractures up to <strong>$2,500</strong> · Hospital Admission <strong>$1,000</strong>. Pays per incident, not per year. Stacks on top of medical insurance.
+          </div>
+
+          <div class="compact-rec-actions">
+            <button class="qr-chip-sm primary">✓ Yes, Basic Accident</button>
+            <button class="qr-chip-sm">⇄ Compare to Enhanced</button>
+            <button class="qr-chip-sm">Skip — no accident insurance</button>
+            <button class="qr-chip-sm">🔬 Technical details</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- User accepts -->
+      <div class="user-msg">
+        <div class="user-bubble tap"><span class="check">✓</span>Yes, Basic Accident</div>
+      </div>
+
+      <!-- Spark transition to HI -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Locked in. Now <strong>Hospital Indemnity</strong> — and this one's a judgment call. <strong>I'm going to lay out the trade-offs honestly</strong> and let you decide. There's no clear-cut "right" answer for your situation.
+        </div>
+      </div>
+
+      <!-- ============ HOSPITAL INDEMNITY — NEUTRAL DECISION CARD ============ -->
+      <article class="decision-card">
+
+        <div class="dc-head">
+          <div class="icon">🏥</div>
+          <div class="meta">
+            <div class="eyebrow">⚖ Hospital indemnity · your call</div>
+            <div class="title">Worth thinking about, but not a slam-dunk</div>
+            <div class="sub">Cash benefit when someone in your family is admitted to a hospital</div>
+          </div>
+        </div>
+
+        <div class="dc-body">
+
+          <!-- Spark's read -->
+          <div class="sparks-read">
+            <div class="icon">✨</div>
+            <div class="content">
+              <div class="label">Spark's read for your situation</div>
+              <p>Hospital indemnity is most valuable for people on <strong>HDHP</strong> medical plans (high deductible, big out-of-pocket exposure) or households with no other safety net. <strong>You're on PPO</strong> with a $4,500 family OOP max — solid coverage. So the financial argument here is weaker than it would be for someone on HDHP.</p>
+              <p>That said: hospital stays bring non-medical costs (lost wages, childcare for Maya during a stay, transport, food). <strong>Some PPO families still keep this for peace of mind</strong>; others skip it as duplicate protection. Either is defensible. Up to you.</p>
+            </div>
+          </div>
+
+          <!-- Pros / Cons -->
+          <div class="pros-cons">
+            <div class="pc-cell pros">
+              <div class="pc-head">✓ Reasons to keep</div>
+              <ul>
+                <li>Cash for non-medical costs during a stay</li>
+                <li>Stacks on top of your medical insurance</li>
+                <li>Maya's 2 — pediatric hospital stays do happen</li>
+                <li>Peace of mind with a young kid</li>
+              </ul>
+            </div>
+            <div class="pc-cell cons">
+              <div class="pc-head">− Reasons to skip</div>
+              <ul>
+                <li>Your PPO already caps your worst case at $4,500</li>
+                <li>Adds $8.31–$19.62/2wk to already-significant deductions</li>
+                <li>Hospital admissions are statistically rare (3% of pop/year)</li>
+                <li>FSA + DCFSA already shelter pre-tax money</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Three tiers, equal weight -->
+          <div class="tier-grid">
+
+            <div class="tier">
+              <span class="t-tag">Lighter coverage</span>
+              <div class="t-name">Basic Hospital Indemnity</div>
+              <div class="t-cost">$8.31<span class="t-period">/2wk</span></div>
+              <ul>
+                <li>Hospital admission: $1,500</li>
+                <li>Daily stay: $200/day</li>
+                <li>ICU stay: $400/day</li>
+                <li>Outpatient surgery: $500</li>
+              </ul>
+              <div class="t-best-for">Best for: PPO users who want a small cash buffer for non-medical hospital costs.</div>
+            </div>
+
+            <div class="tier">
+              <span class="t-tag">Heavier coverage</span>
+              <div class="t-name">Enhanced Hospital Indemnity</div>
+              <div class="t-cost">$19.62<span class="t-period">/2wk</span></div>
+              <ul>
+                <li>Hospital admission: $3,000</li>
+                <li>Daily stay: $400/day</li>
+                <li>Outpatient surgery: $1,000</li>
+                <li>Emergency transport: $500</li>
+                <li>Rehabilitation: $150/day</li>
+              </ul>
+              <div class="t-best-for">Best for: HDHP users with chronic conditions, or single-income households without disability insurance.</div>
+            </div>
+
+            <div class="tier waive">
+              <span class="t-tag">No coverage</span>
+              <div class="t-name">Waive — no hospital indemnity</div>
+              <div class="t-cost">$0<span class="t-period">/2wk</span></div>
+              <ul>
+                <li>Rely on PPO + emergency savings</li>
+                <li>No additional cash payout if hospitalized</li>
+                <li>Reduce paycheck deductions</li>
+                <li>Can revisit at next enrollment</li>
+              </ul>
+              <div class="t-best-for">Best for: PPO users with strong coverage who'd rather not duplicate protection.</div>
+            </div>
+
+          </div>
+
+          <!-- Action chips -->
+          <div class="dc-actions">
+            <button class="qr-chip-sm tier-pick">Pick Basic ($8.31/2wk)</button>
+            <button class="qr-chip-sm tier-pick">Pick Enhanced ($19.62/2wk)</button>
+            <button class="qr-chip-sm tier-pick">Waive — I'm good without</button>
+            <button class="qr-chip-sm">Tell me when this is genuinely worth it</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- User picks -->
+      <div class="user-msg">
+        <div class="user-bubble tap"><span class="check">✓</span>Waive — I'm good without</div>
+      </div>
+
+      <!-- Spark acknowledges -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Reasonable call given your PPO. <strong>You can always revisit this at your next open enrollment</strong> if your situation changes — new chronic condition, switching to HDHP, etc. Locked in: no hospital indemnity this year.
+        </div>
+      </div>
+
+      <!-- Wrap-up summary -->
+      <article class="wrap-summary">
+        <div class="head">✓ Supplemental · all set</div>
+        <table>
+          <tr><td>Accident · Basic</td><td>$5.77 / 2wk</td></tr>
+          <tr><td>Hospital indemnity</td><td style="color:var(--muted);font-weight:500;">Waived</td></tr>
+          <tr class="total-row"><td>Total · supplemental</td><td>$5.77 / 2wk</td></tr>
+        </table>
+      </article>
+
+      <!-- Phase 2 wrap + Phase 3 handoff -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          That's <strong>all of Phase 2 done</strong> — health plans, spending accounts, supplemental. Big takeaway: you've sheltered <strong>~$2,100 in taxes</strong>, picked plans that fit your family, and skipped what didn't make sense.<br><br>
+          Last phase: <strong>review &amp; sign</strong>. I'll show you everything in one clean recap, you check it over, sign once, and you're done. Ready?
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="qr-chip primary">✓ Yes, take me to review</button>
+        <button class="qr-chip">📋 Show running totals first</button>
+        <button class="qr-chip">↩ Adjust a supplemental pick</button>
+      </div>
+
+    </div>
+  </main>
+
+  <aside class="file-panel">
+    <h3>Your file</h3>
+    <p class="file-sub">Phase 2 done. Review &amp; sign next.</p>
+
+    <div class="file-section benefits">
+      <h4>Your benefits <span class="check-badge">✓ PHASE 2 DONE</span></h4>
+      <div class="file-item">
+        <span class="label">Medical</span>
+        <span class="value">Enhanced PPO · $148.50/2wk</span>
+        <span class="source-tag confirmed">✓</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Dental</span>
+        <span class="value">Premium · $18.50/2wk</span>
+        <span class="source-tag confirmed">✓</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Vision</span>
+        <span class="value">Basic · $5.00/2wk</span>
+        <span class="source-tag confirmed">✓</span>
+      </div>
+      <div class="file-item">
+        <span class="label">FSA</span>
+        <span class="value">$2,000/yr · ~$76.92/2wk</span>
+        <span class="source-tag confirmed">✓</span>
+      </div>
+      <div class="file-item">
+        <span class="label">DCFSA</span>
+        <span class="value">$5,000/yr · ~$192.31/2wk</span>
+        <span class="source-tag confirmed">✓</span>
+      </div>
+      <div class="file-item">
+        <span class="label">HRA</span>
+        <span class="value">$500/yr · Acme automatic</span>
+        <span class="source-tag confirmed">✓ FREE</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Accident insurance</span>
+        <span class="value">Basic · $5.77/2wk</span>
+        <span class="source-tag confirmed">✓</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Hospital indemnity</span>
+        <span class="value" style="color:var(--muted);">Waived</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Total / paycheck</span>
+        <span class="value" style="color:var(--wex-purple);font-weight:700;">$447.00 / 2wk</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Tax savings (est.)</span>
+        <span class="value" style="color:var(--green);font-weight:700;">~$2,100 / yr</span>
+      </div>
+    </div>
+
+    <div class="file-section">
+      <h4>Personal · Address · Contact <span class="check-badge">✓ CONFIRMED</span></h4>
+      <div class="file-item">
+        <span class="label">Nicole Smith · 28 · married</span>
+        <span class="value">123 Main Street, NY 10011</span>
+      </div>
+    </div>
+
+    <div class="file-section">
+      <h4>Household <span class="check-badge">✓ CONFIRMED</span></h4>
+      <div class="file-item">
+        <span class="label">Spouse · covered</span>
+        <span class="value">Alex Smith, 35</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Daughter · covered</span>
+        <span class="value">Maya Smith, 2</span>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Or type to keep going..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

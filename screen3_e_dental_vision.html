@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 11 · Dental + Vision compressed)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; white-space: nowrap; display: none; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; position: relative; }
+.icon-btn .dot-badge { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--wex-magenta); }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: white; border-bottom: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: #F0E5EE; border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+.phase-percent { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+.file-banner { background: linear-gradient(90deg, #FCF6FA 0%, #F4ECF4 100%); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--wex-purple); font-weight: 600; }
+.file-banner .pill { background: white; border: 1px solid var(--border); padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+
+.app-shell { display: flex; }
+.conversation { flex: 1; padding: 24px 16px 130px; min-width: 0; }
+.conv-inner { max-width: 700px; margin: 0 auto; }
+
+.scrolled-back { opacity: 0.55; }
+.scrolled-divider { text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin: 6px 0 18px; display: flex; align-items: center; gap: 10px; }
+.scrolled-divider::before, .scrolled-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 540px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+.user-bubble { background: var(--spark-grad); color: white; border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; line-height: 1.5; max-width: 480px; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.18); }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); }
+.user-bubble.tap .check { color: var(--green); margin-right: 6px; font-weight: 700; }
+
+/* COMPACT recommendation card — smaller than medical hero */
+.compact-rec {
+  background: white;
+  border: 1.5px solid var(--wex-magenta);
+  border-radius: 12px;
+  margin: 0 0 12px 42px;
+  max-width: 540px;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.12);
+  overflow: hidden;
+}
+.compact-rec-head {
+  padding: 12px 16px;
+  background: linear-gradient(90deg, #FCF6FA 0%, #F4ECF4 100%);
+  border-bottom: 1px solid var(--border-soft);
+  display: flex; gap: 12px; align-items: center;
+}
+.compact-rec-head .icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: white; border: 1.5px solid var(--wex-magenta);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.compact-rec-head .meta { flex: 1; min-width: 0; }
+.compact-rec-head .eyebrow {
+  font-size: 9px; font-weight: 800; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--wex-magenta);
+  margin-bottom: 2px;
+}
+.compact-rec-head .name { font-size: 15px; font-weight: 700; line-height: 1.2; }
+.compact-rec-head .cost {
+  font-size: 18px; font-weight: 800; color: var(--wex-purple);
+  flex-shrink: 0; text-align: right;
+}
+.compact-rec-head .cost-period { font-size: 10px; font-weight: 600; color: var(--muted); display: block; }
+
+.compact-rec-body {
+  padding: 12px 16px 14px;
+}
+.compact-rec-tagline {
+  font-size: 12.5px; color: #555; line-height: 1.5; font-style: italic;
+  margin: 0 0 10px;
+}
+.compact-rec-why {
+  list-style: none; padding: 0; margin: 0 0 10px;
+}
+.compact-rec-why li {
+  display: flex; gap: 8px; padding: 4px 0;
+  font-size: 12.5px; line-height: 1.5; color: var(--text);
+}
+.compact-rec-why .check { color: var(--green); font-weight: 800; flex-shrink: 0; }
+.compact-rec-why strong { color: var(--wex-purple); }
+
+.compact-rec-coverage {
+  font-size: 12px; color: #555; line-height: 1.55;
+  padding: 10px 12px; background: #FCFAFC; border-radius: 6px;
+  border-left: 3px solid var(--wex-magenta);
+  margin-bottom: 10px;
+}
+.compact-rec-coverage strong { color: var(--wex-purple); }
+.compact-rec-coverage .em { color: var(--green); font-weight: 700; }
+
+.compact-rec-actions {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.compact-rec-actions .qr-chip-sm {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+}
+.compact-rec-actions .qr-chip-sm.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 4px 12px rgba(196, 37, 108, 0.22);
+}
+
+/* Honest comparison hint inside vision card */
+.honest-hint {
+  background: #FFF8E5;
+  border: 1px solid #F0DAA8;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 11.5px;
+  color: #6B5316;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.honest-hint strong { color: #8C6A1F; }
+
+/* Wrap-up summary card */
+.wrap-summary {
+  background: white;
+  border: 2px solid var(--green);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 0 0 12px 42px;
+  max-width: 540px;
+  box-shadow: 0 6px 18px rgba(46, 125, 50, 0.1);
+}
+.wrap-summary .head {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
+.wrap-summary table {
+  width: 100%; font-size: 13px; line-height: 1.5;
+}
+.wrap-summary table tr td { padding: 4px 0; }
+.wrap-summary table tr td:last-child { text-align: right; font-weight: 700; }
+.wrap-summary .total-row td {
+  border-top: 1.5px solid #C7E2C9; padding-top: 8px; margin-top: 8px;
+  font-weight: 800; color: var(--wex-purple);
+}
+.wrap-summary .total-row td:last-child { font-size: 16px; }
+
+/* Action row */
+.action-row {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px 42px; max-width: 540px;
+}
+.qr-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 11px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+.qr-chip.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.28); padding: 11px 22px;
+  font-size: 13.5px; font-weight: 700;
+}
+
+/* File panel */
+.file-panel { width: 320px; background: white; border-left: 1px solid var(--border); padding: 22px 18px 130px; flex-shrink: 0; display: none; max-height: calc(100vh - 100px); overflow-y: auto; }
+.file-panel h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); margin: 0 0 6px; font-weight: 700; }
+.file-panel .file-sub { font-size: 11px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+.file-section { margin-bottom: 18px; }
+.file-section h4 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888; margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
+.file-section h4 .check-badge { background: #E8F5E9; color: var(--green); font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 700; letter-spacing: 0.4px; }
+.file-section h4 .progress-badge { background: #FCE8F3; color: var(--wex-magenta); font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 700; letter-spacing: 0.4px; }
+.file-section.benefits { background: #FCF6FA; border: 1px solid #EAD8E1; border-radius: 10px; padding: 12px 14px; }
+.file-item { padding: 7px 0; border-bottom: 1px solid #F4F0F4; font-size: 12px; line-height: 1.4; }
+.file-section.benefits .file-item { border-bottom-color: #EAD8E1; }
+.file-item:last-child { border-bottom: none; }
+.file-item .label { color: var(--muted); display: block; font-size: 10px; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.file-item .value { color: var(--text); font-weight: 500; }
+.file-item .source-tag { font-size: 8.5px; padding: 2px 6px; border-radius: 3px; font-weight: 700; letter-spacing: 0.4px; display: inline-block; margin-top: 2px; }
+.file-item .source-tag.confirmed { background: #E8F5E9; color: var(--green); }
+.file-item .source-tag.pending { background: #FCE8F3; color: var(--wex-magenta); }
+.file-footer { margin-top: 22px; padding: 12px; background: #FCFAFC; border-radius: 8px; border: 1px solid var(--border-soft); font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+.docked-input { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 720px; background: white; border: 2px solid var(--wex-magenta); border-radius: 16px; padding: 6px 8px 6px 12px; box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16), 0 0 0 4px rgba(196, 37, 108, 0.05); display: flex; align-items: center; gap: 8px; z-index: 20; }
+.docked-input .mic-btn { width: 40px; height: 40px; border-radius: 50%; background: #F8F1F5; color: var(--wex-magenta); border: 1.5px solid #F1DFE9; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.docked-input textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; font-size: 14px; font-family: inherit; padding: 10px 4px; min-height: 24px; line-height: 1.4; background: transparent; }
+.docked-input textarea::placeholder { color: #9CA3AF; }
+.docked-input .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--send-grad); color: white; border: none; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .file-banner { display: none; }
+  .file-panel { display: block; }
+  .conversation { padding: 36px 36px 130px; }
+  .docked-input { left: calc(50% - 160px); width: calc(100% - 352px); }
+}
+@media (max-width: 640px) {
+  .compact-rec, .wrap-summary, .action-row, .spark-msg { margin-left: 0 !important; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">New hire</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · Health plans</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 35%"></div></div>
+  <span class="phase-percent">~35% — almost done with health plans</span>
+</div>
+
+<div class="file-banner">
+  <span>Your file · Medical locked, dental + vision next</span>
+  <span class="pill">View ↓</span>
+</div>
+
+<div class="app-shell">
+
+  <main class="conversation">
+    <div class="conv-inner">
+
+      <div class="scrolled-back">
+        <div class="user-msg">
+          <div class="user-bubble tap"><span class="check">✓</span>Choose Enhanced PPO</div>
+        </div>
+        <div class="spark-msg">
+          <div class="spark-orb-sm">✨</div>
+          <div class="spark-bubble">Locked in. Enhanced PPO for the family at $148.50/2wk.</div>
+        </div>
+      </div>
+
+      <div class="scrolled-divider"><span>moving on to dental + vision</span></div>
+
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Now <strong>dental and vision</strong> — these are quicker decisions for most families. I have a recommendation for each. Take 10 seconds, accept or push back.
+        </div>
+      </div>
+
+      <!-- DENTAL recommendation -->
+      <article class="compact-rec">
+        <div class="compact-rec-head">
+          <div class="icon">🦷</div>
+          <div class="meta">
+            <div class="eyebrow">✨ Dental · my recommendation</div>
+            <div class="name">Acme Dental Premium</div>
+          </div>
+          <div class="cost">$18.50<span class="cost-period">/2wk</span></div>
+        </div>
+
+        <div class="compact-rec-body">
+          <p class="compact-rec-tagline">Worth the extra $6.50/2wk for families with kids — Maya will eventually need orthodontics.</p>
+
+          <ul class="compact-rec-why">
+            <li><span class="check">✓</span><span>Higher annual max (<strong>$2,000 vs $1,500</strong>) covers crowns, root canals, and major work without you hitting the cap.</span></li>
+            <li><span class="check">✓</span><span>Better orthodontia coverage — useful when Maya hits ortho age in a few years.</span></li>
+            <li><span class="check">✓</span><span>Same 100% preventive coverage as Basic — cleanings and exams are free either way.</span></li>
+          </ul>
+
+          <div class="compact-rec-coverage">
+            <strong>What you'd actually pay:</strong> Cleanings + exams 2× a year · <span class="em">free</span>. Filling or crown when needed · 80% covered by insurance, 20% by you. Orthodontics when Maya's ready · 50% covered up to $2,000/year.
+          </div>
+
+          <div class="compact-rec-actions">
+            <button class="qr-chip-sm primary">✓ Yes, Premium</button>
+            <button class="qr-chip-sm">⇄ Compare to Basic</button>
+            <button class="qr-chip-sm">Skip dental</button>
+            <button class="qr-chip-sm">🔬 Technical details</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- User accepts dental -->
+      <div class="user-msg">
+        <div class="user-bubble tap"><span class="check">✓</span>Yes, Premium dental</div>
+      </div>
+
+      <!-- Spark transition to vision -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Locked in. Now vision — and here I'm going to <strong>recommend Basic, not Premium</strong>. You haven't mentioned glasses or contacts for any of you, so the upsell isn't worth it.
+        </div>
+      </div>
+
+      <!-- VISION recommendation -->
+      <article class="compact-rec">
+        <div class="compact-rec-head">
+          <div class="icon">👁️</div>
+          <div class="meta">
+            <div class="eyebrow">✨ Vision · my recommendation</div>
+            <div class="name">Acme Vision Basic</div>
+          </div>
+          <div class="cost">$5.00<span class="cost-period">/2wk</span></div>
+        </div>
+
+        <div class="compact-rec-body">
+          <p class="compact-rec-tagline">Annual eye exams covered. No need to pay extra for premium frame allowance you wouldn't use.</p>
+
+          <ul class="compact-rec-why">
+            <li><span class="check">✓</span><span>You didn't mention <strong>glasses or contacts</strong> for you, Alex, or Maya — Premium's bigger frame allowance ($200 vs $130) only matters if someone actually buys frames.</span></li>
+            <li><span class="check">✓</span><span>Saves you <strong>$3.50/2wk</strong> ($91/year) vs Premium — meaningful, not huge.</span></li>
+            <li><span class="check">✓</span><span>Annual eye exams covered for $25 copay — Maya should get her first eye check around age 3.</span></li>
+          </ul>
+
+          <div class="compact-rec-coverage">
+            <strong>What you'd actually pay:</strong> Annual eye exam · <span class="em">$25 copay</span>. If anyone needs glasses · $130 toward frames + $100 toward contacts (annual). If you change your mind on frames, you can switch to Premium next enrollment.
+          </div>
+
+          <div class="honest-hint">
+            <strong>⚠ Worth flagging:</strong> If you're planning <strong>LASIK</strong> or know someone in the family will need glasses this year, Premium pays for itself. Tap "Compare to Premium" if either applies.
+          </div>
+
+          <div class="compact-rec-actions">
+            <button class="qr-chip-sm primary">✓ Yes, Basic</button>
+            <button class="qr-chip-sm">⇄ Compare to Premium</button>
+            <button class="qr-chip-sm">Skip vision</button>
+            <button class="qr-chip-sm">🔬 Technical details</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- User accepts vision -->
+      <div class="user-msg">
+        <div class="user-bubble tap"><span class="check">✓</span>Yes, Basic vision</div>
+      </div>
+
+      <!-- Wrap up + transition -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Done with health plans. Here's where you've landed:
+        </div>
+      </div>
+
+      <article class="wrap-summary">
+        <div class="head">✓ Health plans · all locked in</div>
+        <table>
+          <tr><td>Medical · Acme Enhanced PPO</td><td>$148.50 / 2wk</td></tr>
+          <tr><td>Dental · Acme Dental Premium</td><td>$18.50 / 2wk</td></tr>
+          <tr><td>Vision · Acme Vision Basic</td><td>$5.00 / 2wk</td></tr>
+          <tr class="total-row"><td>Total · health plans</td><td>$172.00 / 2wk</td></tr>
+        </table>
+      </article>
+
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Next up: <strong>spending accounts</strong> (HSA, FSA, etc.). These can save you $500–$1,500 in taxes a year if used right — I'll walk you through which ones make sense for your situation. Ready?
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="qr-chip primary">✓ Yes, let's do spending accounts</button>
+        <button class="qr-chip">📋 Review my picks first</button>
+        <button class="qr-chip">↩ Change a plan</button>
+      </div>
+
+    </div>
+  </main>
+
+  <aside class="file-panel">
+    <h3>Your file</h3>
+    <p class="file-sub">Phase 1 locked. Phase 2 nearly done with health plans.</p>
+
+    <div class="file-section benefits">
+      <h4>Your benefits <span class="progress-badge">PHASE 2 · IN PROGRESS</span></h4>
+      <div class="file-item">
+        <span class="label">Medical</span>
+        <span class="value">Enhanced PPO · $148.50/2wk</span>
+        <span class="source-tag confirmed">✓ CONFIRMED</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Dental</span>
+        <span class="value">Premium · $18.50/2wk</span>
+        <span class="source-tag confirmed">✓ CONFIRMED</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Vision</span>
+        <span class="value">Basic · $5.00/2wk</span>
+        <span class="source-tag confirmed">✓ CONFIRMED</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Health plans total</span>
+        <span class="value" style="color:var(--wex-purple);font-weight:700;">$172.00 / 2wk</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Spending accounts</span>
+        <span class="value" style="color:#999;">Up next</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Supplemental</span>
+        <span class="value" style="color:#999;">Phase 2 · later</span>
+      </div>
+    </div>
+
+    <div class="file-section">
+      <h4>Personal · Address · Contact <span class="check-badge">✓ CONFIRMED</span></h4>
+      <div class="file-item">
+        <span class="label">Nicole Smith · age 28 · married</span>
+        <span class="value">123 Main Street, NY 10011</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Email · phone</span>
+        <span class="value">nicole.smith@email.com · (212) 555-4567</span>
+      </div>
+    </div>
+
+    <div class="file-section">
+      <h4>Household <span class="check-badge">✓ CONFIRMED</span></h4>
+      <div class="file-item">
+        <span class="label">Spouse — covered</span>
+        <span class="value">Alex Smith, 35</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Daughter — covered</span>
+        <span class="value">Maya Smith, 2</span>
+      </div>
+    </div>
+
+    <div class="file-section">
+      <h4>Health · Money &amp; priorities <span class="check-badge">✓ CONFIRMED</span></h4>
+      <div class="file-item">
+        <span class="label">Daily meds</span>
+        <span class="value">Asthma, BP</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Doctor visits / year</span>
+        <span class="value">A few — all 3 of us</span>
+      </div>
+      <div class="file-item">
+        <span class="label">Risk tolerance</span>
+        <span class="value">Spread costs out · fewer surprises</span>
+      </div>
+    </div>
+
+    <div class="file-footer">
+      🔒 = locked, managed by Acme HR.<br>
+      <strong>Account ref:</strong> 78445225
+    </div>
+  </aside>
+</div>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Ask anything before we move on..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

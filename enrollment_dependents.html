@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WEX Benefits — Dependents</title>
+<style>
+  :root {
+    --wex-red: #E4002B;
+    --wex-magenta: #C4256C;
+    --wex-purple: #5A1A4F;
+    --wex-cta-grad: linear-gradient(90deg, #3D0E4F 0%, #6B1A5C 50%, #C4256C 100%);
+    --bg: #FAF7FA;
+    --bg-2: #F4F0F4;
+    --card: #FFFFFF;
+    --text: #1A1A1A;
+    --muted: #6B7280;
+    --border: #E5E7EB;
+    --green: #2E7D32;
+    --green-bg: #E8F5E9;
+    --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* Top nav */
+  .topnav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topnav .brand { display: flex; align-items: center; gap: 14px; }
+  .wex-logo { font-weight: 900; font-size: 26px; color: var(--wex-red); letter-spacing: -1px; }
+  .brand-sub {
+    font-size: 11px;
+    color: var(--wex-magenta);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  .topnav .right { display: flex; align-items: center; gap: 18px; }
+  .deadline-pill {
+    background: #FCE8F3;
+    color: var(--wex-magenta);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid #F5C6DA;
+  }
+  .icon-btn { color: #555; font-size: 16px; }
+  .user-chip { display: flex; align-items: center; gap: 8px; }
+  .user-chip .name { font-size: 13px; font-weight: 600; }
+  .user-chip .meta { font-size: 10px; color: var(--muted); }
+  .avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--spark-grad);
+    color: white;
+    display: inline-block;
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px; font-weight: 700;
+  }
+
+  /* App shell */
+  .app-shell {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .app-shell > .sidebar { display: table-cell; vertical-align: top; width: 240px; }
+  .app-shell > .main { display: table-cell; vertical-align: top; }
+
+  /* Sidebar */
+  .sidebar {
+    background: white;
+    border-right: 1px solid var(--border);
+    padding: 32px 24px;
+    min-height: 700px;
+  }
+  .sidebar h4 { margin: 0 0 4px; font-size: 18px; font-weight: 700; }
+  .sidebar .subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 22px;
+    line-height: 1.4;
+  }
+  .sidebar .step {
+    padding: 12px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  .sidebar .step .num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid #BBB;
+    display: inline-block;
+    line-height: 22px;
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    font-weight: 600;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  .sidebar .step.active { color: var(--wex-magenta); font-weight: 600; }
+  .sidebar .step.active .num {
+    background: var(--wex-magenta);
+    border-color: var(--wex-magenta);
+    color: white;
+  }
+  .sidebar .step.complete .num {
+    background: var(--green); border-color: var(--green); color: white;
+  }
+  .sidebar .step-meta {
+    display: block;
+    margin-left: 34px;
+    margin-top: 2px;
+    font-size: 11px;
+    color: #999;
+    line-height: 1.4;
+  }
+  .sidebar .step.active .step-meta { color: #B07A99; }
+  .sidebar .progress-info {
+    margin-top: 22px;
+    padding: 14px;
+    background: var(--bg-2);
+    border-radius: 8px;
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  /* Main */
+  .main {
+    padding: 40px 56px 56px;
+    max-width: 920px;
+  }
+
+  /* Spark hero */
+  .spark-hero {
+    background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    border: 1px solid #EAD8E1;
+  }
+  .spark-hero-row { display: table; width: 100%; }
+  .spark-orb-cell { display: table-cell; vertical-align: top; width: 70px; }
+  .spark-text-cell { display: table-cell; vertical-align: top; }
+  .spark-orb {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--spark-grad);
+    color: white;
+    font-size: 24px;
+    line-height: 52px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(196, 37, 108, 0.22);
+  }
+  .spark-hero h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .spark-hero p {
+    margin: 0;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* Section header */
+  .section-h {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin: 26px 0 12px;
+  }
+
+  /* Existing dependent card */
+  .person-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+    display: table;
+    width: 100%;
+  }
+  .person-card.included { border-color: var(--wex-magenta); }
+  .person-card .person-icon-cell { display: table-cell; vertical-align: middle; width: 56px; }
+  .person-card .person-info-cell { display: table-cell; vertical-align: middle; }
+  .person-card .person-toggle-cell { display: table-cell; vertical-align: middle; width: 130px; text-align: right; }
+
+  .person-icon {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--bg-2);
+    color: var(--wex-purple);
+    line-height: 44px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .person-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .person-meta {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .person-meta .source-tag {
+    display: inline-block;
+    font-size: 10px;
+    background: #F4F0F4;
+    color: var(--wex-purple);
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 6px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  .toggle-pill {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .toggle-pill.on {
+    background: var(--wex-cta-grad);
+    color: white;
+  }
+  .toggle-pill.off {
+    background: white;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+  }
+
+  /* Add new dependent section */
+  .add-deps {
+    background: white;
+    border: 1.5px dashed var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-top: 8px;
+  }
+  .add-deps-h {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .add-deps-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 16px;
+  }
+  .add-quick {
+    display: table;
+    width: 100%;
+    border-spacing: 8px 0;
+  }
+  .add-quick > .qcell { display: table-cell; vertical-align: top; width: 33%; }
+  .add-quick-btn {
+    display: block;
+    padding: 14px 12px;
+    background: #FAFAFA;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--wex-purple);
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .add-quick-btn .icon { font-size: 18px; margin-right: 4px; }
+
+  /* Just me option */
+  .just-me {
+    margin-top: 22px;
+    padding: 16px 20px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .just-me a { color: var(--wex-magenta); font-weight: 600; text-decoration: underline; }
+
+  /* CTAs */
+  .actions-row { margin-top: 28px; }
+  .btn-primary {
+    background: var(--wex-cta-grad);
+    color: white;
+    border: none;
+    padding: 13px 26px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 12px;
+  }
+  .btn-secondary {
+    background: white;
+    color: var(--wex-purple);
+    border: 1.5px solid var(--wex-purple);
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 12px;
+  }
+  .btn-link {
+    color: var(--muted);
+    background: none;
+    border: none;
+    font-size: 13px;
+    text-decoration: underline;
+    display: inline-block;
+    padding: 11px 8px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="brand">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-sub">BENEFITS<br>Acme Corp</div>
+  </div>
+  <div class="right">
+    <span class="deadline-pill">Open enrollment closes June 30</span>
+    <span class="icon-btn">🔔</span>
+    <div class="user-chip">
+      <div>
+        <div class="name">Nicole Smith</div>
+        <div class="meta">New hire</div>
+      </div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</div>
+
+<div class="app-shell">
+
+  <div class="sidebar">
+    <h4>Your enrollment</h4>
+    <div class="subtitle">About 12 minutes total<br>Pause anytime, I'll save your progress</div>
+
+    <div class="step complete">
+      <span class="num">✓</span> Quick check
+      <span class="step-meta">Profile confirmed</span>
+    </div>
+    <div class="step active">
+      <span class="num">2</span> Your situation
+      <span class="step-meta">Dependents · life questions</span>
+    </div>
+    <div class="step">
+      <span class="num">3</span> See recommendations
+      <span class="step-meta">Medical · HSA / FSA · Supplemental</span>
+    </div>
+    <div class="step">
+      <span class="num">4</span> Make it official
+      <span class="step-meta">Review and submit</span>
+    </div>
+
+    <div class="progress-info">
+      Your progress saves automatically. Close the tab and come back anytime — I'll bring you right back to where you left off.
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="spark-hero">
+      <div class="spark-hero-row">
+        <div class="spark-orb-cell"><div class="spark-orb">✨</div></div>
+        <div class="spark-text-cell">
+          <h1>Who else needs coverage, Nicole?</h1>
+          <p>I'll use this to find plans that actually fit your family — not just the cheapest one for you alone. You can always add or remove people later if things change.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-h">Already on your record</div>
+
+    <div class="person-card included">
+      <div class="person-icon-cell"><div class="person-icon">A</div></div>
+      <div class="person-info-cell">
+        <div class="person-name">Alex Smith</div>
+        <div class="person-meta">Spouse · 35 years old <span class="source-tag">FROM HR</span></div>
+      </div>
+      <div class="person-toggle-cell">
+        <span class="toggle-pill on">✓ Covered</span>
+      </div>
+    </div>
+
+    <div class="section-h">Anyone else to cover?</div>
+
+    <div class="add-deps">
+      <div class="add-deps-h">Add a dependent</div>
+      <div class="add-deps-sub">Pick one to get started — you can add more after.</div>
+      <div class="add-quick">
+        <div class="qcell"><a class="add-quick-btn"><span class="icon">+</span> Spouse or partner</a></div>
+        <div class="qcell"><a class="add-quick-btn"><span class="icon">+</span> Child</a></div>
+        <div class="qcell"><a class="add-quick-btn"><span class="icon">+</span> Other</a></div>
+      </div>
+    </div>
+
+    <div class="just-me">
+      <strong>Don't need to cover anyone else?</strong> No problem — keep "Covered" on for just the people you want, or <a>uncover everyone for a self-only plan</a>. We'll factor that into your recommendations.
+    </div>
+
+    <p class="actions-row">
+      <span class="btn-primary">Looks right — see my plan options ›</span>
+      <span class="btn-secondary">Back</span>
+      <span class="btn-link">Save and finish later</span>
+    </p>
+
+  </div>
+</div>
+
+</body>
+</html>

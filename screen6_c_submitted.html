@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 17 · Submitted!)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32; --green-bg: #E8F5E9;
+  --amber: #B5832C; --amber-bg: #FFFCF7;
+  --blue: #3730A3; --blue-bg: #EEF2FF;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; position: relative; overflow-x: hidden; }
+
+/* Confetti background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 1400px; height: 600px; max-width: 200vw;
+  background: radial-gradient(ellipse at top, rgba(196,37,108,0.12) 0%, rgba(46,125,50,0.06) 30%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.topnav { position: relative; z-index: 10; background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--green); font-weight: 600; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { position: relative; z-index: 9; background: linear-gradient(90deg, #ECFDF5 0%, #D1FAE5 100%); border-bottom: 1px solid var(--green); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--green); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: rgba(46,125,50,0.2); border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--green); width: 100%; }
+.phase-percent { font-size: 11px; color: var(--green); font-weight: 700; white-space: nowrap; }
+
+.app-shell { display: block; position: relative; z-index: 1; }
+.conversation { padding: 32px 16px 130px; max-width: 760px; margin: 0 auto; }
+
+/* CELEBRATION HERO */
+.celebration {
+  background: white;
+  border: 2px solid var(--green);
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+  margin-bottom: 22px;
+  text-align: center;
+  box-shadow: 0 20px 56px rgba(46, 125, 50, 0.16);
+  position: relative;
+  overflow: hidden;
+}
+.celebration::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(46,125,50,0.04) 0%, rgba(196,37,108,0.04) 100%);
+  pointer-events: none;
+}
+.celebration .emoji {
+  font-size: 56px; line-height: 1; margin-bottom: 12px;
+  display: inline-block;
+  animation: bounce 0.8s ease-out;
+}
+@keyframes bounce {
+  0% { transform: translateY(20px) scale(0.5); opacity: 0; }
+  60% { transform: translateY(-10px) scale(1.1); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+.celebration h1 {
+  font-size: 32px; font-weight: 800; margin: 0 0 10px;
+  letter-spacing: -0.6px; line-height: 1.15;
+}
+.celebration h1 .accent {
+  background: var(--spark-grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.celebration .lede {
+  font-size: 15px; color: #444; line-height: 1.6;
+  max-width: 540px; margin: 0 auto 18px;
+}
+.celebration .timestamp {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-bg); color: var(--green);
+  padding: 7px 14px; border-radius: 999px;
+  font-size: 12px; font-weight: 700;
+}
+
+/* WHAT HAPPENS NEXT TIMELINE */
+.timeline-card {
+  background: white;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 16px;
+  padding: 22px 26px;
+  margin-bottom: 22px;
+  box-shadow: 0 8px 24px rgba(90, 26, 79, 0.06);
+}
+.tl-head {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--wex-purple); margin-bottom: 4px;
+  display: flex; align-items: center; gap: 6px;
+}
+.tl-title {
+  font-size: 18px; font-weight: 700; margin: 0 0 18px;
+  letter-spacing: -0.3px;
+}
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before {
+  content: ''; position: absolute;
+  left: 11px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--green) 0%, var(--wex-magenta) 50%, var(--border) 100%);
+  border-radius: 2px;
+}
+.tl-step {
+  position: relative;
+  padding: 10px 0 14px;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 14px;
+}
+.tl-step::before {
+  content: ''; position: absolute;
+  left: -22px; top: 14px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: white;
+  border: 2.5px solid var(--border);
+  z-index: 2;
+}
+.tl-step.done::before { background: var(--green); border-color: var(--green); box-shadow: 0 0 0 4px rgba(46,125,50,0.15); }
+.tl-step.next::before { background: var(--wex-magenta); border-color: var(--wex-magenta); box-shadow: 0 0 0 4px rgba(196,37,108,0.15); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(196,37,108,0.15); }
+  50% { box-shadow: 0 0 0 8px rgba(196,37,108,0.05); }
+}
+.tl-when {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
+  color: var(--muted); padding-top: 2px;
+}
+.tl-step.done .tl-when { color: var(--green); }
+.tl-step.next .tl-when { color: var(--wex-magenta); }
+.tl-content { min-width: 0; }
+.tl-what { font-size: 13.5px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.tl-detail { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.tl-detail strong { color: var(--wex-purple); }
+
+/* OUTPUT OPTIONS */
+.outputs {
+  margin-bottom: 22px;
+}
+.outputs-head {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--wex-purple); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.output-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.output-card {
+  background: white;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.output-card:hover {
+  border-color: var(--wex-magenta);
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.1);
+  transform: translateY(-1px);
+}
+.output-card.primary {
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border-color: var(--wex-magenta);
+  box-shadow: 0 8px 24px rgba(196, 37, 108, 0.12);
+}
+.output-card .oc-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: white; border: 1.5px solid var(--border-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px; flex-shrink: 0;
+}
+.output-card.primary .oc-icon { border-color: var(--wex-magenta); }
+.output-card .oc-content { flex: 1; min-width: 0; }
+.output-card .oc-name {
+  font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px;
+  display: flex; align-items: center; gap: 6px;
+}
+.output-card.primary .oc-name { color: var(--wex-purple); }
+.output-card .oc-name .you-asked { background: var(--wex-magenta); color: white; font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase; }
+.output-card .oc-detail { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+/* SPARK CLOSING */
+.spark-closing {
+  margin-top: 26px;
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border: 1.5px solid #EAD8E1;
+  border-radius: 16px;
+  padding: 22px 26px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.spark-closing .icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--spark-grad); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.25);
+}
+.spark-closing .text { flex: 1; }
+.spark-closing .label {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 6px;
+}
+.spark-closing p {
+  margin: 0 0 8px; font-size: 14px; color: var(--text); line-height: 1.65;
+}
+.spark-closing p:last-child { margin-bottom: 0; }
+.spark-closing strong { color: var(--wex-purple); }
+
+/* GO HOME row */
+.go-home {
+  margin-top: 22px;
+  text-align: center;
+}
+.go-home a {
+  font-size: 13px; color: var(--muted);
+  text-decoration: none; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.go-home a:hover { color: var(--wex-magenta); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+}
+@media (max-width: 640px) {
+  .output-grid { grid-template-columns: 1fr; }
+  .celebration h1 { font-size: 26px; }
+  .celebration .emoji { font-size: 44px; }
+  .tl-step { grid-template-columns: 70px 1fr; gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="icon-btn">🔔</span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">✓ Enrolled</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">✓ Enrollment complete</span>
+  <div class="phase-bar"><div class="phase-fill"></div></div>
+  <span class="phase-percent">100%</span>
+</div>
+
+<main class="conversation">
+
+  <!-- CELEBRATION HERO -->
+  <article class="celebration">
+    <div class="emoji">🎉</div>
+    <h1>Done, Nicole. <span class="accent">Welcome to your benefits.</span></h1>
+    <p class="lede">
+      You picked the plans, sheltered <strong>~$2,100 in taxes</strong>, and signed in 14 minutes flat. That's the fastest enrollment I've done this month. Confirmation just landed in your inbox.
+    </p>
+    <div class="timestamp">
+      <span>✓</span>Submitted Sunday, May 3, 2026 · 4:47 PM EST
+    </div>
+  </article>
+
+  <!-- WHAT HAPPENS NEXT TIMELINE -->
+  <article class="timeline-card">
+    <div class="tl-head">📅 What happens next</div>
+    <h2 class="tl-title">Your benefits timeline — what to expect, and when</h2>
+
+    <div class="timeline">
+
+      <div class="tl-step done">
+        <div class="tl-when">Today<br>4:47 PM</div>
+        <div class="tl-content">
+          <div class="tl-what">✉ Confirmation email sent</div>
+          <div class="tl-detail">Sent to <strong>nicole.smith@email.com</strong>. Includes your full enrollment summary, plan documents (PDFs), and contact info for Acme HR.</div>
+        </div>
+      </div>
+
+      <div class="tl-step next">
+        <div class="tl-when">Within<br>5 days</div>
+        <div class="tl-content">
+          <div class="tl-what">📬 Insurance ID cards in the mail</div>
+          <div class="tl-detail">Aetna will mail medical, dental, and vision cards to your home address. You can also download digital cards from the Aetna app starting <strong>Dec 20</strong>.</div>
+        </div>
+      </div>
+
+      <div class="tl-step next">
+        <div class="tl-when">Dec 15</div>
+        <div class="tl-content">
+          <div class="tl-what">📎 Dependent verification reminder</div>
+          <div class="tl-detail">I'll email you a reminder to upload <strong>Alex's marriage certificate</strong> and <strong>Maya's birth certificate</strong>. Deadline is Jan 31, 2026 to keep them on coverage.</div>
+        </div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-when">Jan 1<br>2026</div>
+        <div class="tl-content">
+          <div class="tl-what">🎯 Coverage starts</div>
+          <div class="tl-detail">All three of you (Nicole, Alex, Maya) are officially covered. You can see a doctor, fill prescriptions, or visit a dentist starting this day.</div>
+        </div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-when">Mid Jan</div>
+        <div class="tl-content">
+          <div class="tl-what">💳 FSA &amp; DCFSA debit cards arrive</div>
+          <div class="tl-detail">Two cards in the mail — one for FSA (healthcare expenses) and one for DCFSA (Maya's daycare). Use these directly at point-of-sale; no need to submit receipts manually for most purchases.</div>
+        </div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-when">Jan 15<br>2026</div>
+        <div class="tl-content">
+          <div class="tl-what">💵 First paycheck deduction</div>
+          <div class="tl-detail">$447 deducted pre-tax from your first 2026 paycheck. You'll see this on your pay stub as separate line items for medical, FSA, DCFSA, and supplemental.</div>
+        </div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-when">Open<br>enrollment<br>2027</div>
+        <div class="tl-content">
+          <div class="tl-what">↻ Time to revisit</div>
+          <div class="tl-detail">Around Oct/Nov 2026, Acme will open the next enrollment window. I'll be here — we can reuse all your answers and just confirm what's still true.</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- OUTPUT OPTIONS -->
+  <div class="outputs">
+    <div class="outputs-head">📄 Save or share your enrollment</div>
+
+    <div class="output-grid">
+
+      <button class="output-card primary">
+        <div class="oc-icon">✉</div>
+        <div class="oc-content">
+          <div class="oc-name">Email me a copy <span class="you-asked">You asked</span></div>
+          <div class="oc-detail">Sends a clean PDF to nicole.smith@email.com. Optionally CC Alex too.</div>
+        </div>
+      </button>
+
+      <button class="output-card">
+        <div class="oc-icon">📥</div>
+        <div class="oc-content">
+          <div class="oc-name">Download PDF</div>
+          <div class="oc-detail">Save the enrollment statement to your device — useful for taxes or records.</div>
+        </div>
+      </button>
+
+      <button class="output-card">
+        <div class="oc-icon">🖨</div>
+        <div class="oc-content">
+          <div class="oc-name">Print enrollment</div>
+          <div class="oc-detail">Print-optimized layout. Good for paper records or sharing with a partner.</div>
+        </div>
+      </button>
+
+      <button class="output-card">
+        <div class="oc-icon">📅</div>
+        <div class="oc-content">
+          <div class="oc-name">Add key dates to my calendar</div>
+          <div class="oc-detail">ICS file with coverage start (Jan 1), card delivery, paycheck deduction, dependent verification deadline.</div>
+        </div>
+      </button>
+
+      <button class="output-card">
+        <div class="oc-icon">📋</div>
+        <div class="oc-content">
+          <div class="oc-name">View statement online</div>
+          <div class="oc-detail">Open the full enrollment statement in this browser — same content as the email.</div>
+        </div>
+      </button>
+
+      <button class="output-card">
+        <div class="oc-icon">🔗</div>
+        <div class="oc-content">
+          <div class="oc-name">Copy share link</div>
+          <div class="oc-detail">A read-only link to your statement (private to you — won't share without your tap).</div>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- SPARK CLOSING -->
+  <article class="spark-closing">
+    <div class="icon">✨</div>
+    <div class="text">
+      <div class="label">From Spark</div>
+      <p>That's a wrap, Nicole. <strong>Anytime you have questions about your benefits, just come back here</strong> — I remember everything we talked about, and I'll keep up with what's changed. If your situation shifts (new baby, new job for Alex, big medical event), come tell me and I'll help you change your elections within the rules.</p>
+      <p>Oh — and tell Alex about the <strong>$5,000 daycare FSA</strong>. Most families don't know they can shelter that much pre-tax. Made my month getting that into your file.</p>
+    </div>
+  </article>
+
+  <!-- Go home -->
+  <div class="go-home">
+    <a href="#">← Back to my Spark hub</a>
+  </div>
+
+</main>
+
+</body>
+</html>

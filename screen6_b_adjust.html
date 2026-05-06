@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 16b · Adjust FSA from Review)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32; --green-bg: #E8F5E9;
+  --amber: #B5832C; --amber-bg: #FFFCF7;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; white-space: nowrap; display: none; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: white; border-bottom: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: #F0E5EE; border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+.phase-percent { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+.app-shell { display: block; }
+.conversation { padding: 24px 16px 130px; max-width: 880px; margin: 0 auto; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 600px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; }
+.user-bubble.tap .check { color: var(--green); margin-right: 6px; }
+
+/* Scrolled-back Review summary (just the relevant FSA row) */
+.scrolled-back { opacity: 0.55; }
+.review-snippet {
+  background: white;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 0 0 12px 42px;
+  max-width: 700px;
+}
+.review-snippet .head {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+.review-snippet .row {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.review-snippet .name { font-size: 14px; font-weight: 700; }
+.review-snippet .name strong { color: var(--wex-purple); }
+.review-snippet .cost { font-size: 16px; font-weight: 800; color: var(--text); }
+.review-snippet .adjust-pulse {
+  background: var(--wex-magenta); color: white;
+  padding: 6px 14px; border-radius: 999px;
+  font-size: 11px; font-weight: 700;
+  animation: glow 1.5s ease-in-out infinite;
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196,37,108,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(196,37,108,0); }
+}
+
+.scrolled-divider {
+  text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase;
+  margin: 8px 0 18px; display: flex; align-items: center; gap: 12px;
+}
+.scrolled-divider::before, .scrolled-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* Inline adjust card — same component as Frame 13b */
+.adjuster {
+  background: white;
+  border: 2px solid var(--wex-magenta);
+  border-radius: 16px;
+  margin: 0 0 16px 42px;
+  max-width: 700px;
+  box-shadow: 0 12px 36px rgba(196, 37, 108, 0.14);
+  overflow: hidden;
+}
+.adjuster-head {
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border-bottom: 1px solid #EAD8E1;
+}
+.adjuster-eyebrow {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 4px;
+}
+.adjuster-title { font-size: 16px; font-weight: 700; margin: 0; }
+.adjuster-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.adjuster-body { padding: 18px 22px; }
+
+.amount-display {
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px; gap: 4px;
+}
+.amount-display .dollar {
+  font-size: 26px; font-weight: 800; color: var(--muted); line-height: 1;
+}
+.amount-display .input-box {
+  font-size: 44px; font-weight: 800; color: var(--wex-purple);
+  line-height: 1; letter-spacing: -1.5px;
+  font-variant-numeric: tabular-nums;
+  border: none; background: transparent;
+  text-align: center; width: 160px; outline: none;
+  font-family: inherit;
+}
+.amount-display .period {
+  font-size: 12px; color: var(--muted); font-weight: 600; align-self: flex-end; margin-bottom: 6px;
+}
+
+.slider-wrap { margin-bottom: 8px; }
+.slider-track {
+  height: 8px; border-radius: 4px;
+  background: #E5E7EB;
+  position: relative;
+}
+.slider-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: linear-gradient(90deg, var(--wex-magenta) 0%, var(--wex-purple) 100%);
+  border-radius: 4px;
+  width: 46.875%; /* $1,500 / $3,200 */
+}
+.slider-thumb {
+  position: absolute;
+  top: 50%; transform: translate(-50%, -50%);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--wex-magenta);
+  box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3);
+  left: 46.875%;
+}
+.slider-labels {
+  display: flex; justify-content: space-between;
+  font-size: 9px; color: var(--muted); font-weight: 600;
+  margin-top: 6px;
+}
+.slider-labels .marker.recommended { color: var(--wex-magenta); font-weight: 800; }
+
+/* Live calc panel (compact) */
+.calc-panel {
+  background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+  border: 1.5px solid var(--green);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.calc-item {
+  background: white;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.calc-item .label { font-size: 9px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.calc-item .value { font-size: 18px; font-weight: 800; color: var(--text); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.calc-item.savings .value { color: var(--green); }
+.calc-item .sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+.delta-callout {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--amber-bg);
+  border: 1px solid #E0CC9F;
+  border-radius: 8px;
+  font-size: 11.5px;
+  color: #6B5316;
+  line-height: 1.55;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.delta-callout .icon { color: var(--amber); flex-shrink: 0; font-size: 13px; }
+.delta-callout strong { color: #8C6A1F; }
+
+.adjuster-actions {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-soft);
+}
+.qr-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 9px 16px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+  cursor: pointer;
+}
+.qr-chip.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 4px 12px rgba(196, 37, 108, 0.25); padding: 9px 22px; font-weight: 700;
+}
+
+/* Updated review summary card — what user sees AFTER the change */
+.review-updated {
+  background: white;
+  border: 1.5px solid var(--green);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 0 0 12px 42px;
+  max-width: 700px;
+  box-shadow: 0 6px 18px rgba(46, 125, 50, 0.1);
+}
+.review-updated .head {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+}
+.review-updated .row {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.review-updated .name { font-size: 14px; font-weight: 700; }
+.review-updated .name strong { color: var(--wex-purple); }
+.review-updated .cost { font-size: 16px; font-weight: 800; color: var(--text); text-align: right; }
+.review-updated .cost .strike { color: var(--muted); text-decoration: line-through; font-size: 12px; font-weight: 500; margin-right: 6px; }
+.review-updated .updated-tag { background: var(--green); color: white; padding: 3px 8px; border-radius: 4px; font-size: 9px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase; margin-left: 8px; }
+
+/* Master totals delta */
+.totals-delta {
+  background: white;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 0 0 12px 42px;
+  max-width: 700px;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.totals-delta .row { display: flex; justify-content: space-between; padding: 4px 0; }
+.totals-delta .row strong { color: var(--wex-purple); }
+.totals-delta .row .delta-down { color: var(--green); font-weight: 700; }
+.totals-delta .row .delta-up { color: var(--amber); font-weight: 700; }
+
+.action-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px 42px; max-width: 700px; }
+
+.docked-input { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 720px; background: white; border: 2px solid var(--wex-magenta); border-radius: 16px; padding: 6px 8px 6px 12px; box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16), 0 0 0 4px rgba(196, 37, 108, 0.05); display: flex; align-items: center; gap: 8px; z-index: 20; }
+.docked-input .mic-btn { width: 40px; height: 40px; border-radius: 50%; background: #F8F1F5; color: var(--wex-magenta); border: 1.5px solid #F1DFE9; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.docked-input textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; font-size: 14px; font-family: inherit; padding: 10px 4px; min-height: 24px; line-height: 1.4; background: transparent; }
+.docked-input textarea::placeholder { color: #9CA3AF; }
+.docked-input .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--send-grad); color: white; border: none; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .conversation { padding: 36px 36px 130px; }
+}
+@media (max-width: 700px) {
+  .calc-panel { grid-template-columns: 1fr; }
+  .review-snippet, .adjuster, .review-updated, .totals-delta, .action-row, .spark-msg, .user-msg { margin-left: 0; }
+  .user-msg { margin-right: 0; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔</span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">New hire</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 3 of 3 · Adjusting from Review</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 95%"></div></div>
+  <span class="phase-percent">~95%</span>
+</div>
+
+<main class="conversation">
+
+  <!-- Scrolled-back review snippet showing where she tapped -->
+  <div class="scrolled-back">
+    <div class="review-snippet">
+      <div class="head">From your Review summary · spending accounts</div>
+      <div class="row">
+        <div class="name"><strong>FSA · Healthcare</strong> · $2,000/yr · saves ~$600 in taxes</div>
+        <span class="adjust-pulse">✎ Adjust ←</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- User taps Adjust -->
+  <div class="user-msg">
+    <div class="user-bubble tap">✎ Adjust FSA</div>
+  </div>
+
+  <!-- Spark response -->
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Sure — let's revisit FSA. <strong>You picked $2,000 earlier.</strong> Type a new amount, slide the bar, or tell me what you're thinking. I'll show you the tax-savings impact live, then we'll go right back to Review with the updated total.
+    </div>
+  </div>
+
+  <!-- User types a new amount -->
+  <div class="user-msg">
+    <div class="user-bubble tap">Let me try $1,500 instead</div>
+  </div>
+
+  <!-- ADJUSTER CARD (compact, inline) -->
+  <article class="adjuster">
+
+    <div class="adjuster-head">
+      <div class="adjuster-eyebrow">✎ Adjusting FSA · live tax savings</div>
+      <h3 class="adjuster-title">FSA contribution · $1,500</h3>
+      <p class="adjuster-sub">2026 IRS limit: $3,200 · was $2,000 · now $1,500</p>
+    </div>
+
+    <div class="adjuster-body">
+
+      <div class="amount-display">
+        <span class="dollar">$</span>
+        <input type="text" class="input-box" value="1,500">
+        <span class="period">/year</span>
+      </div>
+
+      <div class="slider-wrap">
+        <div class="slider-track">
+          <div class="slider-fill"></div>
+          <div class="slider-thumb"></div>
+        </div>
+        <div class="slider-labels">
+          <span>$0</span>
+          <span class="marker recommended">$2,000 was here</span>
+          <span>$3,200 max</span>
+        </div>
+      </div>
+
+      <!-- Live calc panel -->
+      <div class="calc-panel">
+        <div class="calc-item">
+          <div class="label">You contribute</div>
+          <div class="value">$1,500</div>
+          <div class="sub">pre-tax</div>
+        </div>
+        <div class="calc-item savings">
+          <div class="label">You save</div>
+          <div class="value">~$450</div>
+          <div class="sub">at ~30% rate</div>
+        </div>
+        <div class="calc-item">
+          <div class="label">Per paycheck</div>
+          <div class="value">$57.69</div>
+          <div class="sub">over 26 paychecks</div>
+        </div>
+      </div>
+
+      <div class="delta-callout">
+        <span class="icon">💡</span>
+        <div>
+          <strong>vs. your previous pick ($2,000):</strong> You'll save $150 less in taxes ($450 vs $600), but lower your year-end loss risk by ~$255. Reasonable adjustment if you want to be more conservative.
+        </div>
+      </div>
+
+      <div class="adjuster-actions">
+        <button class="qr-chip primary">✓ Update to $1,500</button>
+        <button class="qr-chip">↩ Keep $2,000 (cancel)</button>
+        <button class="qr-chip">⇄ Show scenarios</button>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- User confirms -->
+  <div class="user-msg">
+    <div class="user-bubble tap"><span class="check">✓</span>Update to $1,500</div>
+  </div>
+
+  <!-- Spark confirmation -->
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Done — <strong>FSA updated to $1,500</strong>. Auto-saved. Here's how it changes your totals:
+    </div>
+  </div>
+
+  <!-- Updated review snippet -->
+  <article class="review-updated">
+    <div class="head">✓ Updated · spending accounts</div>
+    <div class="row">
+      <div class="name"><strong>FSA · Healthcare</strong> · $1,500/yr · saves ~$450 in taxes <span class="updated-tag">UPDATED</span></div>
+      <div class="cost"><span class="strike">$76.92</span>$57.69<div style="font-size:10px;color:var(--muted);font-weight:600;">/2wk</div></div>
+    </div>
+  </article>
+
+  <!-- Totals delta -->
+  <article class="totals-delta">
+    <div class="row"><span>Per-paycheck total</span><span><span class="delta-down">−$19.23</span> &nbsp; <strong>$427.77 / 2wk</strong> (was $447.00)</span></div>
+    <div class="row"><span>Annual deduction</span><span><span class="delta-down">−$500</span> &nbsp; <strong>$11,122</strong> (was $11,622)</span></div>
+    <div class="row"><span>Tax savings</span><span><span class="delta-up">−$150</span> &nbsp; <strong>~$1,950 / yr</strong> (was ~$2,100)</span></div>
+    <div class="row"><span>Net annual cost</span><span><strong>$9,172 / yr</strong> (was $9,522)</span></div>
+  </article>
+
+  <!-- Spark closing -->
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Want to <strong>head back to Review</strong> and sign, or change anything else first?
+    </div>
+  </div>
+
+  <div class="action-row">
+    <button class="qr-chip primary">→ Back to Review</button>
+    <button class="qr-chip">Adjust something else</button>
+    <button class="qr-chip">Show me my full picks again</button>
+  </div>
+
+</main>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Or just say 'change my dental to Basic'..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

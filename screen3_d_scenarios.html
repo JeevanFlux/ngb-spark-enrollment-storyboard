@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 10 · What if my year goes badly)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32; --green-bg: #E8F5E9;
+  --red-soft: #B91C1C; --red-bg: #FEE2E2;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; white-space: nowrap; display: none; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; position: relative; }
+.icon-btn .dot-badge { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--wex-magenta); }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: white; border-bottom: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: #F0E5EE; border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+.phase-percent { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+.app-shell { display: block; }
+.conversation { padding: 24px 16px 130px; max-width: 880px; margin: 0 auto; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 18px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 600px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+/* Scenario story card */
+.scenario-card {
+  background: white;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 14px;
+  margin: 0 0 18px 42px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(90, 26, 79, 0.06);
+}
+.scenario-head {
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border-soft);
+  display: flex; gap: 14px; align-items: center;
+  background: linear-gradient(90deg, #FFF8FB 0%, #FCFAFC 100%);
+}
+.scenario-head .icon {
+  font-size: 28px; flex-shrink: 0;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: white; border-radius: 50%; border: 1.5px solid var(--border-soft);
+}
+.scenario-head .meta { flex: 1; }
+.scenario-head .tag {
+  font-size: 9px; font-weight: 800; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--red-soft);
+  margin-bottom: 4px;
+}
+.scenario-head h3 { font-size: 17px; font-weight: 700; margin: 0; line-height: 1.2; }
+.scenario-head .subtitle { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.scenario-story {
+  padding: 16px 22px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-soft);
+}
+.scenario-story strong { color: var(--wex-purple); }
+
+/* Bills list */
+.bills-section {
+  padding: 16px 22px;
+  background: #FCFAFC;
+  border-bottom: 1px solid var(--border-soft);
+}
+.bills-head {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.bill-line {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0; font-size: 12.5px;
+  border-bottom: 1px dashed #EFE6EE;
+}
+.bill-line:last-of-type { border-bottom: none; }
+.bill-line .desc { color: #444; }
+.bill-line .cost { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.bill-line.total {
+  margin-top: 6px; padding-top: 10px;
+  border-top: 1.5px solid var(--border);
+  border-bottom: none;
+}
+.bill-line.total .desc { font-weight: 700; color: var(--wex-purple); font-size: 13px; }
+.bill-line.total .cost { font-size: 16px; }
+
+/* Plan comparison */
+.plan-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.plan-compare-cell {
+  padding: 18px 20px;
+  border-right: 1px solid var(--border-soft);
+}
+.plan-compare-cell:last-child { border-right: none; }
+.plan-compare-cell.recommended { background: #FCF6FA; }
+.plan-name {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 5px;
+}
+.plan-compare-cell.recommended .plan-name { color: var(--wex-magenta); }
+.plan-compare-cell.recommended .plan-name::before { content: '★'; color: var(--wex-magenta); }
+.plan-pay-label { font-size: 10px; color: var(--muted); margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; }
+.plan-pay-amount {
+  font-size: 32px; font-weight: 800; line-height: 1.1;
+  color: var(--text); font-variant-numeric: tabular-nums;
+  letter-spacing: -1px;
+}
+.plan-compare-cell.recommended .plan-pay-amount { color: var(--wex-purple); }
+.plan-compare-cell .plan-breakdown {
+  font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.55;
+}
+
+/* Diff callout */
+.diff-callout {
+  padding: 14px 22px;
+  background: var(--red-bg);
+  border-top: 1px solid var(--border-soft);
+  display: flex; gap: 10px; align-items: center;
+  font-size: 13px; color: var(--red-soft);
+}
+.diff-callout strong { font-weight: 800; }
+.diff-callout .icon { font-size: 18px; }
+.diff-callout .gap-amount { font-weight: 800; font-size: 16px; }
+
+/* Bottom takeaway */
+.takeaway {
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border: 2px solid var(--wex-magenta);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin: 0 0 18px 42px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.takeaway .icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--spark-grad); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(196, 37, 108, 0.25);
+}
+.takeaway .text { flex: 1; }
+.takeaway .head {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--wex-magenta); margin-bottom: 6px;
+}
+.takeaway h3 {
+  font-size: 18px; font-weight: 700; margin: 0 0 8px;
+  letter-spacing: -0.3px;
+}
+.takeaway p {
+  font-size: 13.5px; color: var(--text); line-height: 1.6; margin: 0;
+}
+.takeaway p strong { color: var(--wex-purple); }
+
+/* Action row */
+.action-row {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px 42px;
+}
+.qr-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 11px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+.qr-chip.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.28); padding: 11px 22px;
+  font-size: 13.5px; font-weight: 700;
+}
+
+.docked-input { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 720px; background: white; border: 2px solid var(--wex-magenta); border-radius: 16px; padding: 6px 8px 6px 12px; box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16), 0 0 0 4px rgba(196, 37, 108, 0.05); display: flex; align-items: center; gap: 8px; z-index: 20; }
+.docked-input .mic-btn { width: 40px; height: 40px; border-radius: 50%; background: #F8F1F5; color: var(--wex-magenta); border: 1.5px solid #F1DFE9; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.docked-input textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; font-size: 14px; font-family: inherit; padding: 10px 4px; min-height: 24px; line-height: 1.4; background: transparent; }
+.docked-input textarea::placeholder { color: #9CA3AF; }
+.docked-input .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--send-grad); color: white; border: none; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .conversation { padding: 36px 36px 130px; }
+}
+
+@media (max-width: 700px) {
+  .scenario-card, .takeaway, .action-row, .spark-msg { margin-left: 0; }
+  .plan-compare { grid-template-columns: 1fr; }
+  .plan-compare-cell { border-right: none; border-bottom: 1px solid var(--border-soft); }
+  .plan-compare-cell:last-child { border-bottom: none; }
+  .plan-pay-amount { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">New hire</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · Your benefits · "What if?" scenarios</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 12%"></div></div>
+  <span class="phase-percent">~10%</span>
+</div>
+
+<main class="conversation">
+
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Good question. Let me walk you through three real things that could happen to your family — and what you'd actually pay under each plan. <strong>Out-of-pocket only</strong> in these numbers — your paycheck deduction is on top, but it's the same either way once you've enrolled.
+    </div>
+  </div>
+
+  <div style="background: #FAFAFA; border: 1px solid #EEE; border-left: 3px solid var(--wex-magenta); border-radius: 8px; padding: 12px 16px; margin: 0 0 18px 42px; font-size: 12px; color: #555; line-height: 1.6; display: flex; gap: 10px; align-items: flex-start;">
+    <span style="color: var(--wex-magenta); font-size: 14px; flex-shrink: 0;">💡</span>
+    <div>
+      <strong style="color: var(--wex-purple);">How these numbers are calculated:</strong> Cost estimates combine <strong>national-average procedure costs</strong> (sourced from your carrier's claims database, refreshed quarterly) with your specific plan's deductibles, copays, coinsurance, and OOP max. Real numbers can vary <strong>±20%</strong> based on your provider, location, and the specifics of the care. These are good for comparing plans against each other — they're <em>not</em> a price quote. <a href="#" style="color: var(--wex-magenta); font-weight: 600; text-decoration: none;">See methodology →</a>
+    </div>
+  </div>
+
+  <!-- SCENARIO 1: Maya respiratory infection -->
+  <article class="scenario-card">
+    <div class="scenario-head">
+      <div class="icon">🤒</div>
+      <div class="meta">
+        <div class="tag">Scenario 1 — single bad event</div>
+        <h3>Maya gets a respiratory infection in February</h3>
+        <div class="subtitle">Common toddler stuff. Two pediatrician visits, antibiotics, an ER trip when she gets worse.</div>
+      </div>
+    </div>
+
+    <div class="scenario-story">
+      It's a normal Tuesday morning. Maya wakes up wheezing and you take her to her pediatrician. They prescribe antibiotics and a nebulizer. Two days later she gets worse, and you end up at the ER at 2 a.m. — chest X-ray, oxygen, fluids. They release her by morning. A week later, you're back at the pediatrician for follow-up, and they refer her to a pediatric pulmonologist for a one-time visit.
+    </div>
+
+    <div class="bills-section">
+      <div class="bills-head">What it costs (raw bills before insurance)</div>
+      <div class="bill-line"><span class="desc">2 × pediatrician visit</span><span class="cost">$240</span></div>
+      <div class="bill-line"><span class="desc">Antibiotics + nebulizer meds</span><span class="cost">$185</span></div>
+      <div class="bill-line"><span class="desc">ER visit (chest X-ray, fluids, oxygen)</span><span class="cost">$2,400</span></div>
+      <div class="bill-line"><span class="desc">Pediatric pulmonologist (1 visit)</span><span class="cost">$320</span></div>
+      <div class="bill-line total"><span class="desc">Total raw cost</span><span class="cost">$3,145</span></div>
+    </div>
+
+    <div class="plan-compare">
+      <div class="plan-compare-cell recommended">
+        <div class="plan-name">Acme Enhanced PPO</div>
+        <div class="plan-pay-label">You'd pay</div>
+        <div class="plan-pay-amount">~$540</div>
+        <div class="plan-breakdown">
+          $30 × 2 = $60 pediatrician copays<br>
+          $25 antibiotics<br>
+          $250 ER copay + 20% coinsurance ($430)<br>
+          $60 specialist copay<br>
+          Deductible kicks in for the ER portion only
+        </div>
+      </div>
+      <div class="plan-compare-cell">
+        <div class="plan-name">Acme HDHP HSA</div>
+        <div class="plan-pay-label">You'd pay</div>
+        <div class="plan-pay-amount">~$2,700</div>
+        <div class="plan-breakdown">
+          Full price on visits + meds until you hit the $3,000 family deductible<br>
+          You're effectively paying the full $3,145 minus a tiny coinsurance bit at the end<br>
+          Your HSA balance can offset some of this
+        </div>
+      </div>
+    </div>
+
+    <div class="diff-callout">
+      <span class="icon">⚠</span>
+      <div>The HDHP costs you <span class="gap-amount">~$2,160 more</span> than the PPO for this single common event.</div>
+    </div>
+  </article>
+
+  <!-- SCENARIO 2: Alex sprains ankle -->
+  <article class="scenario-card">
+    <div class="scenario-head">
+      <div class="icon">🦴</div>
+      <div class="meta">
+        <div class="tag">Scenario 2 — single bad event</div>
+        <h3>Alex sprains his ankle in July</h3>
+        <div class="subtitle">Urgent care, MRI, follow-up + 4 weeks of physical therapy.</div>
+      </div>
+    </div>
+
+    <div class="scenario-story">
+      Alex twists his ankle playing basketball on a Saturday. By Sunday it's swollen and bruising — clearly more than a tweak. You take him to urgent care; they suggest an MRI to rule out a tear. The MRI shows a partial ligament tear. He needs an orthopedic specialist and 4 weeks of physical therapy.
+    </div>
+
+    <div class="bills-section">
+      <div class="bills-head">What it costs (raw bills before insurance)</div>
+      <div class="bill-line"><span class="desc">Urgent care visit</span><span class="cost">$280</span></div>
+      <div class="bill-line"><span class="desc">MRI (out-patient imaging)</span><span class="cost">$1,800</span></div>
+      <div class="bill-line"><span class="desc">Orthopedic specialist (1 visit)</span><span class="cost">$420</span></div>
+      <div class="bill-line"><span class="desc">Physical therapy (8 sessions)</span><span class="cost">$960</span></div>
+      <div class="bill-line total"><span class="desc">Total raw cost</span><span class="cost">$3,460</span></div>
+    </div>
+
+    <div class="plan-compare">
+      <div class="plan-compare-cell recommended">
+        <div class="plan-name">Acme Enhanced PPO</div>
+        <div class="plan-pay-label">You'd pay</div>
+        <div class="plan-pay-amount">~$770</div>
+        <div class="plan-breakdown">
+          $60 urgent care copay<br>
+          $360 MRI (20% coinsurance after deductible)<br>
+          $60 ortho specialist copay<br>
+          $240 PT (8 × $30 copay)<br>
+          Plus a portion of the $1,500 family deductible
+        </div>
+      </div>
+      <div class="plan-compare-cell">
+        <div class="plan-name">Acme HDHP HSA</div>
+        <div class="plan-pay-label">You'd pay</div>
+        <div class="plan-pay-amount">~$3,000</div>
+        <div class="plan-breakdown">
+          Full price until you hit the $3,000 family deductible — you'd effectively clear it on this single event<br>
+          Coinsurance after that for the last small bit<br>
+          HSA tax savings can offset ~$700 of this
+        </div>
+      </div>
+    </div>
+
+    <div class="diff-callout">
+      <span class="icon">⚠</span>
+      <div>The HDHP costs you <span class="gap-amount">~$2,230 more</span> on this scenario.</div>
+    </div>
+  </article>
+
+  <!-- SCENARIO 3: Cumulative -->
+  <article class="scenario-card">
+    <div class="scenario-head">
+      <div class="icon">📅</div>
+      <div class="meta">
+        <div class="tag">Scenario 3 — full rough year</div>
+        <h3>A cumulative rough year for your family</h3>
+        <div class="subtitle">Both events happen, plus more. This is what a "bad year" actually adds up to.</div>
+      </div>
+    </div>
+
+    <div class="scenario-story">
+      Maya's respiratory thing in February. Alex's ankle in July. <em>And</em> you have a kidney stone in October that lands you in the ER for one night. <em>And</em> your asthma flares up in spring, requiring a new prescription regimen. Most of this stuff, individually, is manageable. Stacked together over a year, it's a lot.
+    </div>
+
+    <div class="bills-section">
+      <div class="bills-head">What it costs (raw bills before insurance)</div>
+      <div class="bill-line"><span class="desc">Maya respiratory infection (Feb)</span><span class="cost">$3,145</span></div>
+      <div class="bill-line"><span class="desc">Alex ankle (urgent care, MRI, PT)</span><span class="cost">$3,460</span></div>
+      <div class="bill-line"><span class="desc">Your kidney stone ER (Oct)</span><span class="cost">$5,200</span></div>
+      <div class="bill-line"><span class="desc">Asthma flare-up &amp; new Rx (spring)</span><span class="cost">$880</span></div>
+      <div class="bill-line"><span class="desc">Routine + preventive (whole year)</span><span class="cost">$0 (covered)</span></div>
+      <div class="bill-line total"><span class="desc">Total raw cost</span><span class="cost">$12,685</span></div>
+    </div>
+
+    <div class="plan-compare">
+      <div class="plan-compare-cell recommended">
+        <div class="plan-name">Acme Enhanced PPO</div>
+        <div class="plan-pay-label">You'd pay</div>
+        <div class="plan-pay-amount">~$2,800</div>
+        <div class="plan-breakdown">
+          You hit the $4,500 family OOP max about ⅔ of the way through the year<br>
+          After that, every additional bill is fully covered<br>
+          Hard cap protects you from the worst-case scenario
+        </div>
+      </div>
+      <div class="plan-compare-cell">
+        <div class="plan-name">Acme HDHP HSA</div>
+        <div class="plan-pay-label">You'd pay</div>
+        <div class="plan-pay-amount">~$5,500</div>
+        <div class="plan-breakdown">
+          You hit the $7,500 family OOP max only after a much higher run-up<br>
+          Big deductible eats most early bills<br>
+          HSA tax savings (~$1,000 if maxed) offset some, but the gap is real
+        </div>
+      </div>
+    </div>
+
+    <div class="diff-callout">
+      <span class="icon">⚠</span>
+      <div>The HDHP costs you <span class="gap-amount">~$2,700 more</span> in a full rough year. <strong>This is the worst-case spread.</strong></div>
+    </div>
+  </article>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway">
+    <div class="icon">✨</div>
+    <div class="text">
+      <div class="head">Why this changes my recommendation — or doesn't</div>
+      <h3>The PPO costs $1,365/year more in paycheck deductions, but saves you up to $2,700 if your year goes badly.</h3>
+      <p>Net-net: <strong>even one rough event in the year — Maya getting sick, anyone needing an MRI — and the PPO is already cheaper</strong>. That's why I lead with it for your family. The HDHP only wins if your whole year stays healthy <em>and</em> you max your HSA contributions.<br><br>You're a 28-year-old with a 2-year-old, daily meds, and a husband. The "all-healthy year" scenario is real but it's not the most likely. That's the trade-off I'm making in your recommendation. Your call — both plans are real options.</p>
+    </div>
+  </div>
+
+  <!-- Action row -->
+  <div class="action-row">
+    <button class="qr-chip primary">✓ Choose Enhanced PPO</button>
+    <button class="qr-chip">Pick HDHP anyway — I'll bet on a healthy year</button>
+    <button class="qr-chip">⇄ Side-by-side compare</button>
+    <button class="qr-chip">Run a different scenario</button>
+  </div>
+
+</main>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Tell me a different scenario to model..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

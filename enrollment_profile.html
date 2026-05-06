@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WEX Benefits — Profile</title>
+<style>
+  :root {
+    --wex-red: #E4002B;
+    --wex-magenta: #C4256C;
+    --wex-purple: #5A1A4F;
+    --wex-cta-grad: linear-gradient(90deg, #3D0E4F 0%, #6B1A5C 50%, #C4256C 100%);
+    --bg: #FAF7FA;
+    --bg-2: #F4F0F4;
+    --card: #FFFFFF;
+    --text: #1A1A1A;
+    --muted: #6B7280;
+    --border: #E5E7EB;
+    --green: #2E7D32;
+    --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* Top nav (consistent with home) */
+  .topnav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topnav .brand { display: flex; align-items: center; gap: 14px; }
+  .wex-logo { font-weight: 900; font-size: 26px; color: var(--wex-red); letter-spacing: -1px; }
+  .brand-sub {
+    font-size: 11px;
+    color: var(--wex-magenta);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  .topnav .right { display: flex; align-items: center; gap: 18px; }
+  .deadline-pill {
+    background: #FCE8F3;
+    color: var(--wex-magenta);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid #F5C6DA;
+  }
+  .icon-btn { color: #555; font-size: 16px; }
+  .user-chip { display: flex; align-items: center; gap: 8px; }
+  .user-chip .name { font-size: 13px; font-weight: 600; }
+  .user-chip .meta { font-size: 10px; color: var(--muted); }
+  .avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--spark-grad);
+    color: white;
+    display: inline-block;
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px; font-weight: 700;
+  }
+
+  /* App shell */
+  .app-shell {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .app-shell > .sidebar { display: table-cell; vertical-align: top; width: 240px; }
+  .app-shell > .main { display: table-cell; vertical-align: top; }
+
+  /* Sidebar */
+  .sidebar {
+    background: white;
+    border-right: 1px solid var(--border);
+    padding: 32px 24px;
+  }
+  .sidebar h4 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .sidebar .subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 22px;
+    line-height: 1.4;
+  }
+  .sidebar .step {
+    padding: 12px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  .sidebar .step .num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid #BBB;
+    display: inline-block;
+    line-height: 22px;
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    font-weight: 600;
+    vertical-align: top;
+    margin-right: 10px;
+  }
+  .sidebar .step.active .num {
+    background: var(--wex-magenta);
+    border-color: var(--wex-magenta);
+    color: white;
+  }
+  .sidebar .step.active .step-name {
+    color: var(--wex-magenta);
+    font-weight: 600;
+  }
+  .sidebar .step-name {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .sidebar .step-meta {
+    display: block;
+    margin-left: 34px;
+    margin-top: 2px;
+    font-size: 11px;
+    color: #999;
+    line-height: 1.4;
+  }
+  .sidebar .step.active .step-meta { color: #B07A99; }
+  .sidebar .progress-info {
+    margin-top: 22px;
+    padding: 14px;
+    background: var(--bg-2);
+    border-radius: 8px;
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .sidebar .progress-info strong { color: var(--wex-purple); }
+
+  /* Main */
+  .main {
+    padding: 40px 56px 56px;
+    max-width: 880px;
+  }
+
+  /* In-page progress strip */
+  .page-progress {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .page-progress .text { white-space: nowrap; font-weight: 500; }
+  .page-progress .text strong { color: var(--wex-purple); }
+  .page-progress .bar {
+    flex: 1;
+    max-width: 360px;
+    height: 5px;
+    background: #E5E7EB;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .page-progress .fill {
+    background: var(--wex-magenta);
+    height: 100%;
+    width: 11%;
+    border-radius: 3px;
+  }
+
+  /* Spark hero */
+  .spark-hero {
+    background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    border: 1px solid #EAD8E1;
+  }
+  .spark-orb {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--spark-grad);
+    color: white;
+    font-size: 24px;
+    line-height: 52px;
+    text-align: center;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(196, 37, 108, 0.22);
+  }
+  .spark-hero h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .spark-hero p {
+    margin: 0;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* Summary card */
+  .summary {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 18px;
+  }
+  .summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .summary-header h3 {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    font-weight: 600;
+  }
+  .summary-header .source-note {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .summary-header .source-note strong { color: var(--wex-purple); }
+
+  .sec-head {
+    font-size: 10px;
+    font-weight: 700;
+    color: #5A1A4F;
+    letter-spacing: 1.2px;
+    margin: 14px 0 4px;
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+  }
+  .data-table td {
+    padding: 12px 4px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 14px;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td.lbl { width: 180px; color: #6B7280; font-size: 13px; }
+  .data-table td.val { color: #1A1A1A; }
+  .data-table td.act { width: 60px; text-align: right; color: #999; font-size: 13px; }
+  .data-table td.act-edit { color: #C4256C; font-weight: 600; }
+  .data-table .dim { color: #6B7280; }
+  .data-table .tag-hr { background: #F4F0F4; color: #5A1A4F; font-size: 10px; padding: 2px 7px; margin-left: 8px; font-weight: 600; letter-spacing: 0.5px; }
+  .data-table .tag-edit { background: #FCE8F3; color: #C4256C; font-size: 10px; padding: 2px 7px; margin-left: 8px; font-weight: 600; letter-spacing: 0.5px; }
+  .row .row-value {
+    flex: 1;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .source-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    margin-left: 8px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    border-radius: 3px;
+  }
+  .source-tag.from-hr {
+    background: #F4F0F4;
+    color: #5A1A4F;
+  }
+  .source-tag.editable {
+    background: #FCE8F3;
+    color: #C4256C;
+  }
+  .row .row-action {
+    color: var(--wex-magenta);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .row .lock-icon { color: #999; font-size: 14px; }
+
+  .actions-row { margin: 18px 0 0; }
+  .btn-primary {
+    background: var(--wex-cta-grad);
+    color: white;
+    border: none;
+    padding: 13px 26px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .btn-secondary {
+    background: white;
+    color: var(--wex-purple);
+    border: 1.5px solid var(--wex-purple);
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .btn-link {
+    color: var(--wex-magenta);
+    background: none;
+    border: none;
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 11px 8px;
+    display: inline-block;
+  }
+
+  .help-panel {
+    display: block;
+    width: auto;
+    margin: 22px 0 0;
+    padding: 16px 20px;
+    border-left: 4px solid #C4256C;
+    background: #FAFAFA;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+  .help-panel strong { color: #5A1A4F; }
+
+  /* Email-draft preview (hidden by default but shown in mockup for clarity) */
+  .email-preview {
+    margin-top: 22px;
+    background: #FFFCF7;
+    border: 1px dashed #E0CC9F;
+    border-radius: 10px;
+    padding: 18px 22px;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+  }
+  .email-preview .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #B5832C;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .email-preview .field-row {
+    display: flex;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px dotted #EADBB7;
+    font-size: 12px;
+  }
+  .email-preview .field-row:last-of-type { border-bottom: none; }
+  .email-preview .field-row .k { color: var(--muted); flex: 0 0 60px; }
+  .email-preview .body {
+    margin-top: 12px;
+    background: white;
+    padding: 14px;
+    border-radius: 6px;
+    border: 1px solid #EFE3CB;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .email-preview .controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .email-preview .controls button {
+    background: #B5832C;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .email-preview .controls .secondary {
+    background: white;
+    color: #B5832C;
+    border: 1px solid #B5832C;
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="brand">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-sub">BENEFITS<br>Acme Corp</div>
+  </div>
+  <div class="right">
+    <span class="deadline-pill">Open enrollment closes June 30</span>
+    <span class="icon-btn">🔔</span>
+    <div class="user-chip">
+      <div>
+        <div class="name">Nicole Smith</div>
+        <div class="meta">New hire</div>
+      </div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</div>
+
+<div class="app-shell">
+
+  <div class="sidebar">
+    <h4>Your enrollment</h4>
+    <div class="subtitle">About 12 minutes total<br>Pause anytime, I'll save your progress</div>
+
+    <div class="step active"><span class="num">1</span> Quick check</div>
+    <div class="step"><span class="num">2</span> Your situation</div>
+    <div class="step"><span class="num">3</span> See recommendations</div>
+    <div class="step"><span class="num">4</span> Make it official</div>
+
+    <div class="progress-info">
+      Your progress saves automatically. Close the tab and come back anytime — I'll bring you right back to where you left off.
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="spark-hero">
+      <div class="spark-orb">✨</div>
+      <div>
+        <h1>Quick check, Nicole.</h1>
+        <p>Acme Corp shared this with us about you. Glance over it — if anything's off, I'll help you flag it. Otherwise, we keep moving.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-header">
+        <h3>What we know about you</h3>
+        <div class="source-note">From <strong>Acme Corp HR</strong>, last synced 2 days ago</div>
+      </div>
+
+      <div class="sec-head">PERSONAL</div>
+      <table class="data-table">
+        <tr><td class="lbl">Full name</td><td class="val">Nicole Smith <span class="tag-hr">FROM HR</span></td><td class="act">🔒</td></tr>
+        <tr><td class="lbl">Birthday</td><td class="val">March 15, 1998 <span class="dim">(age 28)</span> <span class="tag-hr">FROM HR</span></td><td class="act">🔒</td></tr>
+        <tr><td class="lbl">Gender</td><td class="val">Female <span class="tag-hr">FROM HR</span></td><td class="act">🔒</td></tr>
+        <tr><td class="lbl">Marital status</td><td class="val">Married <span class="tag-hr">FROM HR</span></td><td class="act">🔒</td></tr>
+        <tr><td class="lbl">Account reference</td><td class="val">78445225</td><td class="act">🔒</td></tr>
+      </table>
+
+      <div class="sec-head">WHERE YOU LIVE</div>
+      <table class="data-table">
+        <tr><td class="lbl">Home address</td><td class="val">123 Main Street, New York, NY 10011 <span class="tag-hr">FROM HR</span></td><td class="act">🔒</td></tr>
+        <tr><td class="lbl">Mailing address</td><td class="val">Same as home address <span class="tag-edit">YOU CAN EDIT</span></td><td class="act act-edit">Edit</td></tr>
+      </table>
+
+      <div class="sec-head">HOW TO REACH YOU</div>
+      <table class="data-table">
+        <tr><td class="lbl">Email address</td><td class="val">useremail@email.com <span class="tag-edit">YOU CAN EDIT</span></td><td class="act act-edit">Edit</td></tr>
+        <tr><td class="lbl">Phone number</td><td class="val">(212) 555-4567 <span class="tag-edit">YOU CAN EDIT</span></td><td class="act act-edit">Edit</td></tr>
+      </table>
+    </div>
+
+    <p class="actions-row">
+      <span class="btn-primary">Looks right — let's keep going ›</span>
+      &nbsp;&nbsp;
+      <span class="btn-secondary">Something's wrong</span>
+      &nbsp;&nbsp;
+      <span class="btn-link">Why is some of this locked?</span>
+    </p>
+
+
+  </div>
+</div>
+
+</body>
+</html>

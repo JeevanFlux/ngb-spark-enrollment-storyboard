@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reimagined Enrollment — Storyboard</title>
+<style>
+:root {
+  --wex-red: #E4002B;
+  --wex-magenta: #C4256C;
+  --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --bg: #F4EFF3;
+  --paper: #FFFFFF;
+  --text: #1A1A1A;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --border-soft: #EFE6EE;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; padding: 32px 16px 72px;
+}
+
+.journey-wrap { max-width: 1080px; margin: 0 auto; }
+
+.master-head { text-align: center; margin-bottom: 36px; padding: 0 16px; }
+.master-head .eyebrow {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--wex-magenta); font-weight: 700; margin-bottom: 10px;
+}
+.master-head h1 {
+  font-size: 36px; letter-spacing: -1px; line-height: 1.15;
+  margin: 0 0 14px; font-weight: 700;
+}
+.master-head h1 .accent {
+  background: var(--spark-grad); -webkit-background-clip: text;
+  background-clip: text; -webkit-text-fill-color: transparent;
+}
+.master-head p {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  max-width: 680px; margin: 0 auto;
+}
+
+.legend {
+  display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 14px;
+  margin-top: 18px; padding: 10px 18px;
+  background: white; border: 1px solid var(--border); border-radius: 999px;
+  font-size: 12px; color: var(--muted);
+}
+.legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.legend-item .dot { width: 8px; height: 8px; border-radius: 50%; }
+.legend-item .dot.spark { background: var(--wex-magenta); }
+.legend-item .dot.user { background: var(--wex-purple); }
+.legend-item .dot.file { background: #F4F0F4; border: 1px solid var(--wex-purple); }
+
+.section-banner {
+  text-align: center; margin: 36px 0 18px; padding: 14px 22px;
+  background: white; border: 1.5px solid var(--wex-magenta);
+  border-radius: 12px; display: inline-block; width: 100%;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.08);
+}
+.section-banner .small {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--wex-magenta); font-weight: 800; margin-bottom: 6px;
+}
+.section-banner h2 { font-size: 20px; margin: 0; font-weight: 700; }
+
+.section-banner.branches { border-color: #E0CC9F; background: #FFFCF7; }
+.section-banner.branches .small { color: #B5832C; }
+
+.screen-card {
+  background: var(--paper); border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 10px 32px rgba(90, 26, 79, 0.08);
+  overflow: hidden; margin-bottom: 18px;
+}
+.screen-head {
+  padding: 18px 24px 14px; border-bottom: 1px solid var(--border-soft);
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.screen-head .num {
+  flex-shrink: 0; width: 36px; height: 36px;
+  border-radius: 50%; background: var(--spark-grad); color: white;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px;
+  box-shadow: 0 4px 12px rgba(196, 37, 108, 0.25);
+}
+.screen-head .num.branch {
+  background: white; color: #B5832C;
+  border: 2px solid #B5832C;
+  box-shadow: 0 4px 12px rgba(181, 131, 44, 0.18);
+}
+.screen-head .meta { flex: 1; min-width: 0; }
+.screen-head h2 { font-size: 18px; font-weight: 700; margin: 0 0 4px; line-height: 1.3; }
+.screen-head .filename {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11px; color: var(--muted); margin-top: 4px;
+}
+.screen-head .description { font-size: 13px; color: #444; line-height: 1.5; margin: 4px 0 0; }
+.screen-head .branch-tag {
+  display: inline-block; font-size: 9px; font-weight: 800; letter-spacing: 1.4px;
+  background: #FFF4DD; color: #B5832C; padding: 3px 8px;
+  border-radius: 4px; margin-bottom: 4px; text-transform: uppercase;
+}
+
+.frame-wrap {
+  position: relative; background: #FAF7FA;
+  border-top: 1px solid var(--border-soft);
+  height: 720px; overflow: hidden;
+}
+.frame-scaler {
+  width: 1400px; height: 1000px;
+  transform: scale(0.7); transform-origin: top left;
+}
+.frame-scaler iframe { width: 100%; height: 100%; border: 0; display: block; }
+.fallback-link {
+  display: block; text-align: center; padding: 16px;
+  font-size: 13px; color: var(--wex-magenta);
+  text-decoration: none; font-weight: 600;
+  background: #FCFAFC; border-top: 1px solid var(--border-soft);
+}
+.fallback-link:hover { text-decoration: underline; }
+
+.transition {
+  display: flex; align-items: stretch; gap: 12px;
+  margin: 10px auto 18px; max-width: 760px;
+  background: linear-gradient(90deg, #FCF6FA 0%, #F4ECF4 100%);
+  border: 1px solid #EAD8E1; border-radius: 12px; padding: 14px 18px;
+}
+.transition .arrow-mark {
+  flex-shrink: 0; width: 30px; height: 30px;
+  border-radius: 50%; background: var(--spark-grad); color: white;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+}
+.transition .text { flex: 1; font-size: 13px; color: var(--text); line-height: 1.5; }
+.transition .text strong { color: var(--wex-purple); font-weight: 700; }
+.transition .label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 1.4px;
+  color: var(--wex-magenta); font-weight: 700; display: block; margin-bottom: 4px;
+}
+.transition.branch {
+  background: linear-gradient(90deg, #FFFCF7 0%, #FDF6E5 100%);
+  border-color: #E0CC9F;
+}
+.transition.branch .arrow-mark {
+  background: linear-gradient(135deg, #B5832C 0%, #8C6418 100%);
+}
+.transition.branch .label { color: #B5832C; }
+
+.end-note {
+  margin-top: 30px; padding: 26px 28px;
+  background: white; border: 1.5px dashed var(--wex-magenta);
+  border-radius: 14px; text-align: center;
+}
+.end-note h3 {
+  font-size: 15px; font-weight: 700; color: var(--wex-purple);
+  margin: 0 0 10px; text-transform: uppercase; letter-spacing: 1.4px;
+}
+.end-note p {
+  font-size: 13px; color: #444; line-height: 1.6;
+  max-width: 720px; margin: 0 auto;
+}
+
+.tip-bar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(26, 26, 26, 0.92); backdrop-filter: blur(8px);
+  color: white; padding: 8px 16px; font-size: 12px; text-align: center;
+  margin: -32px -16px 24px;
+}
+.tip-bar a { color: #F8C8DC; font-weight: 600; text-decoration: none; }
+
+@media (max-width: 720px) {
+  .frame-wrap { height: 520px; }
+  .frame-scaler { transform: scale(0.5); }
+  .master-head h1 { font-size: 26px; }
+  .tip-bar { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<div class="tip-bar">
+  📸 Storyboard view — scroll to follow Nicole's complete enrollment story. Each frame links to its own HTML file for individual screenshots.
+</div>
+
+<div class="journey-wrap">
+
+  <header class="master-head">
+    <div class="eyebrow">SPARK · NEXT GEN BENEFITS · STORYBOARD</div>
+    <h1>From "Enroll Now" to <span class="accent">a conversation that fits Nicole's life.</span></h1>
+    <p>Nicole is a new hire at Acme Corp. She has 57 days to enroll in benefits. Instead of a 6-step form wizard, Spark walks her through one continuous conversation — confirming what's on file, adding her new daughter Maya, gathering health and money context, and producing a personalized starter plan. Below: 6 main-path frames, plus 2 edge-case branches that appear when something needs to be edited or escalated.</p>
+    <div class="legend">
+      <span class="legend-item"><span class="dot spark"></span>Spark says</span>
+      <span class="legend-item"><span class="dot user"></span>Nicole says or taps</span>
+      <span class="legend-item"><span class="dot file"></span>"Your file" updates</span>
+    </div>
+  </header>
+
+  <!-- ============ MAIN PATH ============ -->
+  <div class="section-banner">
+    <div class="small">PHASE 1 · MAIN PATH</div>
+    <h2>Getting to know you — Nicole's continuous story</h2>
+  </div>
+
+  <!-- Frame 1: Home -->
+  <article class="screen-card">
+    <div class="screen-head">
+      <div class="num">1</div>
+      <div class="meta">
+        <h2>Welcome — Spark, not "Enroll Now"</h2>
+        <p class="description">Nicole lands. The page itself is the start of her enrollment. A magenta-bordered Spark input is the primary CTA, with a labeled "Start enrollment →" button and 7 starter chips that pre-fill the input on tap. Mobile-responsive.</p>
+        <div class="filename">enrollment_home_v3.html</div>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-scaler"><iframe src="enrollment_home_v3.html" title="Frame 1 — Home"></iframe></div>
+    </div>
+    <a class="fallback-link" href="enrollment_home_v3.html" target="_blank">Open Frame 1 full-page →</a>
+  </article>
+
+  <div class="transition">
+    <div class="arrow-mark">↓</div>
+    <div class="text">
+      <span class="label">What happens next</span>
+      Nicole taps a chip ("I take meds daily"), refines it in the input ("…for asthma and high blood pressure"), and hits <strong>Start enrollment</strong>. The page transitions in place into a conversation — no reload.
+    </div>
+  </div>
+
+  <!-- Frame 2: Landing -->
+  <article class="screen-card">
+    <div class="screen-head">
+      <div class="num">2</div>
+      <div class="meta">
+        <h2>Conversation begins — Spark acknowledges</h2>
+        <p class="description">Nicole's message becomes the first user bubble. Spark replies in plain English, names what it heard. Phase 1 of 3 indicator at top. The "Your file" panel on the right already shows everything on file — Personal, Address, Contact, Household — clearly marked locked (🔒) or editable (✎). She can scan all 12 items immediately.</p>
+        <div class="filename">screen2_a_landing.html</div>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-scaler"><iframe src="screen2_a_landing.html" title="Frame 2 — Landing"></iframe></div>
+    </div>
+    <a class="fallback-link" href="screen2_a_landing.html" target="_blank">Open Frame 2 full-page →</a>
+  </article>
+
+  <div class="transition">
+    <div class="arrow-mark">↓</div>
+    <div class="text">
+      <span class="label">What happens next</span>
+      Spark surfaces a <strong>Quick check</strong> showing every field — name, DOB, gender, marital, full address, mailing, email, phone — each with 🔒 or ✎ icons so Nicole sees what's locked vs. what she can change.
+    </div>
+  </div>
+
+  <!-- Frame 3: Profile confirm -->
+  <article class="screen-card">
+    <div class="screen-head">
+      <div class="num">3</div>
+      <div class="meta">
+        <h2>Profile review — comprehensive, in one card</h2>
+        <p class="description">The old Profile screen had ~12 separate fields. Spark surfaces them as a single read-only summary card showing every detail, each tagged 🔒 or ✎. No retyping. Three responses: confirm everything, edit something editable, or escalate a locked field. (If she edits something — see Branches A or B below.)</p>
+        <div class="filename">screen2_b_profile_confirm.html</div>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-scaler"><iframe src="screen2_b_profile_confirm.html" title="Frame 3 — Profile confirm"></iframe></div>
+    </div>
+    <a class="fallback-link" href="screen2_b_profile_confirm.html" target="_blank">Open Frame 3 full-page →</a>
+  </article>
+
+  <div class="transition">
+    <div class="arrow-mark">↓</div>
+    <div class="text">
+      <span class="label">What happens next</span>
+      Nicole taps <strong>Yes, all good</strong>. Her file's Personal, Address, and Contact sections are now Confirmed. Spark moves seamlessly to dependents — same conversation, no new screen.
+    </div>
+  </div>
+
+  <!-- Frame 4: Dependent confirm -->
+  <article class="screen-card">
+    <div class="screen-head">
+      <div class="num">4</div>
+      <div class="meta">
+        <h2>Dependents — Alex pre-filled, plus the option to add</h2>
+        <p class="description">Spark shows Alex's existing record (DOB, SSN, address all on file). Three replies: Yes cover Alex / Just me / + Add someone else. Nicole has a 2-year-old daughter Maya who isn't on file yet — she taps + Add someone else.</p>
+        <div class="filename">screen2_c_dependent_confirm.html</div>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-scaler"><iframe src="screen2_c_dependent_confirm.html" title="Frame 4 — Dependent confirm"></iframe></div>
+    </div>
+    <a class="fallback-link" href="screen2_c_dependent_confirm.html" target="_blank">Open Frame 4 full-page →</a>
+  </article>
+
+  <div class="transition">
+    <div class="arrow-mark">↓</div>
+    <div class="text">
+      <span class="label">Nicole taps "+ Add someone else"</span>
+      Spark drops a structured "Add a person" card right into the conversation — gathering the IRS-required dependent info (incl. SSN) without ever taking her out of the chat.
+    </div>
+  </div>
+
+  <!-- Frame 5: Add person (now main path) -->
+  <article class="screen-card">
+    <div class="screen-head">
+      <div class="num">5</div>
+      <div class="meta">
+        <h2>Adding Maya — structured but in-conversation</h2>
+        <p class="description">An inline form card asks for First/Middle/Last, DOB, Gender, Relationship, SSN, and Full-Time Student (auto-suppressed because Maya is too young — that's the conditional logic in action). Strong privacy framing on the SSN field. Spark reassures: encrypted at rest, only shared with carriers, never with Acme. A faint Spark message at the end previews what comes next.</p>
+        <div class="filename">screen2_c_add_person.html</div>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-scaler"><iframe src="screen2_c_add_person.html" title="Frame 5 — Add Maya"></iframe></div>
+    </div>
+    <a class="fallback-link" href="screen2_c_add_person.html" target="_blank">Open Frame 5 full-page →</a>
+  </article>
+
+  <div class="transition">
+    <div class="arrow-mark">↓</div>
+    <div class="text">
+      <span class="label">After Maya is saved</span>
+      Maya joins the Household section in Nicole's file. Spark acknowledges, asks if there's anyone else, then naturally rolls into questions about the family's typical year — naming all three of them in the question itself. <strong>This is the LLM-driven adaptation working in practice:</strong> the data points Spark needs are pre-defined, but the wording adapts to who's actually in the household.
+    </div>
+  </div>
+
+  <!-- Frame 6: Mid-conversation -->
+  <article class="screen-card">
+    <div class="screen-head">
+      <div class="num">6</div>
+      <div class="meta">
+        <h2>Mid-conversation — Maya in the file, Spark adapts</h2>
+        <p class="description">Phase 1 at ~80%. Maya is now in the Household section ("Daughter — covered"). Spark's typical-year question names "you, Alex, and Maya" — and even adds a parenthetical about toddlers having well-child visits, because the LLM knows Maya is 2. Final question of Phase 1 is the risk-tolerance trade-off that drives plan recommendations. Earlier turns scrolled up but recoverable.</p>
+        <div class="filename">screen2_d_mid_conversation.html</div>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-scaler"><iframe src="screen2_d_mid_conversation.html" title="Frame 6 — Mid-conversation"></iframe></div>
+    </div>
+    <a class="fallback-link" href="screen2_d_mid_conversation.html" target="_blank">Open Frame 6 full-page →</a>
+  </article>
+
+  <div class="end-note">
+    <h3>Phase 1 ends · Phase 2 begins</h3>
+    <p>Once the risk-tolerance answer lands, Spark says: <em>"Okay — I think I have enough to put together your starting plan. Want to see it?"</em> Tapping yes transitions to Phase 2 (Your benefits) — plan recommendations, scenarios, comparisons, supplemental, contributions. That phase is the next chunk of design work.</p>
+  </div>
+
+  <!-- ============ EDGE-CASE BRANCHES ============ -->
+  <div class="section-banner branches">
+    <div class="small">EDGE-CASE BRANCHES · WHEN SOMETHING'S WRONG</div>
+    <h2>If Nicole needs to edit a field — these patterns kick in</h2>
+  </div>
+
+  <p style="text-align: center; max-width: 680px; margin: 0 auto 24px; font-size: 13px; color: var(--muted); line-height: 1.6;">
+    These two frames aren't on the main story above — they're alternate paths from <strong>Frame 3 (Profile review)</strong>. They handle the cases where Nicole spots an error in her file. Both stay inside the conversation surface; neither takes her to a separate page.
+  </p>
+
+  <div class="transition branch">
+    <div class="arrow-mark">A</div>
+    <div class="text">
+      <span class="label">Branch A — if Nicole taps "Edit something"</span>
+      An editable field opens directly inside the file panel. She makes the change, hits Save, and the conversation continues without leaving the surface.
+    </div>
+  </div>
+
+  <article class="screen-card">
+    <div class="screen-head">
+      <div class="num branch">A</div>
+      <div class="meta">
+        <span class="branch-tag">BRANCH · EDITABLE FIELD</span>
+        <h2>Editing email inline — no separate page</h2>
+        <p class="description">Nicole tapped "Edit something" and chose her email. The file panel shows the email field actively in edit mode with a save/cancel pair. No modal, no navigation — she just edits in place.</p>
+        <div class="filename">screen2_b_edit.html</div>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-scaler"><iframe src="screen2_b_edit.html" title="Branch A — Editing"></iframe></div>
+    </div>
+    <a class="fallback-link" href="screen2_b_edit.html" target="_blank">Open Branch A full-page →</a>
+  </article>
+
+  <div class="transition branch">
+    <div class="arrow-mark">B</div>
+    <div class="text">
+      <span class="label">Branch B — if Nicole taps a locked field (e.g. last name)</span>
+      Spark explains it can't change locked fields directly, but offers to <strong>draft an HR request</strong> for her — one of the strongest "AI in the workflow" moments. She reviews, edits, sends.
+    </div>
+  </div>
+
+  <article class="screen-card">
+    <div class="screen-head">
+      <div class="num branch">B</div>
+      <div class="meta">
+        <span class="branch-tag">BRANCH · LOCKED FIELD</span>
+        <h2>Spark drafts the HR email for her</h2>
+        <p class="description">Nicole says her last name needs updating (just got married). Last name is locked — Acme HR controls it. Instead of a dead-end "contact HR" message, Spark drafts a complete email request, prefilled with everything HR needs. Nicole reviews, edits if needed, hits Send. The file panel tags the field "✉ HR request drafted." Enrollment continues — doesn't have to wait.</p>
+        <div class="filename">screen2_b_hr_request.html</div>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-scaler"><iframe src="screen2_b_hr_request.html" title="Branch B — Email draft"></iframe></div>
+    </div>
+    <a class="fallback-link" href="screen2_b_hr_request.html" target="_blank">Open Branch B full-page →</a>
+  </article>
+
+</div>
+
+</body>
+</html>

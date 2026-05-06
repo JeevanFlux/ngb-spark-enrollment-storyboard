@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 10b · Custom scenario generated)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32; --green-bg: #E8F5E9;
+  --red-soft: #B91C1C; --red-bg: #FEE2E2;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; white-space: nowrap; display: none; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; position: relative; }
+.icon-btn .dot-badge { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--wex-magenta); }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: white; border-bottom: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--wex-purple); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: #F0E5EE; border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+.phase-percent { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+.app-shell { display: block; }
+.conversation { padding: 24px 16px 130px; max-width: 880px; margin: 0 auto; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 16px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 600px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+.user-bubble { background: var(--spark-grad); color: white; border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; line-height: 1.5; max-width: 480px; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.18); }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); }
+
+/* Starter chips for scenarios */
+.scenario-chips {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin: 0 0 18px 42px; max-width: 700px;
+}
+.scenario-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 9px 16px; border-radius: 999px; font-size: 13px; font-weight: 500;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.scenario-chip:hover { border-color: var(--wex-magenta); color: var(--wex-purple); }
+.scenario-chip .chip-icon { font-size: 14px; }
+
+/* Generated scenario card — distinct from pre-built */
+.gen-scenario-card {
+  background: white;
+  border: 2px solid var(--wex-magenta);
+  border-radius: 14px;
+  margin: 0 0 18px 42px;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16);
+  position: relative;
+}
+.gen-tag {
+  position: absolute;
+  top: 12px; right: 14px;
+  background: var(--spark-grad);
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 5px;
+  box-shadow: 0 2px 6px rgba(196, 37, 108, 0.3);
+}
+.scenario-head {
+  padding: 18px 22px 16px;
+  border-bottom: 1px solid var(--border-soft);
+  display: flex; gap: 14px; align-items: center;
+  background: linear-gradient(90deg, #FFF8FB 0%, #FCFAFC 100%);
+  padding-right: 140px;
+}
+.scenario-head .icon {
+  font-size: 28px; flex-shrink: 0;
+  width: 46px; height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  background: white; border-radius: 50%; border: 1.5px solid #EAD8E1;
+}
+.scenario-head .meta { flex: 1; }
+.scenario-head .tag {
+  font-size: 9px; font-weight: 800; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--wex-magenta);
+  margin-bottom: 4px;
+}
+.scenario-head h3 { font-size: 17px; font-weight: 700; margin: 0; line-height: 1.2; }
+.scenario-head .subtitle { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+.data-source-banner {
+  padding: 10px 22px;
+  background: #FAFAFA;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 11px; color: var(--muted); line-height: 1.5;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.data-source-banner .icon { color: var(--wex-magenta); flex-shrink: 0; font-size: 12px; }
+.data-source-banner strong { color: var(--wex-purple); }
+
+.scenario-story {
+  padding: 16px 22px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-soft);
+}
+.scenario-story strong { color: var(--wex-purple); }
+
+.bills-section {
+  padding: 16px 22px;
+  background: #FCFAFC;
+  border-bottom: 1px solid var(--border-soft);
+}
+.bills-head {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.bill-line {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0; font-size: 12.5px;
+  border-bottom: 1px dashed #EFE6EE;
+}
+.bill-line:last-of-type { border-bottom: none; }
+.bill-line .desc { color: #444; }
+.bill-line .cost { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.bill-line.total {
+  margin-top: 6px; padding-top: 10px;
+  border-top: 1.5px solid var(--border);
+  border-bottom: none;
+}
+.bill-line.total .desc { font-weight: 700; color: var(--wex-purple); font-size: 13px; }
+.bill-line.total .cost { font-size: 16px; }
+
+.plan-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.plan-compare-cell {
+  padding: 18px 20px;
+  border-right: 1px solid var(--border-soft);
+}
+.plan-compare-cell:last-child { border-right: none; }
+.plan-compare-cell.recommended { background: #FCF6FA; }
+.plan-name {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 5px;
+}
+.plan-compare-cell.recommended .plan-name { color: var(--wex-magenta); }
+.plan-compare-cell.recommended .plan-name::before { content: '★'; color: var(--wex-magenta); }
+.plan-pay-label { font-size: 10px; color: var(--muted); margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; }
+.plan-pay-amount {
+  font-size: 32px; font-weight: 800; line-height: 1.1;
+  color: var(--text); font-variant-numeric: tabular-nums;
+  letter-spacing: -1px;
+}
+.plan-compare-cell.recommended .plan-pay-amount { color: var(--wex-purple); }
+.plan-compare-cell .plan-breakdown {
+  font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.55;
+}
+
+.diff-callout {
+  padding: 14px 22px;
+  background: var(--red-bg);
+  border-top: 1px solid var(--border-soft);
+  display: flex; gap: 10px; align-items: center;
+  font-size: 13px; color: var(--red-soft);
+}
+.diff-callout strong { font-weight: 800; }
+.diff-callout .icon { font-size: 18px; }
+.diff-callout .gap-amount { font-weight: 800; font-size: 16px; }
+
+/* Spark commentary after scenario */
+.spark-commentary {
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border-top: 1px solid #EAD8E1;
+  padding: 16px 22px;
+  font-size: 13px; line-height: 1.6;
+  color: var(--text);
+}
+.spark-commentary strong { color: var(--wex-purple); }
+.spark-commentary .head {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--wex-magenta); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* Action row */
+.action-row {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px 42px;
+}
+.qr-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 11px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+.qr-chip.primary {
+  background: var(--spark-grad); color: white; border-color: transparent;
+  box-shadow: 0 6px 18px rgba(196, 37, 108, 0.28); padding: 11px 22px;
+  font-size: 13.5px; font-weight: 700;
+}
+
+.docked-input { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 720px; background: white; border: 2px solid var(--wex-magenta); border-radius: 16px; padding: 6px 8px 6px 12px; box-shadow: 0 12px 36px rgba(196, 37, 108, 0.16), 0 0 0 4px rgba(196, 37, 108, 0.05); display: flex; align-items: center; gap: 8px; z-index: 20; }
+.docked-input .mic-btn { width: 40px; height: 40px; border-radius: 50%; background: #F8F1F5; color: var(--wex-magenta); border: 1.5px solid #F1DFE9; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.docked-input textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; font-size: 14px; font-family: inherit; padding: 10px 4px; min-height: 24px; line-height: 1.4; background: transparent; }
+.docked-input textarea::placeholder { color: #9CA3AF; }
+.docked-input .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--send-grad); color: white; border: none; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.3); }
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .deadline-pill { display: inline-block; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .conversation { padding: 36px 36px 130px; }
+}
+@media (max-width: 700px) {
+  .gen-scenario-card, .scenario-chips, .action-row, .spark-msg, .user-msg { margin-left: 0; }
+  .user-msg { margin-right: 0; }
+  .plan-compare { grid-template-columns: 1fr; }
+  .plan-compare-cell { border-right: none; border-bottom: 1px solid var(--border-soft); }
+  .plan-compare-cell:last-child { border-bottom: none; }
+  .plan-pay-amount { font-size: 26px; }
+  .scenario-head { padding-right: 22px; }
+  .gen-tag { position: static; margin: 0 22px 8px; align-self: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">Enrollment closes June 30 · 57 days left</span>
+    <span class="icon-btn">🔔<span class="dot-badge"></span></span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">New hire</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · Custom scenario</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 12%"></div></div>
+  <span class="phase-percent">~10%</span>
+</div>
+
+<main class="conversation">
+
+  <!-- User taps the button -->
+  <div class="user-msg">
+    <div class="user-bubble tap">💭 Run a different scenario</div>
+  </div>
+
+  <!-- Spark prompt -->
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Sure — tell me what you want to imagine. <strong>Type or talk</strong>, and I'll model what your year would look like under each plan. Or pick a common one below.
+    </div>
+  </div>
+
+  <!-- Starter chips for common scenarios -->
+  <div class="scenario-chips">
+    <span class="scenario-chip"><span class="chip-icon">🤰</span>What if I get pregnant</span>
+    <span class="scenario-chip"><span class="chip-icon">🏥</span>What if someone needs surgery</span>
+    <span class="scenario-chip"><span class="chip-icon">🧠</span>What if Maya needs ongoing therapy</span>
+    <span class="scenario-chip"><span class="chip-icon">💊</span>What if my asthma gets worse</span>
+    <span class="scenario-chip"><span class="chip-icon">🦷</span>What if Alex needs a root canal</span>
+    <span class="scenario-chip"><span class="chip-icon">👁</span>What if I need LASIK</span>
+    <span class="scenario-chip"><span class="chip-icon">💔</span>What if Alex loses his coverage</span>
+  </div>
+
+  <!-- User picks one -->
+  <div class="user-msg">
+    <div class="user-bubble">What if I get pregnant in the fall</div>
+  </div>
+
+  <!-- Spark acknowledges and starts modeling -->
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Got it. Let me model that for your situation — pregnancy in October would mean prenatal care running through 2026 and delivery into early 2027. <strong>I'll keep it within your 2026 plan year</strong> so we can compare apples to apples.
+    </div>
+  </div>
+
+  <!-- GENERATED SCENARIO CARD -->
+  <article class="gen-scenario-card">
+    <div class="gen-tag">✨ Generated for you</div>
+
+    <div class="scenario-head">
+      <div class="icon">🤰</div>
+      <div class="meta">
+        <div class="tag">Custom scenario · pregnancy in fall</div>
+        <h3>You get pregnant in October — prenatal care through end of plan year</h3>
+        <div class="subtitle">First-trimester care, screening tests, and 4 prenatal visits before Dec 31. Delivery would happen in 2027 (next plan year), so we'll model just the 2026 portion.</div>
+      </div>
+    </div>
+
+    <div class="data-source-banner">
+      <span class="icon">💡</span>
+      <div>
+        Estimates use <strong>national-average maternity-care costs</strong> from your carrier's claims data, combined with your plan's actual deductibles, copays, and OOP max. Real numbers vary <strong>±20%</strong> by provider/location. <strong>Not a price quote</strong> — for actual cost guidance, talk to a benefits broker or your OB/GYN's billing office. <a href="#" style="color: var(--wex-magenta); font-weight: 600; text-decoration: none;">See methodology →</a>
+      </div>
+    </div>
+
+    <div class="scenario-story">
+      You confirm in late October at week 6 with an early ultrasound. Your OB schedules monthly prenatal visits through November and December — so 2 routine prenatals plus the confirmation visit before year-end. Standard first-trimester labs (blood panel, genetic screening, NIPT) happen in November. No complications, low-risk pregnancy.
+    </div>
+
+    <div class="bills-section">
+      <div class="bills-head">What it costs (raw bills before insurance) · Oct–Dec 2026</div>
+      <div class="bill-line"><span class="desc">Initial confirmation visit + early ultrasound</span><span class="cost">$680</span></div>
+      <div class="bill-line"><span class="desc">2 × routine prenatal visits</span><span class="cost">$420</span></div>
+      <div class="bill-line"><span class="desc">First-trimester lab panel (blood work)</span><span class="cost">$540</span></div>
+      <div class="bill-line"><span class="desc">Genetic screening (NIPT)</span><span class="cost">$895</span></div>
+      <div class="bill-line"><span class="desc">Prenatal vitamins (Rx)</span><span class="cost">$120</span></div>
+      <div class="bill-line total"><span class="desc">Total raw cost (2026 portion)</span><span class="cost">$2,655</span></div>
+    </div>
+
+    <div class="plan-compare">
+      <div class="plan-compare-cell recommended">
+        <div class="plan-name">Acme Enhanced PPO</div>
+        <div class="plan-pay-label">You'd pay (2026)</div>
+        <div class="plan-pay-amount">~$680</div>
+        <div class="plan-breakdown">
+          $30 × 3 prenatal copays = $90<br>
+          Lab work + NIPT applies to deductible (~$540 absorbed, ~$160 you pay after)<br>
+          Rx tier 1: $10/refill<br>
+          Most prenatal care is 100% covered as preventive
+        </div>
+      </div>
+      <div class="plan-compare-cell">
+        <div class="plan-name">Acme HDHP HSA</div>
+        <div class="plan-pay-label">You'd pay (2026)</div>
+        <div class="plan-pay-amount">~$2,400</div>
+        <div class="plan-breakdown">
+          You'd absorb most bills before hitting the $3,000 family deductible<br>
+          Prenatal care is preventive on this plan too (free), but labs &amp; imaging count<br>
+          HSA tax savings can offset ~$600
+        </div>
+      </div>
+    </div>
+
+    <div class="diff-callout">
+      <span class="icon">⚠</span>
+      <div>The HDHP costs you <span class="gap-amount">~$1,720 more</span> for just the 2026 portion. <strong>Note:</strong> the 2027 portion (delivery, hospital stay, postpartum) typically runs $15K–$25K raw, where both plans hit their family OOP max — so the gap stretches to ~$3,000+ across both years.</div>
+    </div>
+
+    <div class="spark-commentary">
+      <div class="head">✨ My read on this scenario</div>
+      <div>
+        Pregnancy is a big-bill event, and it's the cleanest case for the PPO. <strong>Even before delivery</strong>, the 2026 prenatal portion alone shows a $1,720 gap. If you're <em>actively</em> trying to conceive (you mentioned earlier you're not), I'd strengthen my PPO recommendation — but you said you're not planning a baby this year, so this is a <em>"what could surprise me"</em> scenario, not a planning scenario. Worth knowing the numbers either way.
+      </div>
+    </div>
+  </article>
+
+  <!-- Action row -->
+  <div class="action-row">
+    <button class="qr-chip primary">✓ Choose Enhanced PPO</button>
+    <button class="qr-chip">💭 Run another scenario</button>
+    <button class="qr-chip">⇄ Side-by-side compare</button>
+    <button class="qr-chip">← Back to recommendation</button>
+  </div>
+
+</main>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Try another what-if — talk or type..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

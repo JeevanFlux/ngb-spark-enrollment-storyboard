@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 17b · Email a copy)</title>
+<style>
+:root {
+  --wex-red: #E4002B; --wex-magenta: #C4256C; --wex-purple: #5A1A4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --send-grad: linear-gradient(135deg, #6B1A5C 0%, #C4256C 100%);
+  --bg: #FAF7FA; --text: #1A1A1A; --muted: #6B7280; --border: #E5E7EB; --border-soft: #EFE6EE;
+  --green: #2E7D32; --green-bg: #E8F5E9;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.brand-divider { width: 1px; height: 20px; background: var(--border); display: none; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-chip .acme-mark { width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.acme-chip .acme-name { font-weight: 600; color: #444; display: none; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.icon-btn { color: #555; font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip-text { display: none; }
+.user-chip .name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.user-chip .meta { font-size: 10px; color: var(--green); font-weight: 600; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { background: linear-gradient(90deg, #ECFDF5 0%, #D1FAE5 100%); border-bottom: 1px solid var(--green); padding: 11px 18px; display: flex; align-items: center; gap: 14px; }
+.phase-label { font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--green); white-space: nowrap; }
+.phase-bar { flex: 1; height: 4px; background: rgba(46,125,50,0.2); border-radius: 2px; overflow: hidden; max-width: 360px; }
+.phase-fill { height: 100%; background: var(--green); width: 100%; }
+.phase-percent { font-size: 11px; color: var(--green); font-weight: 700; white-space: nowrap; }
+
+.app-shell { display: block; }
+.conversation { padding: 24px 16px 130px; max-width: 720px; margin: 0 auto; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 600px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
+.spark-bubble strong { color: var(--wex-purple); }
+
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; }
+
+/* Email composer card */
+.email-card {
+  background: white;
+  border: 2px solid var(--wex-magenta);
+  border-radius: 16px;
+  margin: 0 0 18px 42px;
+  max-width: 640px;
+  box-shadow: 0 12px 36px rgba(196, 37, 108, 0.14);
+  overflow: hidden;
+}
+.email-head {
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #FCF6FA 0%, #F4ECF4 100%);
+  border-bottom: 1px solid #EAD8E1;
+  display: flex; align-items: center; gap: 12px;
+}
+.email-head .icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: white; border: 1.5px solid var(--wex-magenta);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0; color: var(--wex-magenta);
+}
+.email-head .meta { flex: 1; }
+.email-head .eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--wex-magenta); margin-bottom: 2px; }
+.email-head .title { font-size: 16px; font-weight: 700; }
+
+.email-body { padding: 16px 20px; }
+
+.email-field {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #F4F0F4;
+  align-items: center;
+  font-size: 13px;
+}
+.email-field:last-of-type { border-bottom: none; }
+.email-field .k { color: var(--muted); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; }
+.email-field .v { color: var(--text); font-weight: 600; }
+.email-field .v input {
+  border: 1.5px solid var(--border); border-radius: 6px;
+  padding: 6px 10px; font-size: 13px; font-weight: 500;
+  width: 100%; max-width: 320px; font-family: inherit;
+}
+.email-field .v input:focus { outline: none; border-color: var(--wex-magenta); }
+
+/* CC toggle */
+.cc-toggle {
+  margin-top: 8px;
+  padding: 12px 14px;
+  background: #FCFAFC;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.cc-toggle .switch {
+  width: 36px; height: 22px;
+  border-radius: 999px;
+  background: var(--wex-magenta);
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.cc-toggle .switch::after {
+  content: ''; position: absolute;
+  top: 2px; right: 2px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.cc-toggle .label-text { flex: 1; font-size: 12.5px; line-height: 1.5; }
+.cc-toggle .label-text .name { font-weight: 700; color: var(--wex-purple); }
+.cc-toggle .label-text .sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+/* Email preview */
+.email-preview {
+  margin-top: 14px;
+  background: #FCFAFC;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 12.5px;
+  color: #444; line-height: 1.6;
+}
+.email-preview .ep-head {
+  font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+.email-preview p { margin: 0 0 8px; }
+.email-preview p:last-child { margin: 0; }
+.email-preview .signature { color: var(--muted); font-style: italic; margin-top: 8px; }
+
+.email-actions {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border-soft);
+  background: white;
+}
+.btn-send {
+  background: var(--spark-grad); color: white; border: none;
+  padding: 11px 22px; border-radius: 10px; font-size: 14px; font-weight: 700;
+  cursor: pointer; box-shadow: 0 6px 18px rgba(196, 37, 108, 0.25);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.qr-chip {
+  background: white; border: 1.5px solid var(--border); color: #333;
+  padding: 10px 16px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+  cursor: pointer;
+}
+
+/* Sent confirmation card */
+.sent-card {
+  background: white;
+  border: 2px solid var(--green);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 0 0 18px 42px;
+  max-width: 640px;
+  display: flex; gap: 14px; align-items: center;
+  box-shadow: 0 8px 24px rgba(46, 125, 50, 0.14);
+}
+.sent-card .icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--green); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+  animation: checkPop 0.5s ease-out;
+}
+@keyframes checkPop {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.sent-card .text { flex: 1; }
+.sent-card .head { font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--green); margin-bottom: 4px; }
+.sent-card h3 { font-size: 16px; font-weight: 700; margin: 0 0 4px; }
+.sent-card p { margin: 0; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.sent-card p strong { color: var(--text); }
+
+.action-row {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin: 0 0 12px 42px; max-width: 640px;
+}
+
+@media (min-width: 640px) {
+  .topnav { padding: 14px 28px; }
+  .wex-logo { font-size: 26px; }
+  .brand-divider { display: block; }
+  .acme-chip .acme-name { display: inline; }
+  .topnav-right { gap: 16px; }
+  .user-chip-text { display: block; }
+  .phase-strip { padding: 12px 28px; }
+  .conversation { padding: 32px 28px 130px; }
+}
+@media (min-width: 900px) {
+  .topnav { padding: 14px 36px; }
+  .conversation { padding: 36px 36px 130px; }
+}
+@media (max-width: 700px) {
+  .email-card, .sent-card, .action-row, .spark-msg, .user-msg { margin-left: 0; }
+  .user-msg { margin-right: 0; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="brand-divider"></div>
+    <div class="acme-chip"><span class="acme-mark">A</span><span class="acme-name">Acme Corp</span></div>
+  </div>
+  <div class="topnav-right">
+    <span class="icon-btn">🔔</span>
+    <div class="user-chip">
+      <div class="user-chip-text"><div class="name">Nicole</div><div class="meta">✓ Enrolled</div></div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">✓ Enrollment complete · email a copy</span>
+  <div class="phase-bar"><div class="phase-fill"></div></div>
+  <span class="phase-percent">100%</span>
+</div>
+
+<main class="conversation">
+
+  <!-- User taps email me a copy -->
+  <div class="user-msg">
+    <div class="user-bubble tap">✉ Email me a copy</div>
+  </div>
+
+  <!-- Spark response -->
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Sure thing. <strong>Quick check:</strong> I'll send your full enrollment statement (PDF attachment) to <strong>nicole.smith@email.com</strong>. Want me to CC Alex too? You mentioned earlier he handles the family finances.
+    </div>
+  </div>
+
+  <!-- EMAIL COMPOSER CARD -->
+  <article class="email-card">
+    <div class="email-head">
+      <div class="icon">✉</div>
+      <div class="meta">
+        <div class="eyebrow">✨ Email your enrollment statement</div>
+        <div class="title">Confirm before I send</div>
+      </div>
+    </div>
+
+    <div class="email-body">
+
+      <div class="email-field">
+        <div class="k">To</div>
+        <div class="v">nicole.smith@email.com</div>
+      </div>
+
+      <div class="email-field">
+        <div class="k">From</div>
+        <div class="v">benefits@wexbenefits.com</div>
+      </div>
+
+      <div class="email-field">
+        <div class="k">Subject</div>
+        <div class="v">Your 2026 Acme Corp benefits — enrollment confirmation</div>
+      </div>
+
+      <div class="email-field">
+        <div class="k">Attached</div>
+        <div class="v">📎 Nicole_Smith_Benefits_2026.pdf · 142 KB</div>
+      </div>
+
+      <!-- CC Alex toggle -->
+      <div class="cc-toggle">
+        <div class="switch"></div>
+        <div class="label-text">
+          <span class="name">Also send to Alex (alex.smith@email.com)</span>
+          <div class="sub">Useful since he's covered too — and you mentioned he tracks family finances.</div>
+        </div>
+      </div>
+
+      <!-- Email preview -->
+      <div class="email-preview">
+        <div class="ep-head">📧 Email preview</div>
+        <p>Hi Nicole,</p>
+        <p>Your 2026 Acme Corp benefits enrollment is officially submitted. Here's a quick summary plus the full PDF attached:</p>
+        <p><strong>Health plans:</strong> Enhanced PPO (you, Alex, Maya) · Dental Premium · Vision Basic — <strong>$172.00/2wk</strong>.<br>
+        <strong>Spending accounts:</strong> FSA $2,000 · DCFSA $5,000 · HRA $500 (Acme automatic) — <strong>$269.23/2wk paycheck deduction</strong>, <strong>~$2,100 in tax savings</strong>.<br>
+        <strong>Supplemental:</strong> Accident insurance Basic — $5.77/2wk.</p>
+        <p><strong>Coverage starts:</strong> January 1, 2026. <strong>First paycheck deduction:</strong> January 15, 2026.</p>
+        <p><strong>To-do:</strong> Upload Alex's marriage certificate and Maya's birth certificate by Jan 31 for dependent verification — link in the PDF.</p>
+        <p class="signature">— Spark, your benefits guide<br>WEX Benefits · benefits@wexbenefits.com</p>
+      </div>
+
+    </div>
+
+    <div class="email-actions">
+      <button class="btn-send">✉ Send now</button>
+      <button class="qr-chip">✎ Edit subject or message</button>
+      <button class="qr-chip">Cancel</button>
+    </div>
+  </article>
+
+  <!-- User confirms send -->
+  <div class="user-msg">
+    <div class="user-bubble tap">✉ Send now (with Alex CC'd)</div>
+  </div>
+
+  <!-- SENT CONFIRMATION -->
+  <article class="sent-card">
+    <div class="icon">✓</div>
+    <div class="text">
+      <div class="head">Sent · 4:48 PM</div>
+      <h3>Your enrollment statement is on its way</h3>
+      <p>To <strong>nicole.smith@email.com</strong> · CC <strong>alex.smith@email.com</strong>. Look for it within the next minute or two — check spam if it doesn't show up.</p>
+    </div>
+  </article>
+
+  <!-- Spark closing -->
+  <div class="spark-msg">
+    <div class="spark-orb-sm">✨</div>
+    <div class="spark-bubble">
+      Done. <strong>Need anything else?</strong> Print version, calendar reminders, or want to view the statement here?
+    </div>
+  </div>
+
+  <div class="action-row">
+    <button class="qr-chip">📥 Download PDF too</button>
+    <button class="qr-chip">📅 Add to calendar</button>
+    <button class="qr-chip">📋 View statement online</button>
+    <button class="qr-chip">← Back to confirmation</button>
+  </div>
+
+</main>
+
+</body>
+</html>
