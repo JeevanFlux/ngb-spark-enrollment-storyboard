@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 7b · Should you cover Alex?)</title>
+<style>
+:root {
+  --wex-red: #E4002B;
+  --wex-magenta: #C4256C;
+  --wex-purple: #5A1A4F;
+  --wex-deep: #3D0E4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --bg: #FAF7FA;
+  --card: #FFFFFF;
+  --text: #1A1A1A;
+  --text-soft: #444;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --border-soft: #EFE6EE;
+  --green: #16A34A;
+  --green-bg: #DCFCE7;
+  --amber: #B45309;
+  --amber-bg: #FEF3C7;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); -webkit-text-size-adjust: 100%; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-mark { display: inline-block; width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; display: none; }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip .name { font-size: 13px; font-weight: 600; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { padding: 8px 16px; background: white; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--muted); }
+.phase-label { font-weight: 600; color: var(--wex-purple); text-transform: uppercase; letter-spacing: 1px; }
+.phase-bar { flex: 1; height: 4px; background: #F1F1F1; border-radius: 2px; overflow: hidden; max-width: 200px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+
+.app-shell { max-width: 1180px; margin: 0 auto; padding: 16px; }
+
+main.conversation { max-width: 800px; margin: 0 auto; }
+.conv-inner { padding: 12px 4px 80px; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 16px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; flex-shrink: 0; }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 580px; }
+.spark-bubble strong { color: var(--wex-purple); }
+
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+.user-bubble { background: var(--spark-grad); color: white; border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; max-width: 480px; }
+
+/* Question card — Wexley asks about Alex's coverage */
+.question-card { background: white; border: 1px solid var(--border-soft); border-radius: 16px; padding: 18px; margin-bottom: 18px; }
+.question-card h3 { margin: 0 0 12px; font-size: 16px; color: var(--text); }
+.question-options { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.question-option { padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.15s; background: #FAFAFA; }
+.question-option:hover { border-color: var(--wex-magenta); background: white; }
+.question-option .opt-label { font-weight: 600; font-size: 14px; margin-bottom: 4px; color: var(--text); }
+.question-option .opt-detail { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.question-option.selected { border-color: var(--wex-magenta); background: #FCF6FA; }
+.question-option.selected::before { content: '✓ '; color: var(--wex-magenta); font-weight: 700; }
+
+/* Comparison card */
+.compare-card { background: white; border: 1px solid var(--border-soft); border-radius: 18px; padding: 22px; margin-bottom: 18px; box-shadow: 0 6px 24px rgba(90, 26, 79, 0.06); }
+.compare-card-head { margin-bottom: 18px; }
+.compare-card-head .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--wex-magenta); margin-bottom: 6px; }
+.compare-card-head h3 { margin: 0 0 6px; font-size: 20px; letter-spacing: -0.3px; }
+.compare-card-head p { margin: 0; font-size: 13px; color: var(--text-soft); line-height: 1.5; }
+
+.compare-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 14px; }
+.compare-col { padding: 16px; border-radius: 12px; border: 1.5px solid var(--border); background: #FAFAFA; }
+.compare-col.left { border-color: #C7D2FE; background: #EEF2FF; }
+.compare-col.right { border-color: #BBF7D0; background: #ECFDF5; }
+.compare-col .col-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; display: inline-block; margin-bottom: 8px; }
+.compare-col.left .col-tag { background: #C7D2FE; color: #312E81; }
+.compare-col.right .col-tag { background: #BBF7D0; color: #14532D; }
+.compare-col h4 { margin: 0 0 4px; font-size: 17px; letter-spacing: -0.2px; }
+.compare-col .col-sub { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+
+.compare-feat { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid rgba(0,0,0,0.06); font-size: 13px; }
+.compare-feat:first-of-type { border-top: none; padding-top: 0; }
+.compare-feat .feat-label { color: var(--text-soft); }
+.compare-feat .feat-value { font-weight: 600; color: var(--text); text-align: right; }
+
+.col-cost-block { background: white; border-radius: 8px; padding: 12px; margin-top: 12px; }
+.col-cost-block .cost-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+.col-cost-block .cost-value { font-size: 22px; font-weight: 700; color: var(--wex-purple); letter-spacing: -0.5px; }
+.col-cost-block .cost-detail { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* Verdict / takeaway block */
+.verdict { background: linear-gradient(135deg, #FCF6FA 0%, #FFF8FB 100%); border: 1px solid #E5D4ED; border-radius: 14px; padding: 18px; margin-top: 14px; }
+.verdict .head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--wex-purple); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.verdict h3 { margin: 0 0 10px; font-size: 17px; letter-spacing: -0.2px; line-height: 1.3; color: var(--text); }
+.verdict p { margin: 0; font-size: 13.5px; color: var(--text-soft); line-height: 1.6; }
+.verdict p strong { color: var(--wex-purple); }
+
+/* Three scenarios row */
+.scenario-row { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+.scenario-card { background: #FFF; border: 1px solid var(--border-soft); border-radius: 10px; padding: 12px; }
+.scenario-card .s-name { font-size: 12px; font-weight: 700; color: var(--wex-purple); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.scenario-card .s-desc { font-size: 12px; color: var(--text-soft); margin-bottom: 10px; line-height: 1.4; }
+.scenario-card .s-amounts { display: flex; gap: 10px; }
+.scenario-card .s-amt { flex: 1; padding: 6px 8px; border-radius: 6px; }
+.scenario-card .s-amt.ppo { background: #EEF2FF; color: #312E81; }
+.scenario-card .s-amt.alex { background: #ECFDF5; color: #14532D; }
+.scenario-card .amt-label { font-size: 10px; opacity: 0.8; }
+.scenario-card .amt-val { font-size: 14px; font-weight: 700; }
+
+.disclaimer-note { font-size: 11px; color: var(--muted); margin-top: 14px; line-height: 1.5; padding: 10px 12px; background: #FAFAFA; border: 1px solid #EEE; border-radius: 8px; font-style: italic; }
+
+.action-row { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 4px; }
+.qr-chip { background: white; border: 1.5px solid var(--border-soft); padding: 10px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; cursor: pointer; }
+.qr-chip.primary { background: var(--spark-grad); color: white; border-color: transparent; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.2); }
+.qr-chip.alt { background: #ECFDF5; color: #14532D; border-color: #BBF7D0; }
+
+.docked-input { position: sticky; bottom: 0; background: white; border-top: 1px solid var(--border); padding: 10px 12px; display: flex; gap: 8px; align-items: center; }
+.docked-input .mic-btn { width: 38px; height: 38px; border-radius: 50%; background: #F8F1F5; border: 1px solid #F1DFE9; color: var(--wex-magenta); cursor: pointer; }
+.docked-input textarea { flex: 1; border: 1px solid var(--border); border-radius: 16px; padding: 10px 14px; font-size: 14px; resize: none; }
+.docked-input .send-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--spark-grad); color: white; border: none; cursor: pointer; }
+
+@media (min-width: 720px) {
+  .deadline-pill { display: inline-block; }
+  .compare-grid { grid-template-columns: 1fr 1fr; }
+  .scenario-row { grid-template-columns: 1fr 1fr 1fr; }
+  .question-options { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="acme-chip">
+      <span class="acme-mark">A</span>
+      <span style="display:none;">Acme Corp</span>
+    </div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">June 30 · 57 days</span>
+    <div class="user-chip">
+      <div style="text-align:right;">
+        <div class="name">Nicole</div>
+        <div class="meta">New hire</div>
+      </div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · Your benefits</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 14%"></div></div>
+  <span>Should you cover Alex?</span>
+</div>
+
+<div class="app-shell">
+
+  <main class="conversation">
+    <div class="conv-inner">
+
+      <!-- Wexley pivots from medical recommendation -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          One quick thing before we move on. You mentioned <strong>Alex has insurance through his job too</strong>. Worth checking whether to put him on Acme's plan or keep him on his — the math can swing meaningfully either way.
+        </div>
+      </div>
+
+      <!-- Question card -->
+      <div class="question-card">
+        <h3>Quick question about Alex's job-based coverage</h3>
+        <div class="question-options">
+          <div class="question-option selected">
+            <div class="opt-label">Yes, he has employer coverage</div>
+            <div class="opt-detail">Tell me roughly: PPO-style with copays? HDHP with HSA? I'll model both options for your family.</div>
+          </div>
+          <div class="question-option">
+            <div class="opt-label">Yes, but I'm not sure what kind</div>
+            <div class="opt-detail">Wexley will draft a 2-line text Alex can paste to his HR — quick way to find out.</div>
+          </div>
+          <div class="question-option">
+            <div class="opt-label">No, he doesn't have employer coverage</div>
+            <div class="opt-detail">In that case, Acme's plan is your only path for him. Skip ahead to dental.</div>
+          </div>
+          <div class="question-option">
+            <div class="opt-label">He's covered, but it'd cost him to add me/Maya</div>
+            <div class="opt-detail">Common scenario. We'll model his cost to add you vs. yours to add him on Acme.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- User responds -->
+      <div class="user-msg">
+        <div class="user-bubble">Yes — he's on a PPO at his job. He could add me and Maya for about $180/2wk.</div>
+      </div>
+
+      <!-- Wexley acknowledges and pulls up comparison -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Got it. So the household has <strong>two real options</strong> — cover everyone on Acme PPO, or you take Acme just for yourself and stay on Alex's plan. Both are legit. Here's how the math compares so you can decide together.
+        </div>
+      </div>
+
+      <!-- Comparison card -->
+      <article class="compare-card">
+        <div class="compare-card-head">
+          <div class="eyebrow">⇄ Acme PPO (whole family) vs. Alex's plan (you + Maya join him)</div>
+          <h3>Two paths for the same household</h3>
+          <p>The job that subsidizes more often "wins" — but it's not just about premium. Network, deductibles, and which doctors you see all matter.</p>
+        </div>
+
+        <div class="compare-grid">
+
+          <!-- Option A: Acme PPO -->
+          <div class="compare-col left">
+            <span class="col-tag">Option A · Acme PPO</span>
+            <h4>Cover the family on Acme</h4>
+            <div class="col-sub">You, Alex, and Maya all on Acme Enhanced PPO</div>
+
+            <div class="compare-feat">
+              <span class="feat-label">Your paycheck cost</span>
+              <span class="feat-value">$148.50 / 2wk</span>
+            </div>
+            <div class="compare-feat">
+              <span class="feat-label">Alex's paycheck cost</span>
+              <span class="feat-value">$0</span>
+            </div>
+            <div class="compare-feat">
+              <span class="feat-label">Family deductible</span>
+              <span class="feat-value">$1,500</span>
+            </div>
+            <div class="compare-feat">
+              <span class="feat-label">Family OOP max</span>
+              <span class="feat-value">$4,500</span>
+            </div>
+            <div class="compare-feat">
+              <span class="feat-label">Maya's pediatrician</span>
+              <span class="feat-value">In-network ✓</span>
+            </div>
+
+            <div class="col-cost-block">
+              <div class="cost-label">Combined household cost</div>
+              <div class="cost-value">$3,861/yr</div>
+              <div class="cost-detail">premiums only · before claims</div>
+            </div>
+          </div>
+
+          <!-- Option B: Alex's plan -->
+          <div class="compare-col right">
+            <span class="col-tag">Option B · Alex's plan</span>
+            <h4>You + Maya join Alex</h4>
+            <div class="col-sub">Alex's PPO covers all three; you waive Acme medical</div>
+
+            <div class="compare-feat">
+              <span class="feat-label">Your paycheck cost</span>
+              <span class="feat-value">$0 (waived)</span>
+            </div>
+            <div class="compare-feat">
+              <span class="feat-label">Alex's paycheck cost</span>
+              <span class="feat-value">$180 / 2wk</span>
+            </div>
+            <div class="compare-feat">
+              <span class="feat-label">Family deductible</span>
+              <span class="feat-value">$2,000</span>
+            </div>
+            <div class="compare-feat">
+              <span class="feat-label">Family OOP max</span>
+              <span class="feat-value">$6,000</span>
+            </div>
+            <div class="compare-feat">
+              <span class="feat-label">Maya's pediatrician</span>
+              <span class="feat-value">Check needed ⚠</span>
+            </div>
+
+            <div class="col-cost-block">
+              <div class="cost-label">Combined household cost</div>
+              <div class="cost-value">$4,680/yr</div>
+              <div class="cost-detail">premiums only · before claims</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Three-scenario stress test -->
+        <div style="margin-top: 18px;">
+          <h4 style="margin: 0 0 8px; font-size: 14px; color: var(--wex-purple);">How each option holds up across three years</h4>
+          <div class="scenario-row">
+            <div class="scenario-card">
+              <div class="s-name">Healthy year</div>
+              <div class="s-desc">Routine preventive only · no surprises</div>
+              <div class="s-amounts">
+                <div class="s-amt ppo"><div class="amt-label">Acme PPO</div><div class="amt-val">$4,561</div></div>
+                <div class="s-amt alex"><div class="amt-label">Alex's plan</div><div class="amt-val">$5,180</div></div>
+              </div>
+            </div>
+            <div class="scenario-card">
+              <div class="s-name">Typical year</div>
+              <div class="s-desc">Doctor visits, refills, Maya well-child</div>
+              <div class="s-amounts">
+                <div class="s-amt ppo"><div class="amt-label">Acme PPO</div><div class="amt-val">$5,061</div></div>
+                <div class="s-amt alex"><div class="amt-label">Alex's plan</div><div class="amt-val">$5,780</div></div>
+              </div>
+            </div>
+            <div class="scenario-card">
+              <div class="s-name">Rough year</div>
+              <div class="s-desc">Maya gets RSV, you ER, Alex sprain</div>
+              <div class="s-amounts">
+                <div class="s-amt ppo"><div class="amt-label">Acme PPO</div><div class="amt-val">$6,661</div></div>
+                <div class="s-amt alex"><div class="amt-label">Alex's plan</div><div class="amt-val">$8,180</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verdict -->
+        <div class="verdict">
+          <div class="head"><span>✨</span> Wexley's read on the trade-off</div>
+          <h3>Acme PPO comes out ahead by ~$700–$1,500/year for your household — but only if Maya's pediatrician is in-network.</h3>
+          <p>Acme subsidizes your premium fully (you pay $148.50/2wk for the whole family). Alex's plan would cost his paycheck $180/2wk to add you and Maya — meaningfully more out-of-pocket. <strong>The catch:</strong> verify Maya's pediatrician (Dr. Patel) is in Acme's Aetna network before locking this in. <strong>Both options work</strong> — the one to skip is whichever forces you to switch Maya's doctor mid-year. Want me to draft a quick provider-network check?</p>
+        </div>
+
+        <div class="disclaimer-note">
+          📊 Based on industry-standard data for similar dual-employer households. Cost estimates use national-average procedure costs combined with each plan's actual deductibles, copays, and OOP max. Real numbers vary ±20% by provider. WEX doesn't store or compare individual employer plan data — Alex's plan numbers above came from what you told us.
+        </div>
+      </article>
+
+      <!-- Action row -->
+      <div class="action-row">
+        <button class="qr-chip primary">✓ Cover the family on Acme PPO</button>
+        <button class="qr-chip alt">Waive Acme medical · stay on Alex's</button>
+        <button class="qr-chip">📋 Draft network-check email for Alex</button>
+        <button class="qr-chip">⇄ Compare HDHP family vs Alex's plan instead</button>
+        <button class="qr-chip">← Back to medical view</button>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Tell me more about Alex's plan..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WEX Benefits — Conversation (Frame 14d · Acme partner benefits)</title>
+<style>
+:root {
+  --wex-red: #E4002B;
+  --wex-magenta: #C4256C;
+  --wex-purple: #5A1A4F;
+  --wex-deep: #3D0E4F;
+  --spark-grad: linear-gradient(135deg, #C4256C 0%, #5A1A4F 100%);
+  --bg: #FAF7FA;
+  --card: #FFFFFF;
+  --text: #1A1A1A;
+  --text-soft: #444;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --border-soft: #EFE6EE;
+  --green: #16A34A;
+  --green-bg: #DCFCE7;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); -webkit-text-size-adjust: 100%; }
+
+.topnav { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand-cluster { display: flex; align-items: center; gap: 10px; }
+.wex-logo { font-weight: 900; font-size: 22px; color: var(--wex-red); letter-spacing: -0.5px; }
+.acme-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.acme-mark { display: inline-block; width: 22px; height: 22px; background: #F4F0F4; color: var(--wex-purple); border-radius: 4px; font-weight: 800; font-size: 11px; line-height: 22px; text-align: center; }
+.topnav-right { display: flex; align-items: center; gap: 10px; }
+.deadline-pill { background: #FCE8F3; color: var(--wex-magenta); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #F5C6DA; display: none; }
+.user-chip { display: flex; align-items: center; gap: 8px; }
+.user-chip .name { font-size: 13px; font-weight: 600; }
+.user-chip .meta { font-size: 10px; color: var(--muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.phase-strip { padding: 8px 16px; background: white; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--muted); }
+.phase-label { font-weight: 600; color: var(--wex-purple); text-transform: uppercase; letter-spacing: 1px; }
+.phase-bar { flex: 1; height: 4px; background: #F1F1F1; border-radius: 2px; overflow: hidden; max-width: 200px; }
+.phase-fill { height: 100%; background: var(--spark-grad); }
+
+.app-shell { max-width: 1180px; margin: 0 auto; padding: 16px; }
+main.conversation { max-width: 800px; margin: 0 auto; }
+.conv-inner { padding: 12px 4px 80px; }
+
+.spark-msg { display: flex; gap: 10px; margin-bottom: 16px; align-items: flex-start; }
+.spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; flex-shrink: 0; }
+.spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 580px; }
+.spark-bubble strong { color: var(--wex-purple); }
+
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+.user-bubble { background: var(--spark-grad); color: white; border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; max-width: 480px; }
+
+/* Personalization chips */
+.qa-chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; padding-left: 42px; }
+.qa-chip { background: white; border: 1.5px solid var(--border-soft); padding: 10px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s; }
+.qa-chip:hover { border-color: var(--wex-magenta); color: var(--wex-purple); }
+.qa-chip.selected { background: #FCF6FA; border-color: var(--wex-magenta); color: var(--wex-purple); }
+.qa-chip.selected::before { content: '✓ '; }
+
+/* Marketplace card grid */
+.market-card-section { background: white; border: 1px solid var(--border-soft); border-radius: 16px; padding: 18px; margin-bottom: 18px; box-shadow: 0 4px 14px rgba(90, 26, 79, 0.04); }
+.market-section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+.market-section-head .icon { font-size: 22px; }
+.market-section-head h3 { margin: 0; font-size: 16px; }
+.market-section-head .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.market-tile-row { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.market-tile { background: #FAFAFA; border: 1px solid var(--border); border-radius: 12px; padding: 14px; transition: all 0.15s; cursor: pointer; }
+.market-tile:hover { border-color: var(--wex-magenta); box-shadow: 0 4px 12px rgba(196, 37, 108, 0.08); }
+.market-tile.selected { border-color: var(--wex-magenta); background: #FCF6FA; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.12); }
+.market-tile-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.market-tile-name { font-weight: 700; font-size: 15px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.market-tile-name .partner-mark { width: 28px; height: 28px; border-radius: 6px; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+.market-tile-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); padding: 3px 8px; background: #F0F0F0; border-radius: 4px; }
+.market-tile-tag.popular { background: var(--green-bg); color: var(--green); }
+.market-tile-blurb { font-size: 13px; color: var(--text-soft); line-height: 1.5; margin-bottom: 10px; }
+.market-tile-features { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.market-tile-features .feat { font-size: 11px; color: var(--text-soft); background: white; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border-soft); }
+.market-tile-cost { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--border-soft); }
+.market-tile-cost-text { font-size: 13px; }
+.market-tile-cost-text strong { color: var(--wex-purple); font-size: 15px; }
+.market-tile-cost-text .period { color: var(--muted); font-size: 11px; }
+.market-tile-add { background: white; border: 1.5px solid var(--wex-magenta); color: var(--wex-magenta); padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.market-tile.selected .market-tile-add { background: var(--spark-grad); color: white; border-color: transparent; }
+
+/* Why-here callout */
+.why-here { background: #F5F0F7; border-left: 3px solid var(--wex-magenta); padding: 10px 14px; border-radius: 8px; margin: 8px 0 14px; font-size: 12.5px; color: var(--text-soft); line-height: 1.5; }
+.why-here strong { color: var(--wex-purple); }
+
+/* Running summary update */
+.cart-summary { background: linear-gradient(135deg, #FCF6FA 0%, #FFF8FB 100%); border: 1px solid #E5D4ED; border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.cart-summary .left .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--wex-purple); margin-bottom: 4px; }
+.cart-summary .left .value { font-size: 18px; font-weight: 700; color: var(--wex-deep); }
+.cart-summary .left .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.cart-summary .right { text-align: right; font-size: 12px; color: var(--text-soft); }
+
+.disclaimer-note { font-size: 11px; color: var(--muted); margin-top: 10px; line-height: 1.5; padding: 10px 12px; background: #FAFAFA; border: 1px solid #EEE; border-radius: 8px; font-style: italic; }
+
+.action-row { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 4px; }
+.qr-chip { background: white; border: 1.5px solid var(--border-soft); padding: 10px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; cursor: pointer; }
+.qr-chip.primary { background: var(--spark-grad); color: white; border-color: transparent; box-shadow: 0 4px 12px rgba(196, 37, 108, 0.2); }
+
+.docked-input { position: sticky; bottom: 0; background: white; border-top: 1px solid var(--border); padding: 10px 12px; display: flex; gap: 8px; align-items: center; }
+.docked-input .mic-btn { width: 38px; height: 38px; border-radius: 50%; background: #F8F1F5; border: 1px solid #F1DFE9; color: var(--wex-magenta); cursor: pointer; }
+.docked-input textarea { flex: 1; border: 1px solid var(--border); border-radius: 16px; padding: 10px 14px; font-size: 14px; resize: none; }
+.docked-input .send-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--spark-grad); color: white; border: none; cursor: pointer; }
+
+@media (min-width: 720px) {
+  .deadline-pill { display: inline-block; }
+  .market-tile-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand-cluster">
+    <span class="wex-logo">WEX</span>
+    <div class="acme-chip">
+      <span class="acme-mark">A</span>
+      <span style="display:none;">Acme Corp</span>
+    </div>
+  </div>
+  <div class="topnav-right">
+    <span class="deadline-pill">June 30 · 57 days</span>
+    <div class="user-chip">
+      <div style="text-align:right;">
+        <div class="name">Nicole</div>
+        <div class="meta">New hire</div>
+      </div>
+      <span class="avatar">N</span>
+    </div>
+  </div>
+</nav>
+
+<div class="phase-strip">
+  <span class="phase-label">Phase 2 of 3 · Your benefits</span>
+  <div class="phase-bar"><div class="phase-fill" style="width: 33%"></div></div>
+  <span>Acme partner benefits</span>
+</div>
+
+<div class="app-shell">
+
+  <main class="conversation">
+    <div class="conv-inner">
+
+      <!-- Wexley pivots from supplemental -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          One more section, then we're done. <strong>Acme partners with a few benefit providers</strong> — pet insurance, auto/home, identity protection, that kind of thing. The big wins: paycheck deduction (no separate billing) and group rates that beat retail. <strong>Want me to surface anything that fits your life?</strong>
+        </div>
+      </div>
+
+      <!-- Personalization chips -->
+      <div class="qa-chip-row">
+        <span class="qa-chip">🐾 Pet</span>
+        <span class="qa-chip selected">🚗 Auto / home</span>
+        <span class="qa-chip selected">🛡 Identity protection</span>
+        <span class="qa-chip">💪 Fitness / gym</span>
+        <span class="qa-chip">⚖ Legal services</span>
+        <span class="qa-chip">No thanks — skip ahead</span>
+      </div>
+
+      <!-- User responds (implied selections shown above) -->
+      <div class="user-msg">
+        <div class="user-bubble">Auto/home and identity protection — let's see what's there.</div>
+      </div>
+
+      <!-- Wexley pulls up curated tiles -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          Got it. I pulled <strong>2–3 options per category</strong> based on what fits new hires with a young family in your zip. Tap any to see details — they're designed to compare side-by-side. Anything you add comes out of your paycheck just like medical.
+        </div>
+      </div>
+
+      <!-- AUTO / HOME SECTION -->
+      <article class="market-card-section">
+        <div class="market-section-head">
+          <span class="icon">🚗</span>
+          <div>
+            <h3>Auto &amp; Home Insurance</h3>
+            <div class="sub">Group rates from Acme's partner network · paycheck deduction</div>
+          </div>
+        </div>
+
+        <div class="why-here">
+          <strong>Why Acme bundles this:</strong> Group-buying power often saves 10–20% vs. quoting it on your own. And paycheck deduction means no separate bill to track.
+        </div>
+
+        <div class="market-tile-row">
+
+          <div class="market-tile selected">
+            <div class="market-tile-head">
+              <div class="market-tile-name">
+                <span class="partner-mark">TR</span>
+                Travelers
+              </div>
+              <span class="market-tile-tag popular">High enrollment</span>
+            </div>
+            <div class="market-tile-blurb">Comprehensive auto + home bundle with 24/7 roadside assistance. Strong for families with one or two cars and a primary residence.</div>
+            <div class="market-tile-features">
+              <span class="feat">Auto</span>
+              <span class="feat">Home</span>
+              <span class="feat">Roadside</span>
+              <span class="feat">Bundle discount</span>
+            </div>
+            <div class="market-tile-cost">
+              <div class="market-tile-cost-text">
+                Starts at <strong>$45</strong><span class="period"> /month · paycheck</span>
+              </div>
+              <button class="market-tile-add">✓ Added</button>
+            </div>
+          </div>
+
+          <div class="market-tile">
+            <div class="market-tile-head">
+              <div class="market-tile-name">
+                <span class="partner-mark" style="background:linear-gradient(135deg,#FFB800,#FF8800);">LM</span>
+                Liberty Mutual
+              </div>
+            </div>
+            <div class="market-tile-blurb">Customizable policies with accident forgiveness and new-car replacement. Worth a look if your car is &lt;3 years old.</div>
+            <div class="market-tile-features">
+              <span class="feat">Auto</span>
+              <span class="feat">Home</span>
+              <span class="feat">Accident forgiveness</span>
+            </div>
+            <div class="market-tile-cost">
+              <div class="market-tile-cost-text">
+                Starts at <strong>$42</strong><span class="period"> /month · paycheck</span>
+              </div>
+              <button class="market-tile-add">+ Add</button>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- IDENTITY PROTECTION SECTION -->
+      <article class="market-card-section">
+        <div class="market-section-head">
+          <span class="icon">🛡</span>
+          <div>
+            <h3>Identity Theft Protection</h3>
+            <div class="sub">Monitoring, alerts, and recovery services · paycheck deduction</div>
+          </div>
+        </div>
+
+        <div class="why-here">
+          <strong>Why this matters with a kid:</strong> Child identity theft is one of the fastest-growing fraud categories — Maya's SSN sits unmonitored until her first credit application. Family plans cover all dependents.
+        </div>
+
+        <div class="market-tile-row">
+
+          <div class="market-tile selected">
+            <div class="market-tile-head">
+              <div class="market-tile-name">
+                <span class="partner-mark" style="background:linear-gradient(135deg,#005FCC,#00308F);">AS</span>
+                AllSecure Family
+              </div>
+              <span class="market-tile-tag popular">Best for families</span>
+            </div>
+            <div class="market-tile-blurb">Monitors all family SSNs (yours, Alex's, Maya's), credit bureau alerts, and full recovery support if something hits. $1M insurance per person.</div>
+            <div class="market-tile-features">
+              <span class="feat">3-bureau monitoring</span>
+              <span class="feat">Child SSN coverage</span>
+              <span class="feat">$1M ID insurance</span>
+              <span class="feat">24/7 recovery</span>
+            </div>
+            <div class="market-tile-cost">
+              <div class="market-tile-cost-text">
+                <strong>$12</strong><span class="period"> /month · whole family · paycheck</span>
+              </div>
+              <button class="market-tile-add">✓ Added</button>
+            </div>
+          </div>
+
+          <div class="market-tile">
+            <div class="market-tile-head">
+              <div class="market-tile-name">
+                <span class="partner-mark" style="background:linear-gradient(135deg,#7C3AED,#5B21B6);">PG</span>
+                ProGuard Basic
+              </div>
+            </div>
+            <div class="market-tile-blurb">Single-bureau monitoring + dark web alerts. Cheaper, lighter coverage — works if you don't need family-wide protection.</div>
+            <div class="market-tile-features">
+              <span class="feat">1-bureau monitoring</span>
+              <span class="feat">Dark web alerts</span>
+              <span class="feat">$50K insurance</span>
+            </div>
+            <div class="market-tile-cost">
+              <div class="market-tile-cost-text">
+                <strong>$5</strong><span class="period"> /month · individual · paycheck</span>
+              </div>
+              <button class="market-tile-add">+ Add</button>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- Cart summary update -->
+      <div class="cart-summary">
+        <div class="left">
+          <div class="label">Marketplace running total</div>
+          <div class="value">+$13.15 / 2wk</div>
+          <div class="sub">Travelers Auto &amp; Home · AllSecure Family · paycheck deduction</div>
+        </div>
+        <div class="right">
+          <div>~$342/year combined</div>
+          <div style="font-size:10px; opacity:0.7;">Adds to your existing $447/2wk</div>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer-note">
+        📊 Cost estimates and partner descriptions are based on Acme's group rates with each provider as of this enrollment window. Final premium quoted by the provider may vary based on coverage choices, location, and individual factors. Adding a partner benefit triggers paycheck deduction within WEX — no separate billing or third-party portal needed. Tap any tile to see full coverage details before locking in.
+      </div>
+
+      <!-- Wexley wrap-up + handoff to review -->
+      <div class="spark-msg">
+        <div class="spark-orb-sm">✨</div>
+        <div class="spark-bubble">
+          That's all the partner benefits I'd surface based on what you told me. <strong>Acme has 30+ more options</strong> — fitness perks, legal services, pet insurance, education savings — but I didn't want to overwhelm. You can browse the full marketplace anytime after you wrap up. <strong>Ready to review and sign?</strong>
+        </div>
+      </div>
+
+      <!-- Action row -->
+      <div class="action-row">
+        <button class="qr-chip primary">→ Continue to review &amp; sign</button>
+        <button class="qr-chip">🔍 See more partner benefits before review</button>
+        <button class="qr-chip">Remove what I added</button>
+        <button class="qr-chip">Skip — none of these for me</button>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<div class="docked-input">
+  <button class="mic-btn">🎙</button>
+  <textarea rows="1" placeholder="Ask about any partner benefit, or tell me what else you'd want..."></textarea>
+  <button class="send-btn">→</button>
+</div>
+
+</body>
+</html>
