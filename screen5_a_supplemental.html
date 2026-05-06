@@ -153,6 +153,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
   background: var(--spark-grad); color: white; border-color: transparent;
   box-shadow: 0 4px 12px rgba(196, 37, 108, 0.22);
 }
+.compact-rec-actions .qr-chip-sm.tapped {
+  background: var(--green); color: white; border-color: transparent;
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+}
+.compact-rec-actions .qr-chip-sm.tapped::after {
+  content: 'PICKED'; font-size: 8px; font-weight: 800; letter-spacing: 1px;
+  background: white; color: var(--green); padding: 2px 5px; border-radius: 3px;
+  margin-left: 4px;
+}
+.compact-rec-actions .qr-chip-sm.disabled {
+  opacity: 0.45; cursor: default;
+}
 
 /* Hospital Indemnity — neutral decision framework card */
 .decision-card {
@@ -459,10 +471,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
           </div>
 
           <div class="compact-rec-actions">
-            <button class="qr-chip-sm primary">✓ Yes, Basic Accident</button>
-            <button class="qr-chip-sm">⇄ Compare to Enhanced</button>
-            <button class="qr-chip-sm">Skip — no accident insurance</button>
-            <button class="qr-chip-sm">🔬 Technical details</button>
+            <button class="qr-chip-sm tapped">✓ Basic</button>
+            <button class="qr-chip-sm disabled">⇄ Compare to Enhanced</button>
+            <button class="qr-chip-sm disabled">Skip — no accident insurance</button>
+            <button class="qr-chip-sm disabled">🔬 Technical details</button>
           </div>
         </div>
       </article>

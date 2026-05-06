@@ -205,6 +205,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
   padding: 8px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
   cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
 }
+.qr-chip-sm.tapped {
+  background: var(--green); color: white; border-color: transparent;
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+}
+.qr-chip-sm.tapped::after {
+  content: 'PICKED'; font-size: 8px; font-weight: 800; letter-spacing: 1px;
+  background: white; color: var(--green); padding: 2px 5px; border-radius: 3px;
+  margin-left: 6px;
+}
+.qr-chip-sm.disabled {
+  opacity: 0.45; cursor: default;
+}
 .qr-chip-sm.primary {
   background: var(--spark-grad); color: white; border-color: transparent;
   box-shadow: 0 4px 12px rgba(196, 37, 108, 0.22);
@@ -566,10 +578,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 
           <div class="section" style="margin-bottom: 0;">
             <div class="card-actions">
-              <button class="qr-chip-sm primary">✓ Yes, $2,000 (suggested)</button>
-              <button class="qr-chip-sm">✎ Use a different amount</button>
-              <button class="qr-chip-sm">⇄ See me work the math</button>
-              <button class="qr-chip-sm">Skip FSA</button>
+              <button class="qr-chip-sm tapped">✓ $2,000</button>
+              <button class="qr-chip-sm disabled">✎ Use a different amount</button>
+              <button class="qr-chip-sm disabled">⇄ See me work the math</button>
+              <button class="qr-chip-sm disabled">Skip FSA</button>
             </div>
           </div>
 
@@ -734,10 +746,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 
           <div class="section" style="margin-bottom: 0;">
             <div class="card-actions">
-              <button class="qr-chip-sm primary">✓ Yes, $5,000 (suggested)</button>
-              <button class="qr-chip-sm">✎ Pick a different amount</button>
-              <button class="qr-chip-sm">⇄ Compare to Tax Credit</button>
-              <button class="qr-chip-sm">Skip DCFSA</button>
+              <button class="qr-chip-sm tapped">✓ $5,000</button>
+              <button class="qr-chip-sm disabled">✎ Pick a different amount</button>
+              <button class="qr-chip-sm disabled">⇄ Compare to Tax Credit</button>
+              <button class="qr-chip-sm disabled">Skip DCFSA</button>
             </div>
           </div>
 
