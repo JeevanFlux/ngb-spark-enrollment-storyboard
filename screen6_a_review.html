@@ -43,6 +43,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 .app-shell { display: block; }
 .conversation { padding: 24px 16px 130px; max-width: 880px; margin: 0 auto; }
 
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; }
+.user-bubble.tap .check { color: var(--green); margin-right: 6px; font-weight: 700; }
+.scrolled-back { opacity: 0.55; }
+.scrolled-divider { text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin: 6px 0 18px; display: flex; align-items: center; gap: 10px; }
+.scrolled-divider::before, .scrolled-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
 .spark-msg { display: flex; gap: 10px; margin-bottom: 16px; align-items: flex-start; }
 .spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
 .spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 600px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
@@ -364,6 +371,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 </div>
 
 <main class="conversation">
+
+  <div class="scrolled-back">
+    <div class="user-msg">
+      <div class="user-bubble tap"><span class="check">✓</span>Continue to review &amp; sign</div>
+    </div>
+  </div>
+
+  <div class="scrolled-divider"><span>Phase 3 · review &amp; sign</span></div>
 
   <div class="spark-msg">
     <div class="spark-orb-sm">✨</div>

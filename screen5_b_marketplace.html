@@ -53,6 +53,12 @@ main.conversation { max-width: 800px; margin: 0 auto; }
 
 .user-msg { display: flex; justify-content: flex-end; margin-bottom: 16px; }
 .user-bubble { background: var(--spark-grad); color: white; border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; max-width: 480px; }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); }
+.user-bubble.tap .check { color: var(--green); margin-right: 6px; font-weight: 700; }
+
+.scrolled-back { opacity: 0.55; }
+.scrolled-divider { text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin: 6px 0 18px; display: flex; align-items: center; gap: 10px; }
+.scrolled-divider::before, .scrolled-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
 /* Personalization chips */
 .qa-chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; padding-left: 42px; }
@@ -148,11 +154,19 @@ main.conversation { max-width: 800px; margin: 0 auto; }
   <main class="conversation">
     <div class="conv-inner">
 
-      <!-- Wexley pivots from supplemental -->
+      <div class="scrolled-back">
+        <div class="user-msg">
+          <div class="user-bubble tap"><span class="check">✓</span>Yes, show me partner benefits</div>
+        </div>
+      </div>
+
+      <div class="scrolled-divider"><span>partner benefits · last stop before review</span></div>
+
+      <!-- Wexley sets up the marketplace -->
       <div class="spark-msg">
         <div class="spark-orb-sm">✨</div>
         <div class="spark-bubble">
-          One more section, then we're done. <strong>Acme partners with a few benefit providers</strong> — pet insurance, auto/home, identity protection, that kind of thing. The big wins: paycheck deduction (no separate billing) and group rates that beat retail. <strong>Want me to surface anything that fits your life?</strong>
+          The big wins here: paycheck deduction (no separate billing) and group rates that beat retail. <strong>Tap whichever categories matter to you</strong> — I'll surface 2–3 curated options per category instead of dumping the full 30+ on you.
         </div>
       </div>
 

@@ -58,6 +58,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 .user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; }
 .user-bubble.tap .check { color: var(--green); margin-right: 6px; }
 
+.scrolled-back { opacity: 0.55; }
+.scrolled-divider { text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin: 6px 0 18px; display: flex; align-items: center; gap: 10px; }
+.scrolled-divider::before, .scrolled-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
 /* LARGE recommendation card (FSA + DCFSA) */
 .account-card {
   background: white;
@@ -463,11 +467,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
   <main class="conversation">
     <div class="conv-inner">
 
-      <!-- Spark intro -->
+      <div class="scrolled-back">
+        <div class="user-msg">
+          <div class="user-bubble tap"><span class="check">✓</span>Yes, let's do spending accounts</div>
+        </div>
+      </div>
+
+      <div class="scrolled-divider"><span>moving on to spending accounts</span></div>
+
+      <!-- Wexley sets up spending accounts -->
       <div class="spark-msg">
         <div class="spark-orb-sm">✨</div>
         <div class="spark-bubble">
-          Now <strong>spending accounts</strong> — pre-tax accounts that save you real money on healthcare and childcare. Acme offers five total. Three apply to your situation, two don't this year. <strong>I'll walk through what works first, then explain what doesn't and why.</strong>
+          Pre-tax accounts that save you real money on healthcare and childcare. Acme offers five total. Three apply to your situation, two don't this year. <strong>I'll walk through what works first, then explain what doesn't and why.</strong>
         </div>
       </div>
 
@@ -497,7 +509,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
           <div class="section">
             <h4 class="section-h">Why this fits you</h4>
             <ul class="why-list">
-              <li><span class="check">✓</span><span>You take <strong>daily meds</strong> (asthma, BP) — those are predictable, ongoing FSA-eligible expenses.</span></li>
+              <li><span class="check">✓</span><span>You take a <strong>daily inhaler</strong> for asthma — predictable, ongoing FSA-eligible expense.</span></li>
               <li><span class="check">✓</span><span>Family of 3 with the PPO means $30 doctor copays, $10–$40 prescriptions, and dental work — all FSA-eligible.</span></li>
               <li><span class="check">✓</span><span>You save <strong>~30%</strong> on every dollar you contribute — that's federal, state, and FICA combined.</span></li>
             </ul>

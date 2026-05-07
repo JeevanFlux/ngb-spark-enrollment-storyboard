@@ -57,6 +57,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 .user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; }
 .user-bubble.tap .check { color: var(--green); margin-right: 6px; }
 
+.scrolled-back { opacity: 0.55; }
+.scrolled-divider { text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin: 6px 0 18px; display: flex; align-items: center; gap: 10px; }
+.scrolled-divider::before, .scrolled-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
 /* Explainer card — what is supplemental */
 .explainer {
   background: white;
@@ -413,11 +417,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
   <main class="conversation">
     <div class="conv-inner">
 
-      <!-- Spark intro -->
+      <div class="scrolled-back">
+        <div class="user-msg">
+          <div class="user-bubble tap"><span class="check">✓</span>Yes, supplemental benefits</div>
+        </div>
+      </div>
+
+      <div class="scrolled-divider"><span>moving on to supplemental</span></div>
+
+      <!-- Wexley sets up supplemental — these are optional and work differently -->
       <div class="spark-msg">
         <div class="spark-orb-sm">✨</div>
         <div class="spark-bubble">
-          Last bit of Phase 2: <strong>supplemental benefits</strong>. These are <strong>optional</strong>, and they work differently from your medical insurance — let me explain how before we look at the two Acme offers.
+          These are <strong>optional</strong>, and they work differently from your medical insurance — let me explain how before we look at the two Acme offers.
         </div>
       </div>
 
@@ -616,18 +628,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
         </table>
       </article>
 
-      <!-- Phase 2 wrap + Phase 3 handoff -->
+      <!-- Wexley pivots to marketplace partner benefits -->
       <div class="spark-msg">
         <div class="spark-orb-sm">✨</div>
         <div class="spark-bubble">
-          That's <strong>all of Phase 2 done</strong> — health plans, spending accounts, supplemental. Big takeaway: you've sheltered <strong>~$2,100 in taxes</strong>, picked plans that fit your family, and skipped what didn't make sense.<br><br>
-          Last phase: <strong>review &amp; sign</strong>. I'll show you everything in one clean recap, you check it over, sign once, and you're done. Ready?
+          Health plans, spending accounts, supplemental — all picked. Running total: you've sheltered <strong>~$2,100 in taxes</strong>.<br><br>
+          One more section before review: <strong>Acme partner benefits</strong>. Things like auto/home insurance, identity protection, pet — all paycheck-deducted at group rates. Want to see what fits?
         </div>
       </div>
 
       <div class="action-row">
-        <button class="qr-chip primary">✓ Yes, take me to review</button>
-        <button class="qr-chip">📋 Show running totals first</button>
+        <button class="qr-chip primary">✓ Yes, show me partner benefits</button>
+        <button class="qr-chip">Skip — go straight to review</button>
         <button class="qr-chip">↩ Adjust a supplemental pick</button>
       </div>
 
@@ -636,10 +648,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 
   <aside class="file-panel">
     <h3>Your file</h3>
-    <p class="file-sub">Phase 2 done. Review &amp; sign next.</p>
+    <p class="file-sub">Almost there — partner benefits next, then review.</p>
 
     <div class="file-section benefits">
-      <h4>Your benefits <span class="check-badge">✓ PHASE 2 DONE</span></h4>
+      <h4>Your benefits <span class="check-badge">✓ INSURANCE DONE</span></h4>
       <div class="file-item">
         <span class="label">Medical</span>
         <span class="value">Enhanced PPO · $148.50/2wk</span>

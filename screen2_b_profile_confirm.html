@@ -46,6 +46,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 .conversation { flex: 1; padding: 24px 16px 130px; }
 .conv-inner { max-width: 720px; margin: 0 auto; }
 
+.scrolled-back { opacity: 0.55; }
+.scrolled-divider { text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin: 6px 0 18px; display: flex; align-items: center; gap: 10px; }
+.scrolled-divider::before, .scrolled-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
 .spark-msg { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-start; }
 .spark-orb-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(196, 37, 108, 0.3); }
 .spark-bubble { background: white; border: 1px solid var(--border-soft); border-radius: 4px 14px 14px 14px; padding: 13px 16px; font-size: 14px; line-height: 1.55; max-width: 540px; box-shadow: 0 2px 8px rgba(90, 26, 79, 0.04); }
@@ -176,21 +180,27 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
   <main class="conversation">
     <div class="conv-inner">
 
-      <div class="user-msg">
-        <div class="user-bubble">I take meds daily for asthma and high blood pressure</div>
-      </div>
-
-      <div class="spark-msg">
-        <div class="spark-orb-sm">✨</div>
-        <div class="spark-bubble">
-          Thanks — that helps me a lot. <strong>Daily meds</strong> means we'll want a plan that keeps your prescription costs predictable.
+      <div class="scrolled-back">
+        <div class="spark-msg">
+          <div class="spark-orb-sm">✨</div>
+          <div class="spark-bubble">
+            Thanks — that gives me a lot to work with. Married, Alex on his own plan, a 2-year-old daughter (Maya), daily inhaler for asthma, predictable costs over low premiums. I'll bake all of that into how I match plans for you.
+          </div>
+        </div>
+        <div class="spark-msg">
+          <div class="spark-orb-sm">✨</div>
+          <div class="spark-bubble">
+            Before we go further, let me make sure I have your basics right...
+          </div>
         </div>
       </div>
 
+      <div class="scrolled-divider"><span>here's what Acme has on file</span></div>
+
       <div class="spark-msg">
         <div class="spark-orb-sm">✨</div>
         <div class="spark-bubble">
-          Before we go further, here's everything Acme has on file for you. <strong>Take a real look</strong> — if anything's off (especially your address), say so now and I'll help fix it.
+          <strong>Take a real look</strong> — if anything's off (especially your address), say so now and I'll help fix it.
         </div>
       </div>
 
@@ -322,7 +332,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
       <h4>Health</h4>
       <div class="file-item">
         <span class="label">Daily meds</span>
-        <div class="value-row"><span class="value">Asthma, BP</span><span class="edit-icon">✎</span></div>
+        <div class="value-row"><span class="value">Asthma inhaler</span><span class="edit-icon">✎</span></div>
         <span class="source-tag you">YOU TOLD ME</span>
       </div>
     </div>

@@ -56,6 +56,12 @@ main.conversation { max-width: 800px; margin: 0 auto; }
 
 .user-msg { display: flex; justify-content: flex-end; margin-bottom: 16px; }
 .user-bubble { background: var(--spark-grad); color: white; border-radius: 14px 14px 4px 14px; padding: 11px 16px; font-size: 14px; max-width: 480px; }
+.user-bubble.tap { background: white; color: var(--wex-purple); border: 1.5px solid var(--wex-magenta); font-weight: 600; box-shadow: 0 4px 14px rgba(196, 37, 108, 0.12); }
+.user-bubble.tap .check { color: var(--green); margin-right: 6px; font-weight: 700; }
+
+.scrolled-back { opacity: 0.55; }
+.scrolled-divider { text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin: 6px 0 18px; display: flex; align-items: center; gap: 10px; }
+.scrolled-divider::before, .scrolled-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
 /* Question card — Wexley asks about Alex's coverage */
 .question-card { background: white; border: 1px solid var(--border-soft); border-radius: 16px; padding: 18px; margin-bottom: 18px; }
@@ -167,11 +173,23 @@ main.conversation { max-width: 800px; margin: 0 auto; }
   <main class="conversation">
     <div class="conv-inner">
 
-      <!-- Wexley pivots from medical recommendation -->
+      <div class="scrolled-back">
+        <div class="user-msg">
+          <div class="user-bubble tap"><span class="check">✓</span>Spread it out — fewer surprises</div>
+        </div>
+        <div class="spark-msg">
+          <div class="spark-orb-sm">✨</div>
+          <div class="spark-bubble">Useful — that's what I needed for Phase 1. <strong>Now to the benefits themselves.</strong></div>
+        </div>
+      </div>
+
+      <div class="scrolled-divider"><span>Phase 2 begins · your benefits</span></div>
+
+      <!-- Wexley pivots into the spousal coverage decision -->
       <div class="spark-msg">
         <div class="spark-orb-sm">✨</div>
         <div class="spark-bubble">
-          One quick thing before we move on. You mentioned <strong>Alex has insurance through his job too</strong>. Worth checking whether to put him on Acme's plan or keep him on his — the math can swing meaningfully either way.
+          One thing to settle before I match plans. You mentioned <strong>Alex has insurance through his job too</strong>. The right answer changes who Acme's plan needs to cover — let's work through it.
         </div>
       </div>
 
