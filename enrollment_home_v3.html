@@ -416,9 +416,43 @@ body::before {
   font-style: italic;
 }
 
-/* What to expect */
+/* What we'll cover — header above expect */
+.expect-header {
+  margin: 40px auto 14px;
+  max-width: 720px;
+  text-align: center;
+}
+.expect-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--wex-purple);
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.expect-eyebrow::before, .expect-eyebrow::after {
+  content: '';
+  width: 18px;
+  height: 2px;
+  background: var(--wex-magenta);
+  border-radius: 2px;
+}
+.expect-time {
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.55;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+.expect-time strong { color: var(--wex-purple); font-weight: 700; }
+
+/* What to expect — phase cards */
 .expect {
-  margin: 36px auto 0;
+  margin: 0 auto;
   padding: 18px 4px;
   background: white;
   border: 1px solid var(--border-soft);
@@ -600,26 +634,31 @@ body::before {
 
   <div class="chip-hint">Tap one to start — you can edit it before sending.</div>
 
+  <div class="expect-header">
+    <div class="expect-eyebrow">What we'll cover together</div>
+    <div class="expect-time">Take it at your pace — <strong>most people finish in about 15 minutes</strong>. You can pause anytime; I'll save your progress so you can pick back up wherever you left off.</div>
+  </div>
+
   <div class="expect">
     <div class="expect-step">
       <span class="expect-num">1</span>
       <div class="expect-text">
-        <div class="expect-title">We talk it through</div>
-        <div class="expect-desc">5–10 minutes, no jargon. Pause or change directions anytime.</div>
+        <div class="expect-title">Getting to know you</div>
+        <div class="expect-desc">A quick check on your basics, family, and what matters to you. Most of it's already on file from Acme HR.</div>
       </div>
     </div>
     <div class="expect-step">
       <span class="expect-num">2</span>
       <div class="expect-text">
-        <div class="expect-title">I lay out your options</div>
-        <div class="expect-desc">In plain English, with scenarios so you see how each plan would play out for your situation.</div>
+        <div class="expect-title">Your benefits</div>
+        <div class="expect-desc">Health plans, spending accounts, supplemental, and partner benefits. I'll lay out the trade-offs in plain English.</div>
       </div>
     </div>
     <div class="expect-step">
       <span class="expect-num">3</span>
       <div class="expect-text">
-        <div class="expect-title">You decide when ready</div>
-        <div class="expect-desc">Adjust, compare, or sleep on it. Nothing locks in until you sign at the end.</div>
+        <div class="expect-title">Review and sign</div>
+        <div class="expect-desc">One last look at everything we picked together. Nothing locks in until you sign.</div>
       </div>
     </div>
   </div>
