@@ -285,15 +285,15 @@ main.conversation { max-width: 800px; margin: 0 auto; }
             </div>
             <div class="compare-feat">
               <span class="feat-label">Alex's paycheck cost</span>
-              <span class="feat-value">$180 / 2wk</span>
+              <span class="feat-value">$180 / 2wk <span style="font-size:9px;color:var(--green);font-weight:700;">FROM YOU</span></span>
             </div>
             <div class="compare-feat">
               <span class="feat-label">Family deductible</span>
-              <span class="feat-value">$2,000</span>
+              <span class="feat-value">~$2,000 <span style="font-size:9px;color:var(--muted);font-weight:700;">EST.</span></span>
             </div>
             <div class="compare-feat">
               <span class="feat-label">Family OOP max</span>
-              <span class="feat-value">$6,000</span>
+              <span class="feat-value">~$6,000 <span style="font-size:9px;color:var(--muted);font-weight:700;">EST.</span></span>
             </div>
             <div class="compare-feat">
               <span class="feat-label">Maya's pediatrician</span>
@@ -343,12 +343,12 @@ main.conversation { max-width: 800px; margin: 0 auto; }
         <!-- Verdict -->
         <div class="verdict">
           <div class="head"><span>✨</span> Wexley's read on the trade-off</div>
-          <h3>Acme PPO comes out ahead by ~$700–$1,500/year for your household — but only if Maya's pediatrician is in-network.</h3>
-          <p>Acme subsidizes your premium fully (you pay $148.50/2wk for the whole family). Alex's plan would cost his paycheck $180/2wk to add you and Maya — meaningfully more out-of-pocket. <strong>The catch:</strong> verify Maya's pediatrician (Dr. Patel) is in Acme's Aetna network before locking this in. <strong>Both options work</strong> — the one to skip is whichever forces you to switch Maya's doctor mid-year. Want me to draft a quick provider-network check?</p>
+          <h3>Acme PPO looks like the cleaner option for your household — but Alex's plan numbers are estimates, and Maya's pediatrician needs to be verified either way.</h3>
+          <p>Acme subsidizes your premium fully ($148.50/2wk for the whole family vs. $180/2wk for Alex to add you and Maya). On paper Acme PPO comes out ahead by ~$700–$1,500/year. <strong>Two things to confirm before locking in:</strong> (1) Alex's actual plan summary — share the SBC if you have it and I'll redo the math with real numbers; (2) Maya's pediatrician (Dr. Patel) is in Acme's Aetna network. <strong>Both paths work</strong> — the one to skip is whichever forces you to switch doctors mid-year.</p>
         </div>
 
         <div class="disclaimer-note">
-          📊 Based on industry-standard data for similar dual-employer households. Cost estimates use national-average procedure costs combined with each plan's actual deductibles, copays, and OOP max. Real numbers vary ±20% by provider. WEX doesn't store or compare individual employer plan data — Alex's plan numbers above came from what you told us.
+          📊 <strong>What I do and don't know:</strong> Acme's plan details come straight from your employer's plan documents. For Alex's plan, the only data point I have is what you told me — the cost to add you and Maya ($180/2wk). The deductible and OOP max for Alex's plan are <strong>typical PPO benchmarks</strong>, not Alex's actual numbers. Tap "Refine with Alex's plan summary" if you have his Summary of Benefits and Coverage (SBC) — I'll redo this comparison with real numbers. WEX doesn't access or store individual employer plan data outside of Acme's.
         </div>
       </article>
 
@@ -356,7 +356,8 @@ main.conversation { max-width: 800px; margin: 0 auto; }
       <div class="action-row">
         <button class="qr-chip primary">✓ Cover the family on Acme PPO</button>
         <button class="qr-chip alt">Waive Acme medical · stay on Alex's</button>
-        <button class="qr-chip">📋 Draft network-check email for Alex</button>
+        <button class="qr-chip">📎 Refine with Alex's plan summary (SBC)</button>
+        <button class="qr-chip">✉ Draft a network-check question Alex can send his HR</button>
         <button class="qr-chip">⇄ Compare HDHP family vs Alex's plan instead</button>
         <button class="qr-chip">← Back to medical view</button>
       </div>
