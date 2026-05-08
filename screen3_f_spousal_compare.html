@@ -39,10 +39,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial
 .user-chip .meta { font-size: 10px; color: var(--muted); }
 .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--spark-grad); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
 
-.phase-strip { padding: 8px 16px; background: white; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--muted); }
-.phase-label { font-weight: 600; color: var(--wex-purple); text-transform: uppercase; letter-spacing: 1px; }
-.phase-bar { flex: 1; height: 4px; background: #F1F1F1; border-radius: 2px; overflow: hidden; max-width: 200px; }
-.phase-fill { height: 100%; background: var(--spark-grad); }
+/* Phase stepper — train-stop progress indicator */
+.phase-stepper { background: white; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
+.phase-stepper .step { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.phase-stepper .step-line { flex: 1; height: 2px; background: var(--border); min-width: 16px; border-radius: 1px; }
+.phase-stepper .step-line.done { background: var(--green); }
+.phase-stepper .circle { width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+.phase-stepper .step.done .circle { background: var(--green); color: white; }
+.phase-stepper .step.current .circle { background: var(--spark-grad); color: white; box-shadow: 0 0 0 3px rgba(196, 37, 108, 0.15); }
+.phase-stepper .step.upcoming .circle { background: white; border: 1.5px solid var(--border); color: var(--muted); }
+.phase-stepper .label { font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.phase-stepper .step.done .label { color: var(--green); }
+.phase-stepper .step.current .label { color: var(--wex-purple); font-weight: 700; }
+.phase-stepper .pct { font-size: 10px; color: var(--wex-magenta); font-weight: 700; margin-left: 4px; }
+@media (max-width: 600px) { .phase-stepper { padding: 10px 12px; gap: 4px; } .phase-stepper .step.upcoming .label { display: none; } .phase-stepper .step.done .label { display: none; } .phase-stepper .circle { width: 22px; height: 22px; font-size: 10px; } .phase-stepper .step-line { min-width: 8px; } }
 
 .app-shell { max-width: 1180px; margin: 0 auto; padding: 16px; }
 
@@ -162,10 +172,22 @@ main.conversation { max-width: 800px; margin: 0 auto; }
   </div>
 </nav>
 
-<div class="phase-strip">
-  <span class="phase-label">Phase 2 of 3 · Your benefits</span>
-  <div class="phase-bar"><div class="phase-fill" style="width: 14%"></div></div>
-  <span>Should you cover Alex?</span>
+<div class="phase-stepper">
+  <div class="step done">
+    <span class="circle">✓</span>
+    <span class="label">Getting to know you</span>
+  </div>
+  <div class="step-line done"></div>
+  <div class="step current">
+    <span class="circle">●</span>
+    <span class="label">Your benefits</span>
+    <span class="pct">~10%</span>
+  </div>
+  <div class="step-line"></div>
+  <div class="step upcoming">
+    <span class="circle">○</span>
+    <span class="label">Review &amp; sign</span>
+  </div>
 </div>
 
 <div class="app-shell">
